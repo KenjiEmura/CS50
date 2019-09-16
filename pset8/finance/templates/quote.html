@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+{% if get %}
+        <form action="/quote" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Código de la empresa en la bolsa de NY (buscar en Google si quiere)" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Consultar el precio actual de cada acción</button>
+        </form>
+{% else %}
+        <p>Cada acción de {{ info.get('name') }} ({{ info.get('symbol') }}) vale {{ info.get('price') }}.</p>
+        <p>Revisa cuánto "Cash" virtual tiene para ver si le alcanza la platica para comprar.<br> Si quieres comprar, dirígete a la pestaña <a href="/buy">"Comprar".</a></p>
+{% endif %}
+{% endblock %}

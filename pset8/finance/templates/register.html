@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" id="username" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password">
+        </div>
+        <button id="registrarse" class="btn btn-primary" type="submit">Register</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+
+            $('#username').keyup(function() {
+                var $username = $('#username');
+                if ($username.val().length > 0){
+                    $(this).css({
+                        'border-color': '',
+                        'border-width': ''
+                    })
+                    console.log("A key was pressed and the value of $username is: " + $username.val());
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/check',
+                        data: {username: $username.val()},
+                        success: function(response){
+
+                            answer = JSON.parse(response)
+
+                            if (answer == true){
+                                $('#username').css('background-color', '#d4edda')
+                                $('#registrarse').removeAttr('disabled')
+                                $('#registrarse').css({'background-color':'', 'border-color':''})
+                            } else {
+                                $('#username').css('background-color', '#f8d7da')
+                                $('#registrarse').css({'background-color':'#e2e3e5', 'border-color':'#d6d8db'})
+                                $('#registrarse').attr('disabled', 'true')
+                            }
+                        }
+                    })
+                } else {
+                    $('#registrarse').css({'background-color':'#e2e3e5', 'border-color':'#d6d8db'})
+                    $(this).css({
+                        'border-color': 'red',
+                        'border-width': '1.2px',
+                        'background-color': '#f8d7da'
+                    })
+                    $('#registrarse').attr('disabled', 'true')
+                }
+
+            });
+        });
+    </script>
+{% endblock %}

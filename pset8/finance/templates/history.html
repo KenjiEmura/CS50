@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <h1 class="alert-heading text-center pb-5">Tu historial de transacciones</h1>
+
+    <table class="table table-striped table-sm table-bordered fit">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="fit">Symbol</th>
+                <th scope="col" class="fit">Shares</th>
+                <th scope="col" class="fit">Price</th>
+                <th scope="col" class="fit">Transaction Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in summary if stock["SUM(shares)"] != 0 %}
+            <tr>
+                <td class="fit">{{ stock["symbol"] }}</td>
+                <td class="fit">{{ stock["shares"] }}</td>
+                <td class="fit">{{ stock["price"] }}</td>
+                <td class="fit">{{ stock["transacted"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

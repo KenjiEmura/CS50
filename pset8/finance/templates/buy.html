@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/buy" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Código de la empresa en la bolsa de NY (buscar en Google si quiere)" type="text">
+        </div>
+        <div class="form-group">
+            <!--<input autocomplete="off" autofocus class="form-control" name="shares" placeholder="Cantidad de acciones a comprar" type="number" min="1">-->
+            <input autocomplete="off" autofocus class="form-control" name="shares" placeholder="Cantidad de acciones a comprar">
+        </div>
+        <button class="btn btn-primary" type="submit">Comprar</button>
+    </form>
+{% endblock %}

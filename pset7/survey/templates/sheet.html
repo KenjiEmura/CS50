@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/components/alerts/ -->
+    {% if message %}
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">{{ message }}</h4>
+      <p class="mb-0">Lo logramos {{ username }}!!!</p>
+    </div>
+    <div class="d-flex justify-content-center">
+      <a class="btn btn-primary mx-2" href="/sheet" role="button">Ver los registros recibidos hasta ahora</a>
+      <a class="btn btn-primary mx-2" href="/form" role="button">Realizar otro registro</a>
+    </div>
+    {% endif %}
+
+    {% if data %}
+    <h1 class="alert-heading text-center pb-5">Registros realizados con étsito :3</h4>
+
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          {% for i in headers %}
+          <th scope="col">{{i}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+          {% for element in row %}
+          <td>{{element}}</td>
+          {% endfor %}
+        {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="m-2 mb-5 text-center">Mi primer formulario web<br>hecho en código del asqueroso</h1>
+
+    <p class="mx-5">Para hacer esta gran maricada de formulario me tocó aprender 5 lenguajes, HTML5 para el contenido, la estructura de la página y el etiquetado de las secciones, CSS3 y Bootstrap 4 para el diseño bonito, Javascript para la validación de los campos en el cliente (su computador), Python para la lógica, validación de los datos y generación dinámica del contenido en el Backend (el servidor) y Jinja (Flask) para le generación automática de código HTML.</p>
+
+    <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
+    <form class="needs-validation novalidate mx-5" action="/form" method="post" autocomplete="off">
+      <div class="row mb-5">
+        <div class="col text-center mt-5">
+          <label for="impresion">¿Qué tal la primera impresión sobre cómo se ve todo en general?</label>
+          <input type="range" required class="custom-range" min="0" max="5" value="2.5" step="0.5" id="impresion" name="impresion" aria-describedby="impresionHelp">
+          <small id="impresionHelp" class="text-left form-text text-muted">Arrastra la cosita azul para la izquierda o para la derecha</small>
+        </div>
+      </div>
+      <div class="row mb-5 d-flex align-items-baseline">
+        <div class="col mx-auto">
+          <label for="email" class="d-block">¿Qué letras le gusta?</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" name="gustos" type="checkbox" id="inlineCheckbox1" value="A">
+              <label class="form-check-label" for="inlineCheckbox1">A</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" name="gustos" type="checkbox" id="inlineCheckbox2" value="B">
+              <label class="form-check-label" for="inlineCheckbox2">B</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" name="gustos" type="checkbox" id="inlineCheckbox3" value="C">
+              <label class="form-check-label" for="inlineCheckbox3">C</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" name="gustos" type="checkbox" id="inlineCheckbox4" value="K" disabled>
+              <label class="form-check-label" for="inlineCheckbox3">K</label>
+            </div>
+          <small id="correo" class="text-left form-text text-muted">Seleccione una o varias letras, solo estoy probando funcionalidad, esto no tiene sentido</small>
+        </div>
+        <div class="col mx-auto">
+          <label for="email">Correo electrónico</label>
+          <input autocomplete="off" required type="email" class="form-control" id="email" name="email" aria-describedby="correo" placeholder="chanchito@xxx.com">
+          <small id="correo" class="form-text text-muted text-center">¿A dónde quiere que le mande cositas?</small>
+        </div>
+        <div class="col mx-auto mb-0">
+          <label for="username">Nombre de Usuario</label>
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">@</div>
+            </div>
+            <input type="text" required class="form-control" id="username" name="username" placeholder="Nombre de Usuario">
+          </div>
+          <small id="usernameHelp" class="form-text text-muted text-center">Invéntese alguna maricada...</small>
+        </div>
+        <div class="col mx-auto">
+          <label for="eleccion">Probando lista de opciones</label>
+          <select id="eleccion" required name="eleccion" class="form-control">
+            <option selected disabled value="">Elija algo...</option>
+            <option value="Pa'rriba">Pa'rriba</option>
+            <option value="Pa'bajo">Pa'bajo</option>
+            <option value="Pal centro">Pal centro</option>
+            <option value="Pa'entro">Pa'entro</option>
+          </select>
+          <small id="helpEleccion" class="form-text text-muted text-center">Probando esta mierda a ver si funciona o no</small>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col text-center">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+        </div>
+      </div>
+    </form>
+
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>
+
+{% endblock %}

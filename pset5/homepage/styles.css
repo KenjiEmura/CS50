@@ -1,0 +1,147 @@
+:root {
+    --main-color: #f7a325e6;
+    --menu-color: #000000cc;
+    --text-menu: #ffffffcc;
+    --text-link: #000000cc;
+    --text-hover: #ffffff;
+    --menu-hover: #ff8400;
+    --border-radius: 10px;
+    --margins: 20rem;
+}
+
+li {
+  margin: 0;
+  border-radius: var(--border-radius);
+}
+
+span {
+  font-weight: 800;
+}
+
+h1, h2{
+  margin: 1em var(--margins);
+}
+
+h1 {
+  text-align: center;
+  font-size: 4em;
+}
+
+h2 {
+  text-align: left;
+  font-size: 2em;
+}
+
+p {
+  margin: 2em var(--margins);
+  text-align: justify;
+}
+
+nav {
+  position: sticky;
+  top: 0rem;
+  background: var(--menu-color);
+}
+.menu {
+  list-style: none;
+  padding-left: 0;
+  color: var(--text-menu);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0em var(--margins);
+  border-radius: var(--border-radius);
+}
+
+.menu-item {
+  position: relative;
+  margin: 0em 0em;
+  width: 100%;
+  text-align: center;
+}
+
+.menu-item > .menu {
+  background: var(--menu-color);
+  margin: 0em 0em;
+}
+
+.submenu {
+  top: 100%;
+  position: absolute;
+  display: none;
+}
+
+.menu-item:hover > .submenu {
+  display: block;
+  width: 100%;
+}
+
+.menu-link {
+  display: block;
+  padding: 0.8em 4em;
+  text-decoration: none;
+  color: var(--text-menu);
+}
+
+.menu-item:hover {
+  background: var(--main-color);
+}
+
+.menu-link:hover {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.submenu .submenu{
+  top: 0%;
+  left: 100%;
+  position: absolute;
+  display: none;
+  width: 100%;
+}
+
+.menu-item:hover > .subsubmenu {
+  display: block;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  margin: 0em auto;
+  border-radius: 0.5em;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+}
+
+tr:nth-child(odd) {
+  background-color: #eaeaea;
+  border-radius: 20px;
+}
+
+td, th {
+  text-align: center;
+  padding: 8px;
+}
+
+th {
+  background-color: #c4efff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}
+
+td {
+  border-left: 1px solid #d5d5d5;
+  border-right: 1px solid #d5d5d5;
+}
+
+#tableindex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0em var(--margins) 5em;
+}
+
+img {
+  margin: 0em auto;
+}

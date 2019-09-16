@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <h1 class="alert-heading text-center pb-5">Qué acciones tienes y qué precio tienen actualmente</h1>
+
+    <table class="table table-striped table-sm table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Name</th>
+                <th scope="col">Total Shares</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in summary if stock["SUM(shares)"] != 0 %}
+            <tr>
+                <td>{{ stock["symbol"] }}</td>
+                <td>{{ stock["name"] }}</td>
+                <td>{{ stock["SUM(shares)"] }}</td>
+                <td>{{ stock["price"] }}</td>
+                <td>{{ stock["total"] }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">CASH</td>
+                <td>{{ cash }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td>{{ total }}</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
