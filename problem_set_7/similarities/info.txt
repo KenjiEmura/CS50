@@ -1,0 +1,5 @@
+Similarities compares lines, strings and substrings from two files and highlights the similarities.
+
+Requirements:
+flask
+nltk

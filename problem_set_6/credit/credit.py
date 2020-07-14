@@ -1,3 +1,9 @@
+# --------------------------------------------------------------------------------------------------
+# Same problem of the problem_set_1 that was originally coded in C, but coded this time using Python
+# A credit card number inputted by the user will be classified as VISA, MasterCard, AMEX or invalid according to the algorithm invented by Hans Peter Luhn of IBM
+# --------------------------------------------------------------------------------------------------
+
+
 from cs50 import get_int
 import math
 

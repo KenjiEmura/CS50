@@ -1,9 +1,11 @@
+// Recover pictures from a "damaged" USB memory.
+
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
-    // Revisar si se introdujeron los dos comandos de línea
+    // Check if the command line arguments were inputted
     if (argc != 2)
     {
         fprintf(stderr, "Usage: ./recover card.raw\n");
@@ -19,7 +21,7 @@ int main(int argc, char *argv[])
     }
     
     unsigned char *buffer = malloc(512);
-    int search = 0;  // 0 significa buscando inicio del archivo y 1 significa escribiendo
+    int search = 0;  // 0 means "searching for file beginning" and 1 means "writing"
     FILE *newjpg;
     char newfilename[8];
     

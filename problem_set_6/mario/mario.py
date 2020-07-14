@@ -1,3 +1,8 @@
+# ---------------------------------------------------
+# Prints a pyramid made of "#" symbols simulating
+# ---------------------------------------------------
+
+
 from cs50 import get_int
 
 def izq(altura):

@@ -1,3 +1,7 @@
+# -------------------------------------------------------------
+# Calculates the number of coins that you will get as change
+# -------------------------------------------------------------
+
 from cs50 import get_float
 import math
 

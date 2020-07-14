@@ -1,3 +1,7 @@
+# -------------------------------------------------------------
+# Parse a text and censors it given a list of forbbiden words
+# -------------------------------------------------------------
+
 from cs50 import get_string
 from sys import argv
 

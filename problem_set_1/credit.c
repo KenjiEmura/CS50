@@ -1,9 +1,13 @@
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// A credit card number inputted by the user will be classified as VISA, MasterCard, AMEX or invalid according to the algorithm invented by Hans Peter Luhn of IBM.
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 #include <stdio.h>
 #include <cs50.h>
 
 long num;               // User's input
 int maxdigits = 16;     // Max number of digits that the program can analize
-long divisor = 10;      // This variable will be used to "move" between units, tens, hundreds, tens, etc., it starts in 10 because to get the first module (see line 19)
+long divisor = 10;      // This variable will be used to "move" between units, tens, hundreds, tens, etc., it starts in 10 because to get the first module (see line 23)
 long mod1, mod2;        // These variables will be used to storage remainders, the mod2 will be used at the end to identify the first to digits of the number along with the first2 variable
 int totalsum, digit, digiteven; // These variables will storage the total digit sum, and also the even and odd digits
 int first2;             // This variable will be used to get the first 2 digits of the number so we can know if it is a VISA, etc.

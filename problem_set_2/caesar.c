@@ -1,3 +1,8 @@
+// ------------------------------------------
+// Encripts a message using Caesars's cipher.
+// ------------------------------------------
+
+
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>

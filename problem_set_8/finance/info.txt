@@ -1,0 +1,13 @@
+This program communicates with https://iexcloud.io/ and works like a stock managment software where
+you can "buy" and "sell" stocks using real time stock prices.
+
+Features:
+
+- Registered User Handling
+- Password encription
+- Database queries (SQLite)
+- Transaction Summary
+
+To run:
+export API_KEY=pk_e83502ec9593421abcf11af14a2af5be
+flask run

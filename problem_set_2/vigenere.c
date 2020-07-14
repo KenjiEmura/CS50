@@ -1,3 +1,7 @@
+// -------------------------------------------
+// Encripts a message using Vigenere's cipher.
+// -------------------------------------------
+
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>

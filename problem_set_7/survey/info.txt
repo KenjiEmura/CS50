@@ -1,0 +1,1 @@
+This program collects data from the user (Form Tab) and displays it on a table (Inputted Data Tab).

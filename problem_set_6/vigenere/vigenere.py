@@ -1,3 +1,9 @@
+# --------------------------------------------------------------------------------------------------------------
+# Same problem of the problem_set_2 (Vigenere) that was originally coded in C, but coded this time using Python
+# Encripts a message using Vigenere's cipher.
+# --------------------------------------------------------------------------------------------------------------
+
+
 from cs50 import get_string
 from sys import argv, exit
 
