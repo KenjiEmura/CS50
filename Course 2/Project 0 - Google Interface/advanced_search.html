@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Search</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="style-secondary.css">
+    </head>
+    <body>
+        <div id="header">
+            <div class="body-margin"></div>
+            <div id="header-content">
+                <div class="header-logo">
+                    <a href="index.html"><img id="logo" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google Logo" width=auto height=""></a>
+                </div>
+                <div class="placeholder-center"></div>
+            </div>
+            <div class="header-links">
+                <a class="top-menu" href="images.html">Images</a>
+                <a class="top-menu" href="index.html">Google Search</a>
+            </div>
+        </div>
+
+        <div class="page-title">
+            <div class="body-margin"></div>
+            <div class="main-content">
+                <h1 id="advanced-search-title">Advanced Search</h1>
+            </div>
+            <div class="body-margin"></div>
+        </div>
+
+        <div id="body-main">
+            <div class="body-margin"></div>
+            <div class="main-content">
+                <div>
+                    <h3>Mostrar páginas que contengan...</h1>
+                </div>
+                <form id="advanced-search" class="grid" action="https://www.google.com/search">
+                    <label class="label row1">all these words:</label>
+                    <input type="text" class="input-field row1" name="q">
+                    <label class="label row2">this exact word or phrase:</label>
+                    <input type="text" class="input-field row2" name="as_epq">
+                    <label class="label row3">any of these words:</label>
+                    <input type="text" class="input-field row3" name="as_oq">
+                    <label class="label row4">none of these words:</label>
+                    <input type="text" class="input-field row4" name="as_eq"><br>
+                    <input class="submit" type="submit" form="advanced-search" value="Advanced Search">
+                </form>
+            </div>
+            <div class="body-margin"></div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,86 @@
+#logo {
+  text-align: center;
+  margin-top: 16vh;
+  height: 95px;
+}
+
+body {
+  margin: 10px 30px 0px;
+}
+
+a, a:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.top-menu {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 2em;
+}
+
+.top-menu:hover {
+  color: rgba(0, 0, 0, 0.87);
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+.menu-links {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-area {
+  margin: 1.5rem 0;
+}
+
+.buttons {
+  margin: 2em 0;
+}
+
+input[type=text], input[type=text]:focus {
+  outline: none;
+  padding: 0 1.2em;
+  border-radius: 60px;
+  border-width: 0.5px;
+  border-color: rgba(32, 33, 36, 0.28);
+  width: 550px;
+  line-height: 2.5em;
+}
+
+input[type=text]:focus, input[type=text]:hover {
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  border-color: white;
+}
+
+input[type=submit] {
+  padding: 10px 16px;
+  color: #5F6368;
+}
+
+input[type=submit]:hover {
+  padding: 10px 16px;
+  color: black;
+}
+
+.link-button {
+  padding: 13px 16px;
+  color: #5F6368;
+}
+
+.link-button:hover {
+  padding: 13px 16px;
+  color: black;
+}
+
+input[type=submit], .link-button {
+  margin: 0 0.2em;
+  font-size: 14px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 4px;
+  font-family: arial, sans-serif;
+}
+
+/*# sourceMappingURL=style.css.map */
