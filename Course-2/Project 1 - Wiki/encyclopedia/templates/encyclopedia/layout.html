@@ -2,24 +2,27 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="es">
     <head>
         <title>{% block title %}{% endblock %}</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
     </head>
     <body>
         <div class="row">
-            <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
-                <form>
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
+            <div class="sidebar col-lg-3 col-md-4">
+                <h2 id="site-title">Wiki</h2>
+                <form class="search-form" action="{% url 'encyclopedia:query' %}" method="GET">
+                    {{ search_form }}
+                    <input class="submit-button sidebar-button" type="submit" value="Search">
                 </form>
                 <div>
-                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'encyclopedia:index' %}">Home</a>
                 </div>
                 <div>
-                    Create New Page
+                    <a href="{% url 'encyclopedia:new-entry' %}">Create New Page</a>
                 </div>
                 <div>
                     Random Page
@@ -27,7 +30,7 @@
                 {% block nav %}
                 {% endblock %}
             </div>
-            <div class="main col-lg-10 col-md-9">
+            <div class="main col-lg-9 col-md-8">
                 {% block body %}
                 {% endblock %}
             </div>

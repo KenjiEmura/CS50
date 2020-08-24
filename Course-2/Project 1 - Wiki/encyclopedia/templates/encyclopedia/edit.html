@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+{% block title %}
+    New Entry
+{% endblock %}
+{% block body %}
+    <h1>Edit "<span class="colored-text">{{ title }}</span>"</h1><br><br>
+
+    <div id="new-entry-div">
+
+        {% if exists %}
+            <div class="error-message">
+                The entry "{{ title }}" already exists!
+            </div>
+        {% endif %}
+
+        <form id="new-entry-form" action="{% url 'encyclopedia:entry' %}" method="POST">
+            {% csrf_token %}
+            {{ edit_form }}
+        </form>
+        <div class="submit-button-wrapper">
+            <button type="submit" class="submit-button new-entry-submit-button" form="new-entry-form">Save Page</button>
+        </div>
+    </div>
+
+
+{% endblock %}

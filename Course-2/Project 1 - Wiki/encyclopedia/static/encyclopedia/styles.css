@@ -1,38 +1,144 @@
+@font-face {
+  font-family: "amarillo";
+  src: local("Amarillo"), url("../fonts/amarillo.ttf") format("truetype");
+}
+#site-title {
+  font-size: 5vw;
+  font-family: Amarillo;
+  margin-top: 30px;
+}
+
 body {
-    margin: 0;
-    background-color: white;
+  margin: 0;
+  background-color: white;
 }
 
 code {
-    white-space: pre;
+  white-space: pre;
 }
 
 h1 {
-    margin-top: 0px;
-    padding-top: 20px;
+  margin-top: 0px;
+  padding-top: 20px;
+  font-weight: 700;
+  font-size: 3em;
 }
 
 textarea {
-    height: 90vh;
-    width: 80%;
+  height: 90vh;
+  width: 80%;
+}
+
+th {
+  width: 15%;
+}
+
+td {
+  width: 85%;
 }
 
 .main {
-    padding: 10px;
+  padding: 3em;
 }
 
-.search {
-    width: 100%;
-    font-size: 15px;
-    line-height: 15px;
+.input-text {
+  width: 100%;
+  font-size: 15px;
+  line-height: 2em;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  border: 0.5px solid grey;
+  padding: 0.1em 0.8em;
+}
+.input-text:focus {
+  border-radius: 5px;
+  border: 1px solid #1c89ff;
+  outline-style: none;
+  margin-bottom: 14px;
+}
+
+.search-form {
+  margin: 3em 0;
+}
+
+.thin {
+  width: 40% !important;
+}
+
+.colored-text {
+  color: #1c89ff;
+  font-weight: 600;
+}
+
+.submit-button {
+  position: relative;
+  display: block;
+  height: 36px;
+  border-radius: 18px;
+  background-color: #1c89ff;
+  border: solid 1px transparent;
+  color: white;
+  font-size: 18px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.submit-button:hover {
+  background-color: #1460b1;
+  border-color: transparent;
+  transition: all 0.1s ease-in-out;
+}
+
+.new-entry-submit-button {
+  width: 30%;
+}
+
+.sidebar-button {
+  width: 100%;
 }
 
 .sidebar {
-    background-color: #f0f0f0;
-    height: 100vh;
-    padding: 20px;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  padding: 3em;
 }
 
 .sidebar h2 {
-    margin-top: 5px;
+  margin-top: 5px;
 }
+
+.row {
+  margin: 0;
+}
+
+.entry-title, .entry-content {
+  width: 100%;
+  text-align: justify;
+}
+
+.entry-content {
+  height: 40vh;
+}
+
+#new-entry-div {
+  text-align: left;
+  width: 80%;
+  padding: 0 0 0 2em;
+}
+
+div.submit-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  text-align: center;
+  margin-bottom: 1.5em;
+  border-radius: 5px;
+  padding: 0.8em 0;
+}
+
+/*# sourceMappingURL=styles.css.map */
