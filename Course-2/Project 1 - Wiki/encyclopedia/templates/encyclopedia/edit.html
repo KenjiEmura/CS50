@@ -13,7 +13,7 @@
             </div>
         {% endif %}
 
-        <form id="new-entry-form" action="{% url 'encyclopedia:entry' %}" method="POST">
+        <form id="new-entry-form" action="{% url 'encyclopedia:new-entry' %}" method="POST">
             {% csrf_token %}
             {{ edit_form }}
         </form>
