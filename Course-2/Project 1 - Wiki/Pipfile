@@ -8,7 +8,6 @@ verify_ssl = true
 [packages]
 django = "*"
 markdown2 = "*"
-unidecode = "*"
 
 [requires]
 python_version = "3.8"
