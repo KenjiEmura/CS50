@@ -8,9 +8,11 @@
 
     {{ entry|safe|escape }}
 
-    <form action="{% url 'encyclopedia:edit' %}">
-        <input type="hidden" name="entry_title" value="{{ entry_title }}">
-        <input class="submit-button sidebar-button" type="submit" value="Edit">
-    </form>
+    <div class="right-align-button-wrapper">
+        <form action="{% url 'encyclopedia:edit' %}">
+            <input type="hidden" name="entry_title" value="{{ entry_title }}">
+            <input class="button edit-button" type="submit" value="Edit entry">
+        </form>
+    </div>
 
 {% endblock %}

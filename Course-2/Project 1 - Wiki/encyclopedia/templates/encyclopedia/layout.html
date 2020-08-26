@@ -16,7 +16,7 @@
                 <h2 id="site-title">Wiki</h2>
                 <form class="search-form" action="{% url 'encyclopedia:query' %}" method="GET">
                     {{ search_form }}
-                    <input class="submit-button sidebar-button" type="submit" value="Search">
+                    <input class="button sidebar-button" type="submit" value="Search">
                 </form>
                 <div>
                     <a href="{% url 'encyclopedia:index' %}">Home</a>
@@ -25,7 +25,7 @@
                     <a href="{% url 'encyclopedia:new-entry' %}">Create New Page</a>
                 </div>
                 <div>
-                    Random Page
+                    <a href="{% url 'encyclopedia:random' %}">Random Page</a>
                 </div>
                 {% block nav %}
                 {% endblock %}

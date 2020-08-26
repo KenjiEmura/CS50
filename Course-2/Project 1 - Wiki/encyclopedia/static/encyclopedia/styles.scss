@@ -81,7 +81,7 @@ td {
     font-weight: 600;
 }
 
-.submit-button {
+.button {
     position: relative;
     display: block;
     height: 36px;
@@ -138,9 +138,9 @@ td {
     padding: 0 0 0 2em;
 }
 
-div.submit-button-wrapper {
+div.right-align-button-wrapper {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .error-message {
@@ -151,4 +151,9 @@ div.submit-button-wrapper {
     margin-bottom: 1.5em;
     border-radius: 5px;
     padding: 0.8em 0;
+}
+
+.edit-button {
+    margin-top: 3em;
+    width: 15em;
 }

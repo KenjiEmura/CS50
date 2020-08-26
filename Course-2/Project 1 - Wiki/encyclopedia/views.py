@@ -1,9 +1,9 @@
 from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.shortcuts import render
 from django.urls import reverse
 from unidecode import unidecode
 from markdown2 import Markdown
+from random import randint
 from django import forms
 from . import util
 
@@ -24,12 +24,10 @@ class NewEntry(forms.Form):
         )
 
 class EditForm(forms.Form):
-    edit_content = forms.CharField(
+    edited_content = forms.CharField(
         label = "Edit the content of the entry:",
         widget = forms.Textarea( attrs = {'class':'input-text entry-content'} )
         )
-
-
 
 
 # Routes -------------------------------------------------------------------------------------
@@ -110,10 +108,30 @@ def edit(request):
     if request.method == "GET":
         data = request.GET
         title = data["entry_title"]
-        entry = util.get_entry(title).split("\n", 1)[1]
-        edit_form = EditForm( initial={'edit_content': entry.split("\n", 1)[1]} )
+        entry = util.get_entry(title)
+        parsed_entry = " ".join(entry.split())
+        edit_form = EditForm( initial={'edited_content': entry.split("\n", 2)[2]} )
         return render(request, "encyclopedia/edit.html", {
             "title": title,
             "edit_form": edit_form,
             "search_form": NewSearchForm()
         })
+    else:
+        data = request.POST
+        title = data["entry_title"]
+        content = "# " + title + "\n\n" + data["edited_content"]
+        util.save_entry(title, content)
+        return HttpResponseRedirect( reverse( "encyclopedia:entry", args = [title] ) )
+
+def random(request):
+    entries = util.list_entries()
+    max_index = len(util.list_entries()) - 1
+    random_number = randint(0, max_index)
+    return HttpResponseRedirect( reverse( "encyclopedia:entry", args = [ entries[random_number] ] ) )
+    # return render(request, "encyclopedia/test.html", {
+    #     "max_index": max_index,
+    #     "random_number": random_number,
+    #     "random_entry": entries[random_number],
+    #     "entries": entries,
+    #     "search_form": NewSearchForm()
+    # })
