@@ -8,6 +8,11 @@
   margin-top: 30px;
 }
 
+a.site-text-title, a.site-text-title:visited {
+  color: black;
+  text-decoration: none;
+}
+
 body {
   margin: 0;
   background-color: white;

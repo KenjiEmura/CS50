@@ -13,7 +13,7 @@
     <body>
         <div class="row">
             <div class="sidebar col-lg-3 col-md-4">
-                <h2 id="site-title">Wiki</h2>
+                <h2 id="site-title"><a class="site-text-title" href="{% url 'encyclopedia:index' %}">Wiki</a></h2>
                 <form class="search-form" action="{% url 'encyclopedia:query' %}" method="GET">
                     {{ search_form }}
                     <input class="button sidebar-button" type="submit" value="Search">
