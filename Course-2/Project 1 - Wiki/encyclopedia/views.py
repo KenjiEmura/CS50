@@ -1,7 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from unidecode import unidecode
 from markdown2 import Markdown
 from random import randint
 from django import forms
