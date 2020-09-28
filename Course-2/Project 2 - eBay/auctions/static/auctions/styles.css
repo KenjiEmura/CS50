@@ -2,4 +2,30 @@ body {
   padding: 10px;
 }
 
+.auction-item {
+  padding: 5vh 20vw 5vh;
+}
+
+.auction-item-container {
+  border: 2px solid gainsboro;
+  border-radius: 5px;
+  padding: 0;
+  display: flex;
+}
+
+.prod-img {
+  width: 100%;
+  padding: 2em;
+}
+
+.prod-info {
+  width: 100%;
+  padding: 2em;
+}
+
+img {
+  width: 100%;
+  border-radius: 5px;
+}
+
 /*# sourceMappingURL=styles.css.map */
