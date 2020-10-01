@@ -17,6 +17,11 @@
   text-align: center;
 }
 
+h1 {
+  font-size: 4em;
+  font-family: arial;
+}
+
 h1, h2, h3 {
   font-weight: 700;
 }
