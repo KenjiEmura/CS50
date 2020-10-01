@@ -4,4 +4,8 @@
 
     <h2>Create listing</h2>
 
+    <form action="{% url 'auctions:create-listing' %}" method="POST">
+        {% csrf_token %}
+        {{ create_product }}
+    </form>
 {% endblock %}

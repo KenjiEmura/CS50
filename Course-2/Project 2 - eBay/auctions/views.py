@@ -37,13 +37,14 @@ def auction(request, product):
 
 
 def create(request):
-    if request.method == POST:
+    if request.method == "POST":
         product = CreateProduct(request.POST)
         if product.is_valid():
             pass
-    return render(request, "auctions/create-listing.html", {
-
-    })
+    elif request.method == "GET":
+        return render(request, "auctions/create-listing.html", {
+            "create_product": CreateProduct()
+        })
 
 
 def index(request):

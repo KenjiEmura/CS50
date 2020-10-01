@@ -43,4 +43,9 @@ a h4:hover, a p:hover {
   color: #505050;
 }
 
+.form {
+  border: 2px solid gainsboro;
+  border-radius: 5px;
+}
+
 /*# sourceMappingURL=styles.css.map */
