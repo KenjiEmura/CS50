@@ -9,5 +9,5 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("create-listing", views.create, name="create-listing"),
-    path("<str:product>", views.auction, name="products")
+    path("<int:product_id>/<str:product_name>", views.auction, name="products")
 ]

@@ -2,6 +2,11 @@
 
 {% block body %}
 
+    {% if product %}
+        <h1>Behold!!</h1>
+        <p>{{ product }}</p>
+        <h3>The end</h3>
+    {% else %}
     <h2>Create listing</h2>
     <div class="centered">
         <form id="create-product" action="{% url 'auctions:create-listing' %}" method="POST">
@@ -10,5 +15,6 @@
             <button type="submit" class="button" form="create-product">Create</button>
         </form>
     </div>
+    {% endif %}
     
 {% endblock %}

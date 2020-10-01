@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import User, Auction
 
-class AuctionForm(ModelForm):
+class CreateProduct(ModelForm):
     class Meta:
         model = Auction
         fields = ['name', 'img_url', 'price', 'details']
@@ -28,8 +28,8 @@ class AuctionForm(ModelForm):
 
 
 
-def auction(request, product):
-    prod = Auction.objects.get(name=product)
+def auction(request, product_id, product_name):
+    prod = Auction.objects.get(pk=product_id)
     return render(request, "auctions/product.html", {
         "product": prod
     })
@@ -39,10 +39,15 @@ def create(request):
     if request.method == "POST":
         product = CreateProduct(request.POST)
         if product.is_valid():
-            pass
+            new_product = product.save()
+            product_id = product.cleaned_data['name']
+            # return render(request, "auctions/create-listing.html", {
+            #     "product": new_product.id
+            # })
+            return HttpResponseRedirect(reverse('auctions:products', args=[ new_product.id, new_product.name  ]))
     elif request.method == "GET":
         return render(request, "auctions/create-listing.html", {
-            "create_product": AuctionForm()
+            "create_product": CreateProduct()
         })
 
 
