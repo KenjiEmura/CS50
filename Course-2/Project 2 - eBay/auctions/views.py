@@ -11,20 +11,20 @@ from .models import User, Auction
 class CreateProduct(forms.Form):
     name = forms.CharField(
         label = "Product Name",
-        widget = forms.TextInput(attrs={'class':'form title'}),
+        widget = forms.TextInput(attrs={'class':'form-field title'}),
         max_length = Auction._meta.get_field('name').max_length
     )
     img_url = forms.CharField(
         label = "URL of the image",
-        widget = forms.TextInput(attrs={'class':'form image'}),
+        widget = forms.TextInput(attrs={'class':'form-field image'}),
         max_length = Auction._meta.get_field('img_url').max_length
     )
     price = forms.IntegerField(
-        widget = forms.NumberInput(attrs={'class':'form price'})
+        widget = forms.NumberInput(attrs={'class':'form-field price'})
     )
     details = forms.CharField(
         label = "Description",
-        widget = forms.Textarea(attrs={'class':'form title'}),
+        widget = forms.Textarea(attrs={'class':'form-field title'}),
         max_length = Auction._meta.get_field('details').max_length
     )
 

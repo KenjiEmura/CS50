@@ -3,9 +3,12 @@
 {% block body %}
 
     <h2>Create listing</h2>
-
-    <form action="{% url 'auctions:create-listing' %}" method="POST">
-        {% csrf_token %}
-        {{ create_product }}
-    </form>
+    <div class="form-container">
+        <form id="create-product" action="{% url 'auctions:create-listing' %}" method="POST">
+            {% csrf_token %}
+            {{ create_product }}
+            <button type="submit" class="button" form="create-product">Create</button>
+        </form>
+    </div>
+    
 {% endblock %}

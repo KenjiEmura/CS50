@@ -11,10 +11,10 @@
                     <a href="{% url 'auctions:products' auction %}"><img src="{{ auction.img_url }}" alt="{{ auction }}"></a>
                 </div>
                 <div class="prod-info">
-                    <a href="{% url 'auctions:products' auction %}"><h3>{{ auction }}</h3></a>
-                    <a href="{% url 'auctions:products' auction %}"><h4><strong>Price:</strong> ${{ auction.price }}</h4></a>
+                    <h3><a href="{% url 'auctions:products' auction %}">{{ auction }}</a></h3>
+                    <a href="{% url 'auctions:products' auction %}"><h4>Price: <strong>${{ auction.price }}</strong></h4></a>
                     <a href="{% url 'auctions:products' auction %}"><p><strong>Details:</strong> {{ auction.details }}</p></a>
-                    <a href="{% url 'auctions:products' auction %}"><p>{{ auction.timestamp }}</p></a>
+                    <a href="{% url 'auctions:products' auction %}"><p class="timestamp">Created: {{ auction.timestamp }}</p></a>
                 </div>
             </div>
         </div>
