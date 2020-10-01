@@ -3,8 +3,31 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django import forms
 
 from .models import User, Auction
+
+
+class CreateProduct(forms.Form):
+    name = forms.CharField(
+        label = "Product Name",
+        widget = forms.TextInput(attrs={'class':'form title'}),
+        max_length = Auction._meta.get_field('name').max_length
+    )
+    img_url = forms.CharField(
+        label = "URL of the image",
+        widget = forms.TextInput(attrs={'class':'form image'}),
+        max_length = Auction._meta.get_field('img_url').max_length
+    )
+    price = forms.IntegerField(
+        widget = forms.NumberInput(attrs={'class':'form price'})
+    )
+    details = forms.CharField(
+        label = "Description",
+        widget = forms.Textarea(attrs={'class':'form title'}),
+        max_length = Auction._meta.get_field('details').max_length
+    )
+
 
 def auction(request, product):
     prod = Auction.objects.get(name=product)
@@ -14,7 +37,13 @@ def auction(request, product):
 
 
 def create(request):
-    return render(request, "auctions/create-listing.html")
+    if request.method == POST:
+        product = CreateProduct(request.POST)
+        if product.is_valid():
+            pass
+    return render(request, "auctions/create-listing.html", {
+
+    })
 
 
 def index(request):
