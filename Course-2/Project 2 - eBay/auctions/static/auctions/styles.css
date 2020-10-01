@@ -1,3 +1,13 @@
+.error {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  border-radius: 10px;
+  color: #721c24;
+  text-align: center;
+  padding: 0.5em;
+  margin-top: 3em;
+}
+
 .body {
   padding: 2em 15vw;
 }
@@ -61,12 +71,18 @@ a h4:hover, a p:hover {
   border-radius: 5px;
   display: block;
   width: 100%;
+  margin-bottom: 1em;
+  padding: 0.4em 1em;
+}
+.form-field:focus {
+  border: 2px solid #1c89ff;
+  border-radius: 5px;
+  outline: none;
 }
 
 .button {
   padding: 0 3em;
   position: relative;
-  display: block;
   height: 36px;
   border-radius: 18px;
   background-color: #1c89ff;
@@ -85,9 +101,24 @@ a h4:hover, a p:hover {
 
 form {
   display: inline-block;
+  margin-top: 3em;
+}
+
+label {
+  float: left;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.centered {
+  text-align: center;
 }
 
 form button {
+  margin-top: 2em;
+}
+
+.form-comment {
   margin-top: 2em;
 }
 

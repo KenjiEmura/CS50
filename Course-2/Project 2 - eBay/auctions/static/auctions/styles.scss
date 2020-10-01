@@ -1,6 +1,20 @@
-$main-color-normal: #1c89ff;
-$main-color-hover: #1460b1;
+$main-color: #FFA200;
+$focus-color-normal: #1c89ff;
+$focus-color-hover: #1460b1;
 $text-color: white;
+$error-background: #f8d7da;
+$error-border: #f5c6cb;
+$error-text: #721c24;
+
+.error {
+    background: $error-background;
+    border-color: $error-border;
+    border-radius: 10px;
+    color: $error-text;
+    text-align: center;
+    padding: 0.5em;
+    margin-top: 3em;
+}
 
 .body {
     padding: 2em 15vw;
@@ -52,7 +66,7 @@ a {
 
 a:hover {
     text-decoration: none;
-    color: #FFA200;
+    color: $main-color;
 }
 
 a h4:hover, a p:hover {
@@ -65,15 +79,22 @@ a h4:hover, a p:hover {
     border-radius: 5px;
     display: block;
     width: 100%;
+    margin-bottom: 1em;
+    padding: 0.4em 1em;
+    &:focus {
+        border: 2px solid $focus-color-normal;
+        border-radius: 5px;
+        outline: none;
+    }
 }
+
 
 .button {
     padding: 0 3em;
     position: relative;
-    display: block;
     height: 36px;
     border-radius: 18px;
-    background-color: $main-color-normal;
+    background-color: $focus-color-normal;
     border: solid 1px transparent;
     color: $text-color;
     font-size: 18px;
@@ -81,7 +102,7 @@ a h4:hover, a p:hover {
     cursor: pointer;
     transition: all .1s ease-in-out;
     &:hover {
-        background-color: $main-color-hover;
+        background-color: $focus-color-hover;
         border-color: transparent;
         transition: all .1s ease-in-out;
     }
@@ -89,12 +110,23 @@ a h4:hover, a p:hover {
 
 form {
     display: inline-block;
+    margin-top: 3em;
 }
 
-.form-container {
-    // text-align: center;
+label {
+    float: left;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.centered {
+    text-align: center;
 }
 
 form button {
+    margin-top: 2em;
+}
+
+.form-comment {
     margin-top: 2em;
 }
