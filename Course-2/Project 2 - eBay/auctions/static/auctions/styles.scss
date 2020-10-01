@@ -27,3 +27,18 @@ img {
     width: 100%;
     border-radius: 5px;
 }
+
+a {
+    text-decoration: none;
+    color: #505050;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #FFA200;
+}
+
+a h4:hover, a p:hover {
+    text-decoration: none;
+    color: #505050;
+}
