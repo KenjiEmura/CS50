@@ -3,30 +3,29 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.forms import ModelForm, Textarea, TextInput, NumberInput
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from .models import User, Auction
 
+class AuctionForm(ModelForm):
+    class Meta:
+        model = Auction
+        fields = ['name', 'img_url', 'price', 'details']
+        labels = {
+            'name': _('Product Name'),
+            'img_url': _('URL of the image'),
+            'price': _('Price'),
+            'details': _('Description')
+        }
+        widgets = {
+            'name': TextInput(attrs={'class':'form-field title'}),
+            'img_url': TextInput(attrs={'class':'form-field image'}),
+            'price': NumberInput(attrs={'class':'form-field price'}),
+            'details': Textarea(attrs={'class':'form-field details'})
+        }
 
-class CreateProduct(forms.Form):
-    name = forms.CharField(
-        label = "Product Name",
-        widget = forms.TextInput(attrs={'class':'form-field title'}),
-        max_length = Auction._meta.get_field('name').max_length
-    )
-    img_url = forms.CharField(
-        label = "URL of the image",
-        widget = forms.TextInput(attrs={'class':'form-field image'}),
-        max_length = Auction._meta.get_field('img_url').max_length
-    )
-    price = forms.IntegerField(
-        widget = forms.NumberInput(attrs={'class':'form-field price'})
-    )
-    details = forms.CharField(
-        label = "Description",
-        widget = forms.Textarea(attrs={'class':'form-field title'}),
-        max_length = Auction._meta.get_field('details').max_length
-    )
 
 
 def auction(request, product):
@@ -43,7 +42,7 @@ def create(request):
             pass
     elif request.method == "GET":
         return render(request, "auctions/create-listing.html", {
-            "create_product": CreateProduct()
+            "create_product": AuctionForm()
         })
 
 
