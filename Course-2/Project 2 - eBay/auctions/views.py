@@ -40,10 +40,6 @@ def create(request):
         product = CreateProduct(request.POST)
         if product.is_valid():
             new_product = product.save()
-            product_id = product.cleaned_data['name']
-            # return render(request, "auctions/create-listing.html", {
-            #     "product": new_product.id
-            # })
             return HttpResponseRedirect(reverse('auctions:products', args=[ new_product.id, new_product.name  ]))
     elif request.method == "GET":
         return render(request, "auctions/create-listing.html", {

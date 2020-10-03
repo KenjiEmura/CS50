@@ -6,9 +6,17 @@ from datetime import datetime
 class User(AbstractUser):
     pass
 
+
+class ProductCategory(models.Model):
+    name = models.CharField(default='Undefined',max_length=64)
+    parent_category = models.ForeignKey('self', blank=True, on_delete=models.CASCADE, related_name="children_categories")
+    def __str__(self):
+        return f"{self.name}"
+
 class Auction(models.Model):
     name = models.CharField(max_length=64)
     img_url = models.CharField(max_length=300)
+    # category = models.ForeignKey(ProductCategory, default=1, on_delete=models.CASCADE, related_name="products")
     price = models.IntegerField()
     details = models.TextField(max_length=600)
     timestamp = models.DateTimeField(auto_now_add=True)
