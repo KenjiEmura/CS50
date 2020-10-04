@@ -19,6 +19,7 @@ class Auction(models.Model):
     category = models.ForeignKey(ProductCategory, default=1, on_delete=models.CASCADE, related_name="products")
     price = models.IntegerField()
     details = models.TextField(max_length=600)
+    author = models.ForeignKey(User, default=1, on_delete=models.CASCADE, related_name="user_products")
     timestamp = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.name}"
