@@ -1,7 +1,19 @@
 {% extends "auctions/layout.html" %}
+{% load humanize %}
 
 {% block body %}
 
 <h2>Listing: {{ product }}</h2>
+
+<div class="product-img">
+    <img src="{{ product.img_url }}" alt="{{ product }}">
+</div>
+
+<div class="prod-info">
+    <h4>Price: <strong>${{ auction.price | intcomma }}</strong></h4>
+    <h5>Category: {{ auction.category }}</h5>
+    <h5>Posted by: {{ auction.author | capfirst }}</h5>
+    <p><strong>Details:</strong> {{ auction.details }}</p>
+</div>
 
 {% endblock %}

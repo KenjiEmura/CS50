@@ -90,7 +90,7 @@ a:hover {
     color: $main-color;
 }
 
-a h4:hover, a p:hover {
+a h4:hover, a h5:hover, a p:hover {
     text-decoration: none;
     color: #505050;
 }
@@ -150,4 +150,12 @@ form button {
 
 .form-comment {
     margin-top: 2em;
+}
+
+.product-img {
+    text-align: center;
+    & > img {
+        border-radius: 5px;
+        max-height: 300px;
+    }
 }
