@@ -9,7 +9,7 @@ class User(AbstractUser):
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64)
-    parent_category = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE, related_name="children_categories")
+    parent_category = models.ForeignKey('self', blank=True, null=True, default=1, on_delete=models.CASCADE, related_name="children_categories")
     def __str__(self):
         return f"{self.name}"
 

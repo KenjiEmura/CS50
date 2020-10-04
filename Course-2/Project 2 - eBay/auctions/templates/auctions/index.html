@@ -3,21 +3,23 @@
 {% block body %}
     <h2>Active Listings</h2>
 
+    <div class="body-content">
     {% for auction in auctions %}
-
         <div class="auction-item">
             <div class="auction-item-container">
+                <div class="prod-title">
+                    <h2><a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}">{{ auction }}</a></h2>
+                </div>
                 <div class="prod-img">
                     <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><img src="{{ auction.img_url }}" alt="{{ auction }}"></a>
                 </div>
                 <div class="prod-info">
-                    <h3><a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}">{{ auction }}</a></h3>
                     <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h4>Price: <strong>${{ auction.price }}</strong></h4></a>
                     <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p><strong>Details:</strong> {{ auction.details }}</p></a>
                     <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="timestamp">Created: {{ auction.timestamp }}</p></a>
                 </div>
             </div>
         </div>
-
     {% endfor %}
+    </div>
 {% endblock %}

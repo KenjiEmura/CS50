@@ -9,7 +9,19 @@
 }
 
 .body {
-  padding: 2em 15vw;
+  padding: 0;
+}
+
+.body > h2 {
+  padding: 0.5em 5vw 1em;
+}
+
+.body-content {
+  padding: 0 5vw 5vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  column-gap: 4em;
+  row-gap: 4em;
 }
 
 .header {
@@ -30,30 +42,33 @@ h1, h2, h3 {
   font-size: 0.6em;
 }
 
-.auction-item {
-  padding: 5vh 0 5vh;
-}
-
 .auction-item-container {
   border: 2px solid gainsboro;
   border-radius: 5px;
   padding: 0;
-  display: flex;
+  height: 100%;
 }
 
 .prod-img {
-  width: 100%;
   padding: 2em;
+  max-height: 350px;
+  text-align: center;
+}
+
+.prod-img > a > img {
+  width: auto;
+  border-radius: 5px;
+  height: 250px;
 }
 
 .prod-info {
   width: 100%;
-  padding: 2em;
+  padding: 0 2em 2em;
 }
 
-img {
-  width: 100%;
-  border-radius: 5px;
+.prod-title > h2 {
+  text-align: center;
+  margin-top: 1.1em;
 }
 
 a {
