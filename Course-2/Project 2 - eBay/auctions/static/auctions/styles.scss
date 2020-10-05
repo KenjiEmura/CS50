@@ -25,7 +25,11 @@ $left-right-margin: 5vw;
     padding: 0.5em $left-right-margin 1em;
 }
 
-.body-content {
+.content {
+    padding: 0 $left-right-margin 5vh;
+}
+
+.index-content {
     padding: 0 $left-right-margin 5vh;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
@@ -47,7 +51,7 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-.timestamp {
+.small-info {
     font-size: 0.6em;
 }
 
@@ -129,7 +133,7 @@ a h4:hover, a h5:hover, a p:hover {
     }
 }
 
-form {
+div.centered>form {
     display: inline-block;
     margin-top: 3em;
 }
@@ -157,5 +161,11 @@ form button {
     & > img {
         border-radius: 5px;
         max-height: 300px;
+        margin-bottom: 3em;
     }
+}
+
+.product-page-body {
+    margin: 4em $left-right-margin 5em;
+    display: flex;
 }

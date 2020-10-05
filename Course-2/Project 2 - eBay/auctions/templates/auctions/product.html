@@ -5,15 +5,26 @@
 
 <h2>Listing: {{ product }}</h2>
 
-<div class="product-img">
-    <img src="{{ product.img_url }}" alt="{{ product }}">
+<div class="product-page-body">
+    <div class="product-img">
+        <img src="{{ product.img_url }}" alt="{{ product }}">
+    </div>
+
+    <div class="content">
+        {% if count_bid > 0 %}
+            <p class="small-info">{{ count_bid }} {% if count_bid == 1 %}bid{% else %}bids{% endif %} so far!</h5>
+        {% endif %}
+        <form id="create-product" action="{% url 'auctions:products' product_id=product.id product_name=product.name %}" method="POST">
+            {% csrf_token %}
+            {{ makebid }}
+        </form>
+        <h4>Price: <strong>${{ product.price | intcomma }}</strong></h4>
+        <h5>Category: {{ product.category }}</h5>
+        <h5>Posted by: {{ product.author | capfirst }}</h5>
+        <p><strong>Details:</strong> {{ product.details }}</p>
+    </div>
 </div>
 
-<div class="prod-info">
-    <h4>Price: <strong>${{ auction.price | intcomma }}</strong></h4>
-    <h5>Category: {{ auction.category }}</h5>
-    <h5>Posted by: {{ auction.author | capfirst }}</h5>
-    <p><strong>Details:</strong> {{ auction.details }}</p>
-</div>
-
+{{ bid }}
+{{ max_bid }}
 {% endblock %}

@@ -16,7 +16,11 @@
   padding: 0.5em 5vw 1em;
 }
 
-.body-content {
+.content {
+  padding: 0 5vw 5vh;
+}
+
+.index-content {
   padding: 0 5vw 5vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
@@ -38,7 +42,7 @@ h1, h2, h3 {
   font-weight: 700;
 }
 
-.timestamp {
+.small-info {
   font-size: 0.6em;
 }
 
@@ -119,7 +123,7 @@ a h4:hover, a h5:hover, a p:hover {
   transition: all 0.1s ease-in-out;
 }
 
-form {
+div.centered > form {
   display: inline-block;
   margin-top: 3em;
 }
@@ -148,6 +152,12 @@ form button {
 .product-img > img {
   border-radius: 5px;
   max-height: 300px;
+  margin-bottom: 3em;
+}
+
+.product-page-body {
+  margin: 4em 5vw 5em;
+  display: flex;
 }
 
 /*# sourceMappingURL=styles.css.map */

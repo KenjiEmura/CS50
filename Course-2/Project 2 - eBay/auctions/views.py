@@ -7,7 +7,7 @@ from django.forms import ModelForm, Textarea, TextInput, NumberInput
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import User, Auction
+from .models import User, Auction, Bid
 
 class CreateProduct(ModelForm):
     class Meta:
@@ -26,13 +26,46 @@ class CreateProduct(ModelForm):
             'details': Textarea(attrs={'class':'form-field details'})
         }
 
+class MakeBid(ModelForm):
+    class Meta:
+        model = Bid
+        fields = ['bid']
+        labels = {
+            'bid': _('Make a bid:')
+        }
+        widgets = {
+            'bid': NumberInput(attrs={'class':'form-field bid','step':10})
+        }
 
 
 def auction(request, product_id, product_name):
-    prod = Auction.objects.get(pk=product_id)
-    return render(request, "auctions/product.html", {
-        "product": prod
-    })
+    from django.db.models import Avg, Max, Min, Sum, Count
+    if request.method == "GET":
+        prod = Auction.objects.get(pk=product_id)
+        bid = Bid.objects.filter(product=product_id)
+        max_bid = bid.aggregate(Max('bid'))
+        count_bid = bid.count()
+        return render(request, "auctions/product.html", {
+            "product": prod,
+            "makebid": MakeBid(),
+            "max_bid": max_bid['bid__max'],
+            "count_bid": count_bid
+        })
+    else:
+        bid = MakeBid(request.POST)
+        if bid.is_valid():
+            bids = Bid.objects.filter(product=product_id).count()
+            prod = Auction.objects.get(pk=product_id)
+            new_bid = bid.save(commit=False)
+            new_bid.product = Auction.objects.get(pk=product_id)
+            new_bid.save()
+            # new_bid = bid.save()
+            return render(request, "auctions/product.html", {
+                "product": prod,
+                "makebid": MakeBid(),
+                "bid": bid.cleaned_data['bid'],
+                "product_bids": bids
+            })
 
 
 def create(request):
@@ -40,7 +73,7 @@ def create(request):
         product = CreateProduct(request.POST)
         if product.is_valid():
             new_product = product.save()
-            return HttpResponseRedirect(reverse('auctions:products', args=[ new_product.id, new_product.name  ]))
+            return HttpResponseRedirect(reverse('auctions:products', args=[ new_product.id, new_product.name ]))
     elif request.method == "GET":
         return render(request, "auctions/create-listing.html", {
             "create_product": CreateProduct()
@@ -48,8 +81,10 @@ def create(request):
 
 
 def index(request):
+    from django.db.models import Avg, Max, Min, Sum, Count
     return render(request, "auctions/index.html", {
-        "auctions": Auction.objects.all()
+        "auctions": Auction.objects.all(),
+        "bids": Bid.objects.annotate(Count('bid'))
     })
 
 

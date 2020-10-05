@@ -5,7 +5,8 @@ from datetime import datetime
 
 class User(AbstractUser):
     pass
-
+    def __str__(self):
+        return f"{self.username}"
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64)
@@ -27,9 +28,10 @@ class Auction(models.Model):
 class Bid(models.Model):
     user = models.ManyToManyField(User, blank=False, related_name="user_bids")
     bid = models.IntegerField()
+    product = models.ForeignKey(Auction, blank=False, null=True, default=None, on_delete=models.CASCADE, related_name="product_bids")
     timestamp = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f"${self.bid} by {self.user} ({self.timestamp})"
+        return f"{self.product} ${self.bid} by {self.user}"
 
 class Comment(models.Model):
     user = models.ManyToManyField(User, blank=False, related_name="user_comments")
