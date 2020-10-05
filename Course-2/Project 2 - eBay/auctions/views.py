@@ -40,25 +40,46 @@ class MakeBid(ModelForm):
 
 def auction(request, product_id, product_name):
     from django.db.models import Avg, Max, Min, Sum, Count
-    prod = Auction.objects.get(pk=product_id)
-    bids = Bid.objects.filter(product=product_id)
-    max_bid = bids.aggregate(Max('bid'))
-    count_bid = bids.count()
+    product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
+    count_bid = Bid.objects.filter(product=product_id).count()
+    cur_max_bid = product.max_bid
+    
+    if cur_max_bid == None:
+        no_bids = True;
+    else:
+        no_bids = False;
+
     if request.method == "GET":
         return render(request, "auctions/product.html", {
-            "product": prod,
+            "product": product,
             "makebid": MakeBid(),
-            "max_bid": max_bid['bid__max'],
             "count_bid": count_bid
         })
     else:
         bid = MakeBid(request.POST)
         if bid.is_valid():
             from django.contrib import messages
+            posted_bid = bid.cleaned_data['bid']
+            if not no_bids and posted_bid <= cur_max_bid:
+                messages.error(request, f'Your bid has to be greater than ¥{cur_max_bid:,}')
+                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
+            elif product.price >= posted_bid:
+                messages.error(request, 'The initial bid has to be greater than the starting selling price')
+                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
+            elif no_bids and product.price < posted_bid:
+                messages.success(request, 'Your bid was successfuly received!')
+                new_bid = bid.save(commit=False)
+                new_bid.product = Auction.objects.get(pk=product_id)
+                new_bid.save()
+                product.price = posted_bid
+                product.save()
+                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
             messages.success(request, 'Your bid was successfuly received!')
             new_bid = bid.save(commit=False)
             new_bid.product = Auction.objects.get(pk=product_id)
             new_bid.save()
+            product.price = posted_bid
+            product.save()
         else:
             messages.error(request, 'An error posting the information occured!')
         return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
@@ -78,9 +99,10 @@ def create(request):
 
 def index(request):
     from django.db.models import Avg, Max, Min, Sum, Count
+
     return render(request, "auctions/index.html", {
         "auctions": Auction.objects.annotate(
-            current_bid=Max('product_bids__bid'),
+            max_bid=Max('product_bids__bid'),
             bid_count=Count('product_bids'))
     })
 

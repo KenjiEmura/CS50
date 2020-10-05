@@ -14,14 +14,14 @@
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><img src="{{ auction.img_url }}" alt="{{ auction }}"></a>
             </div>
             <div class="prod-info">
-                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h4>Current price: <strong>${{ auction.price | intcomma }}</strong></h4></a>
+                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h4>Current price: <strong>¥{{ auction.price | intcomma }}</strong></h4></a>
                 {% if auction.bid_count > 0 %}
-                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h5>Current bid: {{ auction.current_bid }}, {{ auction.bid_count }} {% if auction.bid_count == 1 %}bid{% else %}bids{% endif %} so far!</h5></a>
+                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h5>{{ auction.bid_count }} {% if auction.bid_count == 1 %}bid{% else %}bids{% endif %} so far!</h5></a>
                 {% endif %}
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">Category: {{ auction.category }}</p></a>
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">Author: {{ auction.author | capfirst }}</p></a>
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p><strong>Details:</strong> {{ auction.details }}</p></a>
-                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">Created: {{ auction.timestamp }}</p></a>
+                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">Created: {{ auction.timestamp | naturaltime }}</p></a>
             </div>
         </div>
     {% endfor %}
