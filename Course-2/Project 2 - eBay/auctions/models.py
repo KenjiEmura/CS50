@@ -26,7 +26,7 @@ class Auction(models.Model):
         return f"{self.name}"
 
 class Bid(models.Model):
-    user = models.ManyToManyField(User, blank=False, related_name="user_bids")
+    user = models.ForeignKey(User, blank=False, default=1, on_delete=models.CASCADE, related_name="user_bids")
     bid = models.IntegerField()
     product = models.ForeignKey(Auction, blank=False, null=True, default=None, on_delete=models.CASCADE, related_name="product_bids")
     timestamp = models.DateTimeField(auto_now_add=True)

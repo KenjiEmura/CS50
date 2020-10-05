@@ -59,12 +59,9 @@ def auction(request, product_id, product_name):
             new_bid = bid.save(commit=False)
             new_bid.product = Auction.objects.get(pk=product_id)
             new_bid.save()
-        return render(request, "auctions/product.html", {
-            "product": prod,
-            "makebid": MakeBid(),
-            "max_bid": max_bid['bid__max'],
-            "count_bid": count_bid,
-        })
+        else:
+            messages.error(request, 'An error posting the information occured!')
+        return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
 
 
 def create(request):
@@ -82,7 +79,9 @@ def create(request):
 def index(request):
     from django.db.models import Avg, Max, Min, Sum, Count
     return render(request, "auctions/index.html", {
-        "auctions": Auction.objects.annotate(Count('product_bids'))
+        "auctions": Auction.objects.annotate(
+            current_bid=Max('product_bids__bid'),
+            bid_count=Count('product_bids'))
     })
 
 

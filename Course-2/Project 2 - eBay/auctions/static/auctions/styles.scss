@@ -50,6 +50,7 @@ $left-right-margin: 5vw;
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
     column-gap: 4em;
     row-gap: 4em;
+    margin-top: 3em;
 }
 
 .header {
@@ -112,6 +113,10 @@ a:hover {
 a h4:hover, a h5:hover, a p:hover {
     text-decoration: none;
     color: #505050;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 .form-field {
