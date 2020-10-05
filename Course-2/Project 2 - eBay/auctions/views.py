@@ -40,11 +40,11 @@ class MakeBid(ModelForm):
 
 def auction(request, product_id, product_name):
     from django.db.models import Avg, Max, Min, Sum, Count
+    prod = Auction.objects.get(pk=product_id)
+    bids = Bid.objects.filter(product=product_id)
+    max_bid = bids.aggregate(Max('bid'))
+    count_bid = bids.count()
     if request.method == "GET":
-        prod = Auction.objects.get(pk=product_id)
-        bid = Bid.objects.filter(product=product_id)
-        max_bid = bid.aggregate(Max('bid'))
-        count_bid = bid.count()
         return render(request, "auctions/product.html", {
             "product": prod,
             "makebid": MakeBid(),
@@ -54,18 +54,17 @@ def auction(request, product_id, product_name):
     else:
         bid = MakeBid(request.POST)
         if bid.is_valid():
-            bids = Bid.objects.filter(product=product_id).count()
-            prod = Auction.objects.get(pk=product_id)
+            from django.contrib import messages
+            messages.success(request, 'Your bid was successfuly received!')
             new_bid = bid.save(commit=False)
             new_bid.product = Auction.objects.get(pk=product_id)
             new_bid.save()
-            # new_bid = bid.save()
-            return render(request, "auctions/product.html", {
-                "product": prod,
-                "makebid": MakeBid(),
-                "bid": bid.cleaned_data['bid'],
-                "product_bids": bids
-            })
+        return render(request, "auctions/product.html", {
+            "product": prod,
+            "makebid": MakeBid(),
+            "max_bid": max_bid['bid__max'],
+            "count_bid": count_bid,
+        })
 
 
 def create(request):
@@ -83,8 +82,7 @@ def create(request):
 def index(request):
     from django.db.models import Avg, Max, Min, Sum, Count
     return render(request, "auctions/index.html", {
-        "auctions": Auction.objects.all(),
-        "bids": Bid.objects.annotate(Count('bid'))
+        "auctions": Auction.objects.annotate(Count('product_bids'))
     })
 
 

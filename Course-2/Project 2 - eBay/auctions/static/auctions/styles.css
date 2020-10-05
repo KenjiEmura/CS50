@@ -1,11 +1,21 @@
+.success, .error {
+  border-radius: 10px;
+  text-align: center;
+  padding: 0.5em;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
 .error {
   background: #f8d7da;
   border-color: #f5c6cb;
-  border-radius: 10px;
   color: #721c24;
-  text-align: center;
-  padding: 0.5em;
-  margin-top: 3em;
+}
+
+.success {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
 }
 
 .body {
@@ -13,7 +23,7 @@
 }
 
 .body > h2 {
-  padding: 0.5em 5vw 1em;
+  padding: 0.5em 5vw 0;
 }
 
 .content {
@@ -156,7 +166,7 @@ form button {
 }
 
 .product-page-body {
-  margin: 4em 5vw 5em;
+  margin: 2em 5vw 5em;
   display: flex;
 }
 

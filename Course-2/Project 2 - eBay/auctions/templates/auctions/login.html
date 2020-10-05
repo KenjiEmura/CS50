@@ -5,7 +5,7 @@
     <h2>Login</h2>
 
     {% if message %}
-        <div class="error">{{ message }}</div>
+        <div class="message error">{{ message }}</div>
     {% endif %}
     <div class="centered">
         <form id="login" action="{% url 'auctions:login' %}" method="post">

@@ -5,7 +5,7 @@
     <h2>Active Listings</h2>
 
     <div class="index-content">
-    {% for auction in auctions %}
+        {% for auction in auctions %}
         <div class="auction-item-container">
             <div class="prod-title">
                 <h2><a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}">{{ auction }}</a></h2>
@@ -15,9 +15,9 @@
             </div>
             <div class="prod-info">
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h4>Price: <strong>${{ auction.price | intcomma }}</strong></h4></a>
-                <!-- {% if bids > 0 %} -->
-                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">{{ bids }} {% if bids == 1 %}bid{% else %}bids{% endif %} so far!</h5></a>
-                <!-- {% endif %} -->
+                {% if auction.product_bids__count > 0 %}
+                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">{{ auction.product_bids__count }} {% if auction.product_bids__count == 1 %}bid{% else %}bids{% endif %} so far!</h5></a>
+                {% endif %}
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h5>Category: {{ auction.category }}</h5></a>
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h5>Author: {{ auction.author | capfirst }}</h5></a>
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p><strong>Details:</strong> {{ auction.details }}</p></a>
