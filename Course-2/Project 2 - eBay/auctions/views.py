@@ -34,16 +34,19 @@ class MakeBid(ModelForm):
             'bid': _('Make a bid:')
         }
         widgets = {
-            'bid': NumberInput(attrs={'class':'form-field bid','step':10})
+            'bid': NumberInput(attrs={'class':'form-field bid'})
         }
 
 
 def auction(request, product_id, product_name):
     from django.db.models import Avg, Max, Min, Sum, Count
+    from django.forms import modelform_factory
     product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
     count_bid = Bid.objects.filter(product=product_id).count()
     cur_max_bid = product.max_bid
-    
+    bid_instance = Bid.objects.get(bid=product.max_bid, product=product_id)
+    bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':product.max_bid, 'class':'form-field bid','step':product.max_bid*0.02})})
+
     if cur_max_bid == None:
         no_bids = True;
     else:
@@ -52,14 +55,14 @@ def auction(request, product_id, product_name):
     if request.method == "GET":
         return render(request, "auctions/product.html", {
             "product": product,
-            "makebid": MakeBid(),
+            "makebid": bid_form,
             "count_bid": count_bid
         })
-    else:
-        bid = MakeBid(request.POST)
-        if bid.is_valid():
+    elif request.method == "POST":
+        form = MakeBid(request.POST)
+        if form.is_valid():
             from django.contrib import messages
-            posted_bid = bid.cleaned_data['bid']
+            posted_bid = form.cleaned_data['bid']
             if not no_bids and posted_bid <= cur_max_bid:
                 messages.error(request, f'Your bid has to be greater than ¥{cur_max_bid:,}')
                 return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
@@ -68,14 +71,14 @@ def auction(request, product_id, product_name):
                 return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
             elif no_bids and product.price < posted_bid:
                 messages.success(request, 'Your bid was successfuly received!')
-                new_bid = bid.save(commit=False)
+                new_bid = form.save(commit=False)
                 new_bid.product = Auction.objects.get(pk=product_id)
                 new_bid.save()
                 product.price = posted_bid
                 product.save()
                 return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
             messages.success(request, 'Your bid was successfuly received!')
-            new_bid = bid.save(commit=False)
+            new_bid = form.save(commit=False)
             new_bid.product = Auction.objects.get(pk=product_id)
             new_bid.save()
             product.price = posted_bid
