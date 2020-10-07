@@ -20,7 +20,6 @@
                 {% endif %}
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">Category: {{ auction.category }}</p></a>
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">Author: {{ auction.author | capfirst }}</p></a>
-                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p><strong>Details:</strong> {{ auction.details }}</p></a>
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><p class="small-info">Created: {{ auction.timestamp | naturaltime }}</p></a>
             </div>
         </div>

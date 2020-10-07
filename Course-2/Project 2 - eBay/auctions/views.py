@@ -11,13 +11,14 @@ from .forms import *
 def auction(request, product_id, product_name):
     from django.db.models import Avg, Max, Min, Sum, Count
     from django.forms import modelform_factory
+    import math
 
     # Get the product and the respective bids infromation
     product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
     count_bid = Bid.objects.filter(product=product_id).count()
     cur_max_bid = product.max_bid
 
-    # Function to calculate the step of the modelform
+    # Function to calculate the step of the modelform (bid_form)
     def step(price): 
         i = 0
         while price/10 > 10:
@@ -30,7 +31,8 @@ def auction(request, product_id, product_name):
         cur_max_bid = product.price
 
     # Prepopulate the MakeBid form
-    bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':cur_max_bid+step(cur_max_bid), 'class':'form-field bid','step':step(cur_max_bid)})})
+    step = math.ceil(step(cur_max_bid))
+    bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':cur_max_bid + step, 'class':'form-field bid','step':step})})
 
     if request.method == "GET":
         return render(request, "auctions/product.html", {
