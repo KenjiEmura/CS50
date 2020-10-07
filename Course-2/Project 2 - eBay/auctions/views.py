@@ -14,7 +14,15 @@ def auction(request, product_id, product_name):
     product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
     count_bid = Bid.objects.filter(product=product_id).count()
     cur_max_bid = product.max_bid
-    bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':product.max_bid, 'class':'form-field bid','step':product.max_bid*0.02})})
+    def step(price): # Function to calculate how big should be the step
+        i = 0
+        while price/10 > 10:
+            price /= 10
+            i += 1
+        return 10**(i-1)
+    if cur_max_bid is None:
+        cur_max_bid = product.price
+    bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':cur_max_bid, 'class':'form-field bid','step':step(cur_max_bid)})})
 
     if cur_max_bid == None:
         no_bids = True;
