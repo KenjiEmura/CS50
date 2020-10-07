@@ -3,39 +3,9 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.forms import ModelForm, Textarea, TextInput, NumberInput
-from django import forms
-from django.utils.translation import gettext_lazy as _
 
-from .models import User, Auction, Bid
-
-class CreateProduct(ModelForm):
-    class Meta:
-        model = Auction
-        fields = ['name', 'img_url', 'price', 'details']
-        labels = {
-            'name': _('Product Name'),
-            'img_url': _('URL of the image'),
-            'price': _('Price'),
-            'details': _('Description')
-        }
-        widgets = {
-            'name': TextInput(attrs={'class':'form-field title'}),
-            'img_url': TextInput(attrs={'class':'form-field image'}),
-            'price': NumberInput(attrs={'class':'form-field price'}),
-            'details': Textarea(attrs={'class':'form-field details'})
-        }
-
-class MakeBid(ModelForm):
-    class Meta:
-        model = Bid
-        fields = ['bid']
-        labels = {
-            'bid': _('Make a bid:')
-        }
-        widgets = {
-            'bid': NumberInput(attrs={'class':'form-field bid'})
-        }
+from .models import *
+from .forms import *
 
 
 def auction(request, product_id, product_name):
@@ -44,7 +14,6 @@ def auction(request, product_id, product_name):
     product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
     count_bid = Bid.objects.filter(product=product_id).count()
     cur_max_bid = product.max_bid
-    bid_instance = Bid.objects.get(bid=product.max_bid, product=product_id)
     bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':product.max_bid, 'class':'form-field bid','step':product.max_bid*0.02})})
 
     if cur_max_bid == None:
