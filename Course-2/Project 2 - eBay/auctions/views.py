@@ -11,23 +11,26 @@ from .forms import *
 def auction(request, product_id, product_name):
     from django.db.models import Avg, Max, Min, Sum, Count
     from django.forms import modelform_factory
+
+    # Get the product and the respective bids infromation
     product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
     count_bid = Bid.objects.filter(product=product_id).count()
     cur_max_bid = product.max_bid
-    def step(price): # Function to calculate how big should be the step
+
+    # Function to calculate the step of the modelform
+    def step(price): 
         i = 0
         while price/10 > 10:
             price /= 10
             i += 1
         return 10**(i-1)
+
+    # Check if the product has already a bid, if not, the max bid is going to be the initial price of the auction
     if cur_max_bid is None:
         cur_max_bid = product.price
-    bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':cur_max_bid, 'class':'form-field bid','step':step(cur_max_bid)})})
 
-    if cur_max_bid == None:
-        no_bids = True;
-    else:
-        no_bids = False;
+    # Prepopulate the MakeBid form
+    bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':cur_max_bid+step(cur_max_bid), 'class':'form-field bid','step':step(cur_max_bid)})})
 
     if request.method == "GET":
         return render(request, "auctions/product.html", {
@@ -37,29 +40,23 @@ def auction(request, product_id, product_name):
         })
     elif request.method == "POST":
         form = MakeBid(request.POST)
-        if form.is_valid():
-            from django.contrib import messages
-            posted_bid = form.cleaned_data['bid']
-            if not no_bids and posted_bid <= cur_max_bid:
-                messages.error(request, f'Your bid has to be greater than ¥{cur_max_bid:,}')
-                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
-            elif product.price >= posted_bid:
-                messages.error(request, 'The initial bid has to be greater than the starting selling price')
-                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
-            elif no_bids and product.price < posted_bid:
-                messages.success(request, 'Your bid was successfuly received!')
-                new_bid = form.save(commit=False)
-                new_bid.product = Auction.objects.get(pk=product_id)
-                new_bid.save()
-                product.price = posted_bid
-                product.save()
-                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
+        def success(form, product_id, posted_bid):
             messages.success(request, 'Your bid was successfuly received!')
             new_bid = form.save(commit=False)
             new_bid.product = Auction.objects.get(pk=product_id)
+            new_bid.user = request.user
             new_bid.save()
             product.price = posted_bid
             product.save()
+        if form.is_valid():
+            from django.contrib import messages
+            posted_bid = form.cleaned_data['bid']
+            if posted_bid <= cur_max_bid:
+                messages.error(request, f'Your bid has to be greater than ¥{cur_max_bid:,}')
+                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
+            else:
+                success(form, product_id, posted_bid)
+                return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
         else:
             messages.error(request, 'An error posting the information occured!')
         return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
@@ -67,9 +64,11 @@ def auction(request, product_id, product_name):
 
 def create(request):
     if request.method == "POST":
-        product = CreateProduct(request.POST)
-        if product.is_valid():
-            new_product = product.save()
+        form = CreateProduct(request.POST)
+        if form.is_valid():
+            new_product = form.save(commit=False)
+            new_product.author = request.user
+            new_product.save()
             return HttpResponseRedirect(reverse('auctions:products', args=[ new_product.id, new_product.name ]))
     elif request.method == "GET":
         return render(request, "auctions/create-listing.html", {
@@ -134,6 +133,6 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("auctions:index"))
     else:
         return render(request, "auctions/register.html")

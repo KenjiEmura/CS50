@@ -21,7 +21,6 @@ class Auction(models.Model):
     price = models.IntegerField()
     details = models.TextField(max_length=600)
     author = models.ForeignKey(User, default=1, on_delete=models.CASCADE, related_name="user_products")
-    has_bids = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.name}"
