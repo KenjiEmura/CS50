@@ -24,7 +24,7 @@
         {% if count_bid > 0 %}
             <p class="small-info">{{ count_bid }} {% if count_bid == 1 %}bid{% else %}bids{% endif %} so far!</h5>
         {% endif %}
-        <h4>Price: <strong>¥{{ product.price | intcomma }}</strong></h4>
+        <h4>Price: <strong>¥{{ price | intcomma }}</strong></h4>
         <h5>Category: {{ product.category }}</h5>
         <h5>Posted by: {{ product.author | capfirst }}</h5>
         <p class="small-info">Published on {{ product.timestamp }}</p>

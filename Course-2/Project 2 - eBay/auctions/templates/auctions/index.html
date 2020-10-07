@@ -14,7 +14,7 @@
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><img src="{{ auction.img_url }}" alt="{{ auction }}"></a>
             </div>
             <div class="prod-info">
-                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h4>Current price: <strong>¥{{ auction.price | intcomma }}</strong></h4></a>
+                <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h4>Current price: <strong>¥{{ auction.max_bid | intcomma }}</strong></h4></a>
                 {% if auction.bid_count > 0 %}
                 <a href="{% url 'auctions:products' product_id=auction.id product_name=auction.name %}"><h5>{{ auction.bid_count }} {% if auction.bid_count == 1 %}bid{% else %}bids{% endif %} so far!</h5></a>
                 {% endif %}

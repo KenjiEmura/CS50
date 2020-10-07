@@ -1,15 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.db.models import Max, Count
 
 from .models import *
 from .forms import *
 
 
 def auction(request, product_id, product_name):
-    from django.db.models import Avg, Max, Min, Sum, Count
     from django.forms import modelform_factory
     import math
 
@@ -37,6 +37,7 @@ def auction(request, product_id, product_name):
     if request.method == "GET":
         return render(request, "auctions/product.html", {
             "product": product,
+            "price": cur_max_bid,
             "makebid": bid_form,
             "count_bid": count_bid
         })
@@ -48,8 +49,6 @@ def auction(request, product_id, product_name):
             new_bid.product = Auction.objects.get(pk=product_id)
             new_bid.user = request.user
             new_bid.save()
-            product.price = posted_bid
-            product.save()
         if form.is_valid():
             from django.contrib import messages
             posted_bid = form.cleaned_data['bid']
@@ -79,12 +78,14 @@ def create(request):
 
 
 def index(request):
-    from django.db.models import Avg, Max, Min, Sum, Count
-
-    return render(request, "auctions/index.html", {
-        "auctions": Auction.objects.annotate(
+    products = Auction.objects.annotate(
             max_bid=Max('product_bids__bid'),
             bid_count=Count('product_bids'))
+    for product in products:
+        if product.max_bid is None:
+            product.max_bid = product.price
+    return render(request, "auctions/index.html", {
+        "auctions": products
     })
 
 
