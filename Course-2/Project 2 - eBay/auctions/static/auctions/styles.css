@@ -33,12 +33,21 @@
 .index-content {
   padding: 0 5vw 5vh;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   column-gap: 4em;
   row-gap: 4em;
   margin-top: 3em;
 }
 
+@media (max-width: 700px) {
+  .index-content {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+@media (min-width: 700px) {
+  .index-content {
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  }
+}
 .header {
   padding: 2em 2em 0;
   text-align: center;
@@ -66,7 +75,6 @@ h1, h2, h3 {
 
 .prod-img {
   padding: 2em;
-  max-height: 350px;
   text-align: center;
 }
 
@@ -110,7 +118,8 @@ p {
   display: block;
   width: 100%;
   margin-bottom: 1em;
-  padding: 0.4em 1em;
+  padding: 1em 1em;
+  height: 40px;
 }
 .form-field:focus {
   border: 2px solid #1c89ff;
@@ -118,11 +127,19 @@ p {
   outline: none;
 }
 
+#make-bid .form-field {
+  margin-bottom: 0;
+}
+
+.inline-form {
+  display: flex;
+}
+
 .button {
   padding: 0 3em;
   position: relative;
   height: 36px;
-  border-radius: 18px;
+  border-radius: 20em;
   background-color: #1c89ff;
   border: solid 1px transparent;
   color: white;
@@ -135,6 +152,11 @@ p {
   background-color: #1460b1;
   border-color: transparent;
   transition: all 0.1s ease-in-out;
+}
+.button.bid-button {
+  align-self: flex-end;
+  height: 40px;
+  margin: 0 1em;
 }
 
 div.centered > form {
