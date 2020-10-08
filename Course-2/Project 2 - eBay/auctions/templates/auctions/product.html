@@ -17,10 +17,15 @@
     </div>
 
     <div class="content">
-        <form id="create-product" action="{% url 'auctions:products' product_id=product.id product_name=product.name %}" method="POST">
-            {% csrf_token %}
-            {{ makebid }}
-        </form>
+        {% if user.is_authenticated %}
+        <div class="inline-form">
+            <form id="make-bid" action="{% url 'auctions:products' product_id=product.id product_name=product.name %}" method="POST">
+                {% csrf_token %}
+                {{ makebid }}
+            </form>
+            <button type="submit" class="button bid-button" form="make-bid">Bid!</button>
+        </div>
+        {% endif %}
         {% if count_bid > 0 %}
             <p class="small-info">{{ count_bid }} {% if count_bid == 1 %}bid{% else %}bids{% endif %} so far!</h5>
         {% endif %}

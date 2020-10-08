@@ -12,6 +12,8 @@
             {% csrf_token %}
             {% if request.GET.next %}
                 <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% elif next %}
+                <input type="hidden" name="next" value="{{ next }}">
             {% endif %}
             <div class="form-group">
                 <input autofocus class="form-control" type="text" name="username" placeholder="Username">

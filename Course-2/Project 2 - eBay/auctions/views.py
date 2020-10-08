@@ -106,9 +106,15 @@ def login_view(request):
             else:
                 return HttpResponseRedirect(reverse("auctions:index"))
         else:
-            return render(request, "auctions/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            if 'next' in request.POST:
+                return render(request, "auctions/login.html", {
+                    "message": "Invalid username and/or password.",
+                    "next": request.POST.get('next')
+                })
+            else:
+                return render(request, "auctions/login.html", {
+                    "message": "Invalid username and/or password."
+                })
     else:
         return render(request, "auctions/login.html")
 
