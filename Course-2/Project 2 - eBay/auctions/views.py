@@ -44,12 +44,6 @@ def auction(request, product_id, product_name):
         })
     elif request.method == "POST":
         form = MakeBid(request.POST)
-        def success(form, product_id, posted_bid):
-            messages.success(request, 'Your bid was successfuly received!')
-            new_bid = form.save(commit=False)
-            new_bid.product = Auction.objects.get(pk=product_id)
-            new_bid.user = request.user
-            new_bid.save()
         if form.is_valid():
             from django.contrib import messages
             posted_bid = form.cleaned_data['bid']
@@ -57,7 +51,11 @@ def auction(request, product_id, product_name):
                 messages.error(request, f'Your bid has to be greater than ¥{cur_max_bid:,}')
                 return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
             else:
-                success(form, product_id, posted_bid)
+                messages.success(request, 'Your bid was successfuly received!')
+                new_bid = form.save(commit=False)
+                new_bid.product = Auction.objects.get(pk=product_id)
+                new_bid.user = request.user
+                new_bid.save()
                 return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
         else:
             messages.error(request, 'An error posting the information occured!')

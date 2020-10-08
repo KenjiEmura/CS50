@@ -2,8 +2,8 @@
   border-radius: 10px;
   text-align: center;
   padding: 0.5em;
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: 8vw;
+  margin-right: 8vw;
 }
 
 .error {
@@ -23,15 +23,15 @@
 }
 
 .body > h2 {
-  padding: 0.5em 5vw 0;
+  padding: 0.5em 8vw 0;
 }
 
-.content {
-  padding: 0 5vw 5vh;
+.product-page-body .content {
+  max-width: 850px;
 }
 
 .index-content {
-  padding: 0 5vw 5vh;
+  padding: 0 8vw 5vh;
   display: grid;
   column-gap: 4em;
   row-gap: 4em;
@@ -112,6 +112,10 @@ p {
   margin-bottom: 0;
 }
 
+textarea.form-field {
+  height: 150px;
+}
+
 .form-field {
   border: 2px solid gainsboro;
   border-radius: 5px;
@@ -187,13 +191,15 @@ form button {
 }
 .product-img > img {
   border-radius: 5px;
-  max-height: 300px;
+  max-width: 650px;
   margin-bottom: 3em;
 }
 
 .product-page-body {
-  margin: 2em 5vw 5em;
+  margin: 2em 8vw 5em;
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
 }
 
 /*# sourceMappingURL=styles.css.map */
