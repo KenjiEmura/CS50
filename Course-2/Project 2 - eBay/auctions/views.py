@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -62,7 +63,7 @@ def auction(request, product_id, product_name):
             messages.error(request, 'An error posting the information occured!')
         return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
 
-
+@login_required(login_url='auctions:login')
 def create(request):
     if request.method == "POST":
         form = CreateProduct(request.POST)
@@ -100,7 +101,10 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("auctions:index"))
+            if 'next' in request.POST:
+                return HttpResponseRedirect(request.POST.get('next'))
+            else:
+                return HttpResponseRedirect(reverse("auctions:index"))
         else:
             return render(request, "auctions/login.html", {
                 "message": "Invalid username and/or password."

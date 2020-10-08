@@ -10,6 +10,9 @@
     <div class="centered">
         <form id="login" action="{% url 'auctions:login' %}" method="post">
             {% csrf_token %}
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
             <div class="form-group">
                 <input autofocus class="form-control" type="text" name="username" placeholder="Username">
             </div>
