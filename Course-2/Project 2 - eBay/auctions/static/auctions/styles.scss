@@ -10,6 +10,12 @@ $success-border: #c3e6cb;
 $success-text: #155724;
 $left-right-margin: 8vw;
 
+// Disabled button:
+$disabled-color: #383d41;
+$disabled-background-color: #e2e3e5;
+$disabled-border-color: #d6d8db;
+
+
 %message {
     border-radius: 10px;
     text-align: center;
@@ -177,6 +183,18 @@ textarea.form-field {
         align-self: flex-end;
         height: 40px;
         margin: 0 1em;
+    }
+    &.remove-button {
+        color: $disabled-color;
+        background-color: $disabled-background-color;
+        border-color: $disabled-border-color;
+        margin-top: 1em;
+    }
+    &.add-button {
+        color: $success-text;
+        background-color: $success-background;
+        border-color: $success-border;
+        margin-top: 1em;
     }
 }
 

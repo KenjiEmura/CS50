@@ -4,7 +4,6 @@ from datetime import datetime
 
 
 class User(AbstractUser):
-    pass
     def __str__(self):
         return f"{self.username}"
 
@@ -16,6 +15,7 @@ class ProductCategory(models.Model):
 
 class Auction(models.Model):
     name = models.CharField(max_length=64)
+    watchlist = models.ManyToManyField(User, default=None, blank=True, related_name="users")
     img_url = models.CharField(max_length=300)
     category = models.ForeignKey(ProductCategory, default=1, on_delete=models.CASCADE, related_name="products")
     price = models.IntegerField()

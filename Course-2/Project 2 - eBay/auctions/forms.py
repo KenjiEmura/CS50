@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy as _
-from django.forms import ModelForm, Textarea, TextInput, NumberInput, Select
+from django.forms import ModelForm, Textarea, TextInput, NumberInput, Select, HiddenInput
 from .models import *
 
 class CreateProduct(ModelForm):

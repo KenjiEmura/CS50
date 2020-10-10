@@ -5,14 +5,28 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.db.models import Max, Count
+from django.contrib import messages
+from django.forms import modelform_factory
+import math
 
 from .models import *
 from .forms import *
 
+def add_to_watchlist(request, product_id,product_name):
+    product = Auction.objects.get(pk=product_id)
+    messages.success(request, f'{product.name} added successfuly to your Watchlist!')
+    product.watchlist.add(request.user)
+    return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
+
+        
+def remove_from_watchlist(request, product_id,product_name):
+    product = Auction.objects.get(pk=product_id)
+    messages.success(request, f'{product.name} removed successfuly from your Watchlist!')
+    product.watchlist.remove(request.user)
+    return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
+
 
 def auction(request, product_id, product_name):
-    from django.forms import modelform_factory
-    import math
 
     # Get the product and the respective bids infromation
     product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
@@ -45,7 +59,6 @@ def auction(request, product_id, product_name):
     elif request.method == "POST":
         form = MakeBid(request.POST)
         if form.is_valid():
-            from django.contrib import messages
             posted_bid = form.cleaned_data['bid']
             if posted_bid <= cur_max_bid:
                 messages.error(request, f'Your bid has to be greater than ¥{cur_max_bid:,}')

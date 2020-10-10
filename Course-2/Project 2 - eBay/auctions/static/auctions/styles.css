@@ -162,6 +162,18 @@ textarea.form-field {
   height: 40px;
   margin: 0 1em;
 }
+.button.remove-button {
+  color: #383d41;
+  background-color: #e2e3e5;
+  border-color: #d6d8db;
+  margin-top: 1em;
+}
+.button.add-button {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  margin-top: 1em;
+}
 
 div.centered > form {
   display: inline-block;
