@@ -86,9 +86,10 @@ def auction(request, product_id, product_name):
 
 def add_comment(request, product_id, product_name):
     messages.success(request, f'Comment added!')
-    comments = Comment.objects.get(auction=product_id)
-    comments.add()
-
+    product = Auction.objects.get(pk=product_id)
+    new_comment = Comment(user=request.user, auction=product, comment=request.POST['comment'])
+    new_comment.save()
+    return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
 
 def close_auction(request, product_id, product_name):
     product = Auction.objects.get(pk=product_id)
