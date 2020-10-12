@@ -14,6 +14,7 @@ class ProductCategory(models.Model):
         return f"{self.name}"
 
 class Auction(models.Model):
+    is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=64)
     watchlist = models.ManyToManyField(User, default=None, blank=True, related_name="users")
     img_url = models.CharField(max_length=300)

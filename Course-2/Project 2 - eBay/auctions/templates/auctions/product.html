@@ -17,7 +17,13 @@
     </div>
 
     <div class="content">
-        {% if user.is_authenticated %}
+        {% if winning_bid.user == user %}
+        <div class="success">
+            <p>{{ user | capfirst }}! You have the winning bid so far!</p>
+        </div>
+        {% endif %}
+
+        {% if user.is_authenticated and product.is_active %}
             <div class="inline-form">
                 <form id="make-bid" action="{% url 'auctions:products' product_id=product.id product_name=product.name %}" method="POST">
                     {% csrf_token %}
@@ -25,7 +31,12 @@
                 </form>
                 <button type="submit" class="button bid-button" form="make-bid">Bid!</button>
             </div>
+        {% elif not product.is_active %}
+            <div class="success">
+                <p>This auction is closed</p>
+            </div>
         {% endif %}
+
         {% if count_bid > 0 %}
             <p class="small-info">{{ count_bid }} {% if count_bid == 1 %}bid{% else %}bids{% endif %} so far!</h5>
         {% endif %}
@@ -35,17 +46,26 @@
         <p class="small-info">Published on {{ product.timestamp }}</p>
         <p><strong>Details:</strong> {{ product.details }}</p>
         {% if user.is_authenticated and user in product.watchlist.all %}
-        <div>
-            <form id="remove-to-watchlist" action="{% url 'auctions:remove_from_watchlist' product_id=product.id product_name=product.name %}" method="POST">
+            <form id="remove-from-watchlist" action="{% url 'auctions:remove_from_watchlist' product_id=product.id product_name=product.name %}" method="POST">
                 {% csrf_token %}
             </form>
-            <button type="submit" class="button remove-button" form="remove-to-watchlist">Remove from the watchlist!</button>
-        </div>
+            <button type="submit" class="button remove-button" form="remove-from-watchlist">Remove from the watchlist!</button>
         {% elif user.is_authenticated and user not in product.watchlist.all %}
             <form id="add-to-watchlist" action="{% url 'auctions:add_to_watchlist' product_id=product.id product_name=product.name %}" method="POST">
                 {% csrf_token %}
             </form>
             <button type="submit" class="button add-button" form="add-to-watchlist">Add to the watchlist!</button>
+            {% endif %}
+        {% if product.author == user and product.is_open %}
+            <form id="close-auction" action="{% url 'auctions:close_auction' product_id=product.id product_name=product.name %}" method="POST">
+                {% csrf_token %}
+            </form>
+            <button type="submit" class="button open-close-auction" form="close-auction">Close Auction</button>
+        {% elif product.author == user and not product.is_open %}
+            <form id="open-auction" action="{% url 'auctions:open_auction' product_id=product.id product_name=product.name %}" method="POST">
+                {% csrf_token %}
+            </form>
+            <button type="submit" class="button open-close-auction" form="open-auction">Open Auction</button>
         {% endif %}
     </div>
 </div>

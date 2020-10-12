@@ -116,6 +116,10 @@ textarea.form-field {
   height: 150px;
 }
 
+select.form-field {
+  padding: 0 0.7em;
+}
+
 .form-field {
   border: 2px solid gainsboro;
   border-radius: 5px;
@@ -173,6 +177,17 @@ textarea.form-field {
   background-color: #d4edda;
   border-color: #c3e6cb;
   margin-top: 1em;
+}
+.button.open-close-auction {
+  margin-top: 1em;
+  border: solid 1px #1c89ff;
+  background-color: transparent;
+  color: #1c89ff;
+}
+.button.open-close-auction:hover {
+  background-color: #1c89ff;
+  border: solid 1px transparent;
+  color: white;
 }
 
 div.centered > form {
