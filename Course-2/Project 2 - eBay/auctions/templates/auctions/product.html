@@ -11,18 +11,26 @@
     {% endfor %}
 {% endif %}
 
+{% if not product.is_active and winning_bid.user %}
+<div class="success">
+    <p>This auction is closed, {{ winning_bid.user | capfirst }} won the auction!</p>
+</div>
+{% elif not product.is_active and not winning_bid.user %}
+    <div class="error">
+        <p>This auction is closed</p>
+    </div>
+{% elif winning_bid.user == user and product.is_active %}
+    <div class="success">
+        <p>{{ user | capfirst }}! You have the winning bid so far!</p>
+    </div>
+{% endif %}
+
 <div class="product-page-body">
     <div class="product-img">
         <img src="{{ product.img_url }}" alt="{{ product }}">
     </div>
 
     <div class="content">
-        {% if winning_bid.user == user %}
-        <div class="success">
-            <p>{{ user | capfirst }}! You have the winning bid so far!</p>
-        </div>
-        {% endif %}
-
         {% if user.is_authenticated and product.is_active %}
             <div class="inline-form">
                 <form id="make-bid" action="{% url 'auctions:products' product_id=product.id product_name=product.name %}" method="POST">
@@ -30,10 +38,6 @@
                     {{ makebid }}
                 </form>
                 <button type="submit" class="button bid-button" form="make-bid">Bid!</button>
-            </div>
-        {% elif not product.is_active %}
-            <div class="success">
-                <p>This auction is closed</p>
             </div>
         {% endif %}
 
@@ -45,29 +49,55 @@
         <h5>Posted by: {{ product.author | capfirst }}</h5>
         <p class="small-info">Published on {{ product.timestamp }}</p>
         <p><strong>Details:</strong> {{ product.details }}</p>
-        {% if user.is_authenticated and user in product.watchlist.all %}
+
+        {% if user.is_authenticated and user in product.watchlist.all and product.is_active %}
             <form id="remove-from-watchlist" action="{% url 'auctions:remove_from_watchlist' product_id=product.id product_name=product.name %}" method="POST">
                 {% csrf_token %}
             </form>
             <button type="submit" class="button remove-button" form="remove-from-watchlist">Remove from the watchlist!</button>
-        {% elif user.is_authenticated and user not in product.watchlist.all %}
+        {% elif user.is_authenticated and user not in product.watchlist.all and product.is_active %}
             <form id="add-to-watchlist" action="{% url 'auctions:add_to_watchlist' product_id=product.id product_name=product.name %}" method="POST">
                 {% csrf_token %}
             </form>
             <button type="submit" class="button add-button" form="add-to-watchlist">Add to the watchlist!</button>
-            {% endif %}
-        {% if product.author == user and product.is_open %}
+        {% endif %}
+
+        {% if product.author == user and product.is_active %}
             <form id="close-auction" action="{% url 'auctions:close_auction' product_id=product.id product_name=product.name %}" method="POST">
                 {% csrf_token %}
             </form>
             <button type="submit" class="button open-close-auction" form="close-auction">Close Auction</button>
-        {% elif product.author == user and not product.is_open %}
-            <form id="open-auction" action="{% url 'auctions:open_auction' product_id=product.id product_name=product.name %}" method="POST">
+        {% elif product.author == user and not product.is_active %}
+            <!-- <form id="open-auction" action="{% url 'auctions:open_auction' product_id=product.id product_name=product.name %}" method="POST">
                 {% csrf_token %}
             </form>
-            <button type="submit" class="button open-close-auction" form="open-auction">Open Auction</button>
+            <button type="submit" class="button open-close-auction" form="open-auction">Open Auction</button> -->
         {% endif %}
     </div>
+</div>
+
+<div class="comments">
+    
+    <h2>Comments:</h2>
+
+    <div class='form'>
+        <form id="add-comment" action="{% url 'auctions:add_comment' product_id=product.id product_name=product.name %}" method="POST">
+            {% csrf_token %}
+            {{ add_comment }}
+        </form>
+        <button type="submit" class="button" form="add-comment">Add comment</button>
+    </div>
+
+    <div class="comments-body">
+    {% for comment in comments %}
+        <div class="individual-comment">
+            <h5>{{ comment.user | capfirst }}:</h5>
+            <p class="small-info">{{ comment.timestamp }}</p>
+            <p>{{ comment.comment }}</p>
+        </div>
+    {% endfor %}
+    </div>
+
 </div>
 
 {% endblock %}

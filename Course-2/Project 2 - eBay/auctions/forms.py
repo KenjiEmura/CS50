@@ -31,3 +31,14 @@ class MakeBid(ModelForm):
         widgets = {
             'bid': NumberInput(attrs={'class':'form-field bid'})
         }
+
+class AddComment(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']
+        labels = {
+            'comment': _('')
+        }
+        widgets = {
+            'comment': Textarea(attrs={'class':'form-field comment', 'placeholder':'Leave a comment...'})
+        }

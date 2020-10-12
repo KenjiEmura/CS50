@@ -12,6 +12,12 @@ import math
 from .models import *
 from .forms import *
 
+def watchlist(request):
+    watchlist = Auction.objects.filter(watchlist=request.user)
+    return render(request, "auctions/watchlist.html", {
+        'watchlist': watchlist
+    })
+
 def add_to_watchlist(request, product_id,product_name):
     product = Auction.objects.get(pk=product_id)
     messages.success(request, f'{product.name} was added to your Watchlist!')
@@ -27,10 +33,11 @@ def remove_from_watchlist(request, product_id,product_name):
 
 
 def auction(request, product_id, product_name):
-    # Get the product and the respective bids infromation
+    # Get the information from the Database
     product = Auction.objects.annotate(max_bid=Max('product_bids__bid')).get(pk=product_id)
     count_bid = Bid.objects.filter(product=product_id).count()
     cur_max_bid = product.max_bid
+    comments = Comment.objects.filter(auction=product_id).order_by('-timestamp')
     # Check if the product has already a bid, if not, the max bid is going to be the initial price of the auction
     if cur_max_bid is not None:
         winning_bid = Bid.objects.filter(bid=cur_max_bid, product=product_id)
@@ -45,13 +52,15 @@ def auction(request, product_id, product_name):
             price /= 10
             i += 1
         return 10**(i-1)
-    # Prepopulate the MakeBid form
+    # Prepopulate the forms
     step = math.ceil(step(cur_max_bid))
     bid_form = modelform_factory(Bid, form=MakeBid, widgets = {'bid': NumberInput(attrs={'min':cur_max_bid + step, 'class':'form-field bid','step':step, 'value':cur_max_bid + step})})
 
     if request.method == "GET":
         return render(request, "auctions/product.html", {
             "product": product,
+            "comments": comments,
+            "add_comment": AddComment(),
             "winning_bid": winning_bid,
             "price": cur_max_bid,
             "makebid": bid_form,
@@ -75,9 +84,15 @@ def auction(request, product_id, product_name):
         return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))
 
 
+def add_comment(request, product_id, product_name):
+    messages.success(request, f'Comment added!')
+    comments = Comment.objects.get(auction=product_id)
+    comments.add()
+
+
 def close_auction(request, product_id, product_name):
     product = Auction.objects.get(pk=product_id)
-    messages.success(request, f'{product.name} The auction was successfuly closed!')
+    messages.success(request, f'The auction for "{product.name}" was successfuly closed!')
     product.is_active = False
     product.save()
     return HttpResponseRedirect(reverse('auctions:products', args=[ product_id, product_name ]))

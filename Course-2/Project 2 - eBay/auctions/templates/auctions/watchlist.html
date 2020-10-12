@@ -1,0 +1,14 @@
+{% extends 'auctions/layout.html' %}
+{% load humanize %}
+
+{% block body %}
+
+<h2>{{ request.user | capfirst }}'s Watchlist</h2>
+
+<ul>
+    {% for article in watchlist %}
+    <li><a href="{% url 'auctions:products' product_id=article.id product_name=article.name %}">{{ article }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

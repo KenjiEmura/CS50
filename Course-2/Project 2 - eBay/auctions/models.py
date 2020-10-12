@@ -35,7 +35,7 @@ class Bid(models.Model):
         return f"{self.product} ${self.bid} by {self.user}"
 
 class Comment(models.Model):
-    user = models.ManyToManyField(User, blank=False, related_name="user_comments")
+    user = models.ForeignKey(User, blank=False, on_delete=models.CASCADE, related_name="user_comments")
     auction = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name="product_comments")
     comment = models.TextField(max_length=600)
     timestamp = models.DateTimeField(auto_now_add=True)

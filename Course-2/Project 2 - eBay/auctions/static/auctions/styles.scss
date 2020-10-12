@@ -213,18 +213,27 @@ select.form-field {
     }
 }
 
-div.centered>form {
-    display: inline-block;
-    margin-top: 3em;
-}
-
 label {
     float: left;
     margin-bottom: 0;
     font-weight: 700;
 }
 
-.centered {
+.form {
+    text-align: right;
+    margin-top: 3em;
+}
+
+form {
+    display: inline-block;
+}
+
+#add-comment {
+    display: block;
+}
+
+.full-page-form {
+    display: block;
     text-align: center;
 }
 
@@ -246,8 +255,20 @@ form button {
 }
 
 .product-page-body {
-    margin: 2em $left-right-margin 5em;
+    margin: 2em $left-right-margin 0;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+}
+
+.comments {
+    margin: 2em $left-right-margin 0;
+}
+
+.comments-body {
+    margin: 2em auto 5em;
+}
+
+.individual-comment {
+    margin: 2em auto 0;
 }

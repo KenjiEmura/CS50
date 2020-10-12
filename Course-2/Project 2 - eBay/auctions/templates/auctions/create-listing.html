@@ -8,8 +8,8 @@
         <h3>The end</h3>
     {% else %}
     <h2>Create listing</h2>
-    <div class="centered">
-        <form id="create-product" action="{% url 'auctions:create-listing' %}" method="POST">
+    <div class="full-page-form">
+        <form id="create-product" action="{% url 'auctions:create_listing' %}" method="POST">
             {% csrf_token %}
             {{ create_product }}
             <button type="submit" class="button" form="create-product">Create</button>
