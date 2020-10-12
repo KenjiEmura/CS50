@@ -12,6 +12,24 @@ import math
 from .models import *
 from .forms import *
 
+
+def categories(request, categ):
+    categ_id = ProductCategory.objects.get(name=categ)
+    products = Auction.objects.filter(category=categ_id).annotate(
+        max_bid=Max('product_bids__bid'),
+        bid_count=Count('product_bids'))
+    for product in products:
+        if product.max_bid is None:
+            product.max_bid = product.price
+    categories = ProductCategory.objects.all()
+    category = ProductCategory.objects.get(name=categ)
+    return render(request, "auctions/categories.html", {
+            "categories": categories,
+            "showed_category": category,
+            "products": products
+        })
+
+
 def watchlist(request):
     watchlist = Auction.objects.filter(watchlist=request.user)
     return render(request, "auctions/watchlist.html", {

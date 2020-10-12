@@ -20,8 +20,7 @@ $disabled-border-color: #d6d8db;
     border-radius: 10px;
     text-align: center;
     padding: 0.5em;
-    margin-left: $left-right-margin;
-    margin-right: $left-right-margin;
+    margin: 3em $left-right-margin 4em;
 }
 
 .error {
@@ -46,9 +45,6 @@ $disabled-border-color: #d6d8db;
     padding: 0.5em $left-right-margin 0;
 }
 
-.product-page-body .content {
-    max-width: 850px;
-}
 
 .index-content {
     padding: 0 $left-right-margin 5vh;
@@ -163,6 +159,8 @@ select.form-field {
 
 .inline-form {
     display: flex;
+    justify-content: center;
+    margin: 0 0 4em;
 }
 
 
@@ -271,4 +269,49 @@ form button {
 
 .individual-comment {
     margin: 2em auto 0;
+}
+
+.category-containter {
+    padding: 0 $left-right-margin 5vh 0;
+    display: grid;
+    column-gap: 1em;
+    row-gap: 2em;
+    margin: 3em 0 5em;
+    grid-template-columns: 15% 85%;
+    justify-items: center;
+}
+
+.category-sidebar-title {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    text-align: center;
+}
+
+.category-sidebar {
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.category-main {
+    grid-column-start: 2;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.category-item-container {
+    width: 31%;
+    border: 2px solid gainsboro;
+    border-radius: 5px;
+}
+
+.category-title {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.selected {
+    font-weight: 800;
+    color: $main-color;
 }

@@ -23,6 +23,9 @@
                     <a class="nav-link" href="{% url 'auctions:index' %}"><strong>Active Listings</strong></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'auctions:categories' categ='Food' %}"><strong>Categories</strong></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'auctions:create_listing' %}"><strong>Create Listing</strong></a>
                 </li>
                 <li class="nav-item">
