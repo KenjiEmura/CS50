@@ -31,9 +31,14 @@ def categories(request, categ):
 
 
 def watchlist(request):
-    watchlist = Auction.objects.filter(watchlist=request.user)
+    products = Auction.objects.filter(watchlist=request.user).annotate(
+            max_bid=Max('product_bids__bid'),
+            bid_count=Count('product_bids'))
+    for product in products:
+        if product.max_bid is None:
+            product.max_bid = product.price
     return render(request, "auctions/watchlist.html", {
-        'watchlist': watchlist
+        'watchlist': products
     })
 
 def add_to_watchlist(request, product_id,product_name):

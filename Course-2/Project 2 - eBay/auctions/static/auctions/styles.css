@@ -1,8 +1,7 @@
 .success, .error {
-  border-radius: 10px;
   text-align: center;
   padding: 0.5em;
-  margin: 3em 8vw 4em;
+  margin: 0 8vw;
 }
 
 .error {
@@ -23,6 +22,7 @@
 
 .body > h2 {
   padding: 0.5em 8vw 0;
+  margin-bottom: 0.8em;
 }
 
 .index-content {
@@ -290,6 +290,25 @@ form button {
 .selected {
   font-weight: 800;
   color: #FFA200;
+}
+
+.watchlist-content {
+  padding: 0 8vw 5vh;
+  display: grid;
+  column-gap: 2em;
+  row-gap: 2em;
+  margin-top: 3em;
+}
+
+@media (max-width: 700px) {
+  .watchlist-content {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+@media (min-width: 700px) {
+  .watchlist-content {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
