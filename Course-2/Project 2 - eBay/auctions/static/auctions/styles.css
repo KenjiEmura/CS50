@@ -25,6 +25,10 @@
   margin-bottom: 0.8em;
 }
 
+.centered {
+  text-align: center;
+}
+
 .index-content {
   padding: 0 8vw 5vh;
   display: grid;

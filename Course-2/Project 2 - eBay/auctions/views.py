@@ -148,7 +148,7 @@ def create(request):
 def index(request):
     products = Auction.objects.annotate(
             max_bid=Max('product_bids__bid'),
-            bid_count=Count('product_bids'))
+            bid_count=Count('product_bids')).order_by('-timestamp')
     for product in products:
         if product.max_bid is None:
             product.max_bid = product.price
