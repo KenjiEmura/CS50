@@ -1,4 +1,4 @@
-*/Tests/*
-*/__pycache__/*
-__pycache__/
+**/Tests
+*/Test
+**/__pycache__
 *.sqlite3
