@@ -7,32 +7,6 @@ document.addEventListener('DOMContentLoaded',() => {
   document.querySelector('#archived').addEventListener('click', loadArchived );
   document.querySelector('#compose').addEventListener('click', compose_email);
 
-
-  // document.querySelector('#compose-form').addEventListener('submit', () => {
-
-  //   const form_recipients = document.querySelector('#compose-recipients').value;
-  //   const form_subject = document.querySelector('#compose-subject').value;
-  //   const form_body = document.querySelector('#compose-body').value;
-
-  //   fetch('/emails', {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //         recipients: form_recipients,
-  //         subject: form_subject,
-  //         body: form_body
-  //     })
-  //   })
-  //   .then(response => response.json())
-  //   .then(result => {
-  //       // Print result
-  //       console.log(result);
-  //   });
-
-  //   loadSent();
-
-  //   return false;
-  // });
-
   document.querySelector('#compose-form').onsubmit = () => {
     const form_recipients = document.querySelector('#compose-recipients').value;
     const form_subject = document.querySelector('#compose-subject').value;
