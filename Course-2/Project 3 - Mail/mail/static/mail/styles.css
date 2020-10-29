@@ -1,3 +1,48 @@
 textarea {
     min-height: 400px;
 }
+
+table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+
+#emails-table {
+    margin: 2em auto;
+}
+
+table thead tr {
+    height: 60px;
+    background: #468edd;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+}
+
+table tbody tr {
+    height: 50px;
+    font-size: 15px;
+    color: #808080;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.sender-col {
+    width: 30%;
+    padding: 0 1em;
+}
+
+.subject-col {
+    width: 50%;
+    padding: 0 1em;
+}
+
+.timestamp-col {
+    width: auto;
+    padding: 0 1em;
+    text-align: center;
+}
