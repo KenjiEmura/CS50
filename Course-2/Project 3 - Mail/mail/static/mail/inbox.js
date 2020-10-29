@@ -20,8 +20,7 @@ document.addEventListener('DOMContentLoaded',() => {
           body: form_body
       })
     })
-    .then(loadSent)
-
+    .then(loadSent);
     return false;
   }
 
