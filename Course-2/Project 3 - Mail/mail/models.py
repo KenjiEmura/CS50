@@ -27,3 +27,9 @@ class Email(models.Model):
             "read": self.read,
             "archived": self.archived
         }
+    
+    def __str__(self):
+        str_recipients = ", ".join(str(address) for address in self.recipients.all()).replace('@gmail.com','').capitalize()
+        str_user = str(self.user).replace('@gmail.com','').capitalize()
+        str_from = str(self.sender).replace('@gmail.com','').capitalize()
+        return f"{str_user}: Message from {str_from} to [ {str_recipients} ]"
