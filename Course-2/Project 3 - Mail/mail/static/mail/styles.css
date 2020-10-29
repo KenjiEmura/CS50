@@ -7,18 +7,26 @@ table {
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
-}
-
-#emails-table {
     margin: 2em auto;
 }
 
 table thead tr {
     height: 60px;
-    background: #468edd;
     font-size: 18px;
     color: #fff;
     line-height: 1.2;
+}
+
+table#inbox-table thead tr {
+    background: #468edd;
+}
+
+table#sent-table thead tr {
+    background: #2d7026;
+}
+
+table#archived-table thead tr {
+    background: #979797;
 }
 
 table tbody tr {
