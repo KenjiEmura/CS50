@@ -70,7 +70,7 @@ function loadInbox() {
 
     // Show the mailbox name and create the table inside the <div id="emails-view">
     document.querySelector('#emails-view').innerHTML = "<h3>Inbox</h3>";
-    document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table id="inbox-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
+    document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table class="inbox-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
     
     // Populate the table
     result.forEach( rowInfo => {
@@ -116,7 +116,7 @@ function loadSent() {
 
     // Show the mailbox name and create the table inside the <div id="emails-view">
     document.querySelector('#emails-view').innerHTML = "<h3>Sent</h3>";
-    document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table id="sent-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
+    document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table class="sent-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
 
     // Populate the table
     result.forEach( rowInfo => {
@@ -165,7 +165,7 @@ function loadArchived() {
 
     // Show the mailbox name and create the table inside the <div id="emails-view">
     document.querySelector('#emails-view').innerHTML = "<h3>Archived</h3>";
-    document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table id="archived-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
+    document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table class="archived-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
 
     // Populate the table
     result.forEach( rowInfo => {

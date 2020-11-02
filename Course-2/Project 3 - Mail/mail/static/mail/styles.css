@@ -17,15 +17,15 @@ table thead tr {
     line-height: 1.2;
 }
 
-table#inbox-table thead tr {
+table.inbox-table thead tr {
     background: #468edd;
 }
 
-table#sent-table thead tr {
+table.sent-table thead tr {
     background: #2d7026;
 }
 
-table#archived-table thead tr {
+table.archived-table thead tr {
     background: #979797;
 }
 
