@@ -78,6 +78,9 @@ function loadInbox() {
       const row = document.querySelector('tbody').insertRow();
       row.className = 'mail-row';
 
+      // Hidden ID input
+      console.log(rowInfo.id);
+
       // Sender Column
       let sender = row.insertCell();
       sender.className = 'sender-col';

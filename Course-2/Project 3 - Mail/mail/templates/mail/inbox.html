@@ -3,11 +3,10 @@
 
 {% block body %}
     <h2>{{ request.user.email }}</h2>
-    <div id='button-menu'></div>
-    <!-- <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
+    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
     <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
     <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button> -->
+    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
     <hr>
 
@@ -38,7 +37,5 @@
 {% endblock %}
 
 {% block script %}
-<script type="text/babel" src="{% static 'mail/practice.js' %}"></script>
-<script type="text/babel" src="{% static 'mail/react-app.js' %}"></script>
 <script src="{% static 'mail/inbox.js' %}"></script>
 {% endblock %}
