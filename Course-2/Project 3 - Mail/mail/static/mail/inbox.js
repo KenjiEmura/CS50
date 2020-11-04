@@ -77,9 +77,10 @@ function loadInbox() {
       // Create a new row in the table
       const row = document.querySelector('tbody').insertRow();
       row.className = 'mail-row';
-
-      // Hidden ID input
-      console.log(rowInfo.id);
+      row.addEventListener("click", () => {
+        window.location.href = window.location.href + 'emails/' + rowInfo.id;
+        console.log('Entramos');
+      });
 
       // Sender Column
       let sender = row.insertCell();
