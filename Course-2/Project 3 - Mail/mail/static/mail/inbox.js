@@ -127,6 +127,10 @@ function loadSent() {
       // Create a new row in the table
       const row = document.querySelector('tbody').insertRow();
       row.className = 'mail-row';
+      row.addEventListener("click", () => {
+        window.location.href = window.location.href + 'emails/' + rowInfo.id;
+        console.log('Entramos');
+      });
 
       // Sent-To Column
       let sent_to = row.insertCell();
@@ -176,6 +180,10 @@ function loadArchived() {
       // Create a new row in the table
       const row = document.querySelector('tbody').insertRow();
       row.className = 'mail-row';
+      row.addEventListener("click", () => {
+        window.location.href = window.location.href + 'emails/' + rowInfo.id;
+        console.log('Entramos');
+      });
 
       // Sender Column
       let sender = row.insertCell();
