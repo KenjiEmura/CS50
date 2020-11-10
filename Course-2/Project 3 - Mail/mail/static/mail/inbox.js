@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded',() => {
 
 
 
-
 function compose_email() {
     // Show compose view and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'block';
+    document.querySelector('#view-email').style.display = 'none';
 
     // Clear out composition fields
     document.querySelector('#compose-recipients').value = '';
@@ -44,13 +44,12 @@ function compose_email() {
 }
 
 
-
 function load_mailbox() {
     // Show the mailbox and hide other views
     document.querySelector('#emails-view').style.display = 'block';
     document.querySelector('#compose-view').style.display = 'none';
+    document.querySelector('#view-email').style.display = 'none';
 }
-
 
 
 
@@ -88,8 +87,8 @@ function loadInbox() {
 
             // Make the entire row clickable
             row.addEventListener("click", () => {
-                window.location.href = window.location.href + 'emails/' + rowInfo.id;
-                console.log('Entramos');
+                document.querySelector('#view-email').innerHTML = '<h3>Inbox</h3>';
+                viewMail(rowInfo);
             });
 
             // Sender Column
@@ -109,7 +108,6 @@ function loadInbox() {
         });
     });
 }
-
 
 
 
@@ -137,9 +135,11 @@ function loadSent() {
             // Create a new row in the table
             const row = document.querySelector('tbody').insertRow();
             row.className = 'mail-row';
+
+            // Make the entire row clickable
             row.addEventListener("click", () => {
-                window.location.href = window.location.href + 'emails/' + rowInfo.id;
-                console.log('Entramos');
+                document.querySelector('#view-email').innerHTML = '<h3>Sent</h3>';
+                viewMail(rowInfo);
             });
 
             // Sent-To Column
@@ -159,8 +159,6 @@ function loadSent() {
         });
     });
 }
-
-
 
 
 function loadArchived() {
@@ -190,9 +188,11 @@ function loadArchived() {
             // Create a new row in the table
             const row = document.querySelector('tbody').insertRow();
             row.className = 'mail-row';
+
+            // Make the entire row clickable
             row.addEventListener("click", () => {
-                window.location.href = window.location.href + 'emails/' + rowInfo.id;
-                console.log('Entramos');
+                document.querySelector('#view-email').innerHTML = '<h3>Archived</h3>';
+                viewMail(rowInfo);
             });
 
             // Sender Column
@@ -214,6 +214,46 @@ function loadArchived() {
 }
 
 
-function viewMail() {
+function viewMail(rowInfo) {
 
+    // Show the 'view-email' container and hide the rest
+    document.querySelector('#emails-view').style.display = 'none';
+    document.querySelector('#compose-view').style.display = 'none';
+    document.querySelector('#view-email').style.display = 'block';
+
+    // Fetch the mail info
+    fetch('/emails/'+rowInfo.id, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+
+        // Create the Archive / Unarchive button
+        let button = document.createElement('button');
+        button.className = 'btn btn-sm btn-outline-primary'
+
+        // Put the information inside the container (HTML)
+        let div = document.querySelector('#view-email');
+        div.insertAdjacentHTML('beforeend', `
+            <h6><strong>From:</strong> ${result.sender}</h6>
+            <h6><strong>To:</strong> ${result.recipients}</h6>
+            <h6><strong>Subject:</strong> ${result.subject}</h6>
+            <h6><strong>Timestamp:</strong> ${result.timestamp}</h6>
+        `);
+        div.insertAdjacentElement('beforeend', button);
+        div.insertAdjacentHTML('beforeend', `
+            <hr>
+            <h6><strong>Message body:</strong></h6>
+            <div><p>${result.body}</p></div>
+        `)
+
+
+        if (result.archived) {
+            button.innerHTML = 'Unarchive';
+        } else {
+            button.innerHTML = 'Archive';
+        }
+
+    });
 }

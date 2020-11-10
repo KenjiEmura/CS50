@@ -3,20 +3,19 @@
 
 {% block body %}
     <h2>{{ request.user.email }}</h2>
-    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
-    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
-    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
-    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+    <button class="btn btn-sm btn-primary" id="inbox">Inbox</button>
+    <button class="btn btn-sm btn-primary" id="compose">Compose</button>
+    <button class="btn btn-sm btn-primary" id="sent">Sent</button>
+    <button class="btn btn-sm btn-primary" id="archived">Archived</button>
+    <a class="btn btn-sm btn-primary" href="{% url 'logout' %}">Log Out</a>
     <hr>
 
     <div id="emails-view">
     </div>
 
-    <div id="react"></div>
-
-    
-    <div id="react-app"></div>
+    <div id="view-email">
+        <h1 id='email-header'></h1>
+    </div>
 
     <div id="compose-view">
         <h3>New Email</h3>
