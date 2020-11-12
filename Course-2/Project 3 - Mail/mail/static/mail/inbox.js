@@ -44,14 +44,14 @@ function compose_email() {
 }
 
 
-function reply_mail(recipients, subject, body) {
+with function reply_mail(recipient, subject, body) {
     // Show compose view and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'block';
     document.querySelector('#view-email').style.display = 'none';
 
     // Pre populate composition fields
-    document.querySelector('#compose-recipients').value = recipients;
+    document.querySelector('#compose-recipients').value = recipient;
     document.querySelector('#compose-subject').value = subject;
     document.querySelector('#compose-body').value = body;
 
@@ -242,8 +242,6 @@ function viewMail(rowInfo) {
     .then(response => response.json())
     .then(result => {
 
-        console.log(result)
-
         // Mark the mail as read
         fetch('/emails/'+rowInfo.id, {
             method: 'PUT',
@@ -276,14 +274,14 @@ function viewMail(rowInfo) {
             div.insertAdjacentElement('beforeend', archiveButton);
             div.insertAdjacentElement('beforeend', replyButton);
         }
-
-
+        
+        
         // Print the body of the message
         div.insertAdjacentHTML('beforeend', `
-            <hr>
-            <h6><strong>Message body:</strong></h6>
-            <div><p>${result.body}</p></div>
+        <hr>
+        <h6><strong>Message body:</strong></h6>
         `)
+        div.insertAdjacentHTML('beforeend', result.body);
 
         // Conditionaly show the text of the Archive/Unarchive button
         if (result.archived) {
@@ -324,7 +322,7 @@ function viewMail(rowInfo) {
             body = 'On ' + result.timestamp + ', ' + result.sender + ' wrote: \n\n' + body
 
             // Load the compose mail view and pre populate the form with the altered data
-            reply_mail(result.recipients, subject, body)
+            reply_mail(result.sender, subject, body)
             
         });
 
