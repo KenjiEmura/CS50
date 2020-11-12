@@ -44,13 +44,17 @@ function compose_email() {
 }
 
 
-function reply_mail() {
+function reply_mail(recipients, subject, body) {
     // Show compose view and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'block';
     document.querySelector('#view-email').style.display = 'none';
 
-    
+    // Pre populate composition fields
+    document.querySelector('#compose-recipients').value = recipients;
+    document.querySelector('#compose-subject').value = subject;
+    document.querySelector('#compose-body').value = body;
+
 }
 
 
@@ -238,6 +242,8 @@ function viewMail(rowInfo) {
     .then(response => response.json())
     .then(result => {
 
+        console.log(result)
+
         // Mark the mail as read
         fetch('/emails/'+rowInfo.id, {
             method: 'PUT',
@@ -265,12 +271,12 @@ function viewMail(rowInfo) {
             <h6><strong>Timestamp:</strong> ${result.timestamp}</h6>
         `);
 
-        // Insert into the #view-email the Archive/Unarchive button for mails that were not sent by the current user
+        // Insert into the #view-email the buttons for mails that were not sent by the current user
         if (result.sender != document.querySelector('#current-user-mail').innerHTML) {
             div.insertAdjacentElement('beforeend', archiveButton);
+            div.insertAdjacentElement('beforeend', replyButton);
         }
 
-        div.insertAdjacentElement('beforeend', replyButton);
 
         // Print the body of the message
         div.insertAdjacentHTML('beforeend', `
@@ -303,5 +309,24 @@ function viewMail(rowInfo) {
                 }
             });
         });
+
+        // Prepare the data and load the "Compose mail" view
+        replyButton.addEventListener("click", () => {
+
+            let subject = result.subject
+            let body = result.body
+            const replyPrefix = 'Re: '
+
+            if (!subject.startsWith(replyPrefix)) {
+                subject = replyPrefix + subject
+            }
+
+            body = 'On ' + result.timestamp + ', ' + result.sender + ' wrote: \n\n' + body
+
+            // Load the compose mail view and pre populate the form with the altered data
+            reply_mail(result.recipients, subject, body)
+            
+        });
+
     });
 }
