@@ -44,7 +44,7 @@ function compose_email() {
 }
 
 
-with function reply_mail(recipient, subject, body) {
+function reply_mail(recipient, subject, body) {
     // Show compose view and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'block';
