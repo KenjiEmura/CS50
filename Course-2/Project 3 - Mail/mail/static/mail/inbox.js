@@ -44,6 +44,16 @@ function compose_email() {
 }
 
 
+function reply_mail() {
+    // Show compose view and hide other views
+    document.querySelector('#emails-view').style.display = 'none';
+    document.querySelector('#compose-view').style.display = 'block';
+    document.querySelector('#view-email').style.display = 'none';
+
+    
+}
+
+
 function load_mailbox() {
     // Show the mailbox and hide other views
     document.querySelector('#emails-view').style.display = 'block';
@@ -135,6 +145,7 @@ function loadSent() {
             // Create a new row in the table
             const row = document.querySelector('tbody').insertRow();
             row.className = 'mail-row';
+            row.style.cssText = 'color: #808080; font-weight: 400; background-color: #f5f5f5;';
 
             // Make the entire row clickable
             row.addEventListener("click", () => {
@@ -171,8 +182,6 @@ function loadArchived() {
     .then(response => response.json())
     .then(result => {
 
-        console.log(result);
-
         let table_headers = [
             "<th class='sender-col'>Sender</th>",
             "<th class='subject-col'>Subject</th>",
@@ -188,6 +197,7 @@ function loadArchived() {
             // Create a new row in the table
             const row = document.querySelector('tbody').insertRow();
             row.className = 'mail-row';
+            row.style.cssText = 'color: #808080; font-weight: 400; background-color: #f5f5f5;';
 
             // Make the entire row clickable
             row.addEventListener("click", () => {
@@ -227,11 +237,24 @@ function viewMail(rowInfo) {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result);
+
+        // Mark the mail as read
+        fetch('/emails/'+rowInfo.id, {
+            method: 'PUT',
+            body: JSON.stringify({
+                read: true
+            })
+        })
 
         // Create the Archive / Unarchive button
-        let button = document.createElement('button');
-        button.className = 'btn btn-sm btn-outline-primary'
+        let archiveButton = document.createElement('button');
+        archiveButton.className = 'btn btn-sm btn-outline-primary'
+
+        // Create the Reply button
+        let replyButton = document.createElement('button');
+        replyButton.className = 'btn btn-sm btn-outline-primary'
+        replyButton.innerHTML = 'Reply';
+        replyButton.setAttribute("id", "reply-button");
 
         // Put the information inside the container (HTML)
         let div = document.querySelector('#view-email');
@@ -241,19 +264,44 @@ function viewMail(rowInfo) {
             <h6><strong>Subject:</strong> ${result.subject}</h6>
             <h6><strong>Timestamp:</strong> ${result.timestamp}</h6>
         `);
-        div.insertAdjacentElement('beforeend', button);
+
+        // Insert into the #view-email the Archive/Unarchive button for mails that were not sent by the current user
+        if (result.sender != document.querySelector('#current-user-mail').innerHTML) {
+            div.insertAdjacentElement('beforeend', archiveButton);
+        }
+
+        div.insertAdjacentElement('beforeend', replyButton);
+
+        // Print the body of the message
         div.insertAdjacentHTML('beforeend', `
             <hr>
             <h6><strong>Message body:</strong></h6>
             <div><p>${result.body}</p></div>
         `)
 
-
+        // Conditionaly show the text of the Archive/Unarchive button
         if (result.archived) {
-            button.innerHTML = 'Unarchive';
+            archiveButton.innerHTML = 'Unarchive';
         } else {
-            button.innerHTML = 'Archive';
+            archiveButton.innerHTML = 'Archive';
         }
 
+        // Make a PUT request to update the "Archived or Unarchived" status of the mail
+        archiveButton.addEventListener("click", () => {
+            fetch('/emails/'+rowInfo.id, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    archived: !result.archived
+                })
+            })
+            .then( () => {
+                if (result.archived) {
+                    loadInbox()
+                } else {
+                    loadInbox()
+                    // loadArchived();
+                }
+            });
+        });
     });
 }

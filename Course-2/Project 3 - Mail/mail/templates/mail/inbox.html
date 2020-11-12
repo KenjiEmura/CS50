@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-    <h2>{{ request.user.email }}</h2>
+    <h2 id='current-user-mail'>{{ request.user.email }}</h2>
     <button class="btn btn-sm btn-primary" id="inbox">Inbox</button>
     <button class="btn btn-sm btn-primary" id="compose">Compose</button>
     <button class="btn btn-sm btn-primary" id="sent">Sent</button>

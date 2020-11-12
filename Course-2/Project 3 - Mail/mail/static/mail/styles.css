@@ -57,3 +57,7 @@ tbody tr:nth-child(even) {
     padding: 0 1em;
     text-align: center;
 }
+
+#reply-button {
+    margin: 0 0 0 0.4em;
+}
