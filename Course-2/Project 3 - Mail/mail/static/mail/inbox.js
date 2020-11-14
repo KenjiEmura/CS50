@@ -41,6 +41,9 @@ function compose_email() {
     document.querySelector('#compose-recipients').value = '';
     document.querySelector('#compose-subject').value = '';
     document.querySelector('#compose-body').value = '';
+
+    // Push the state to update the URL
+    history.pushState({page: 'compose'},"",`/compose`)
 }
 
 
@@ -69,6 +72,9 @@ function load_mailbox() {
 
 function loadInbox() {
     load_mailbox();
+
+    // Push the state to update the URL
+    history.pushState({page: ''},"",`/`)
 
     // Get the data from the API
     fetch('/emails/inbox', {
@@ -128,6 +134,9 @@ function loadInbox() {
 function loadSent() {
     load_mailbox();
 
+    // Push the state to update the URL
+    history.pushState({page: 'sent'},"",`/sent`)
+
     // Get the data from the API
     fetch('/emails/sent', {
         method: 'GET'
@@ -178,6 +187,9 @@ function loadSent() {
 
 function loadArchived() {
     load_mailbox();
+
+    // Push the state to update the URL
+    history.pushState({page: 'archived'},"",`/archived`)
 
     // Get the data from the API
     fetch('/emails/archive', {
@@ -241,6 +253,10 @@ function viewMail(rowInfo) {
     })
     .then(response => response.json())
     .then(result => {
+
+        // Push the state to update the URL
+        let page = '/emails/'+rowInfo.id
+        history.pushState({page: page},"",page)
 
         // Mark the mail as read
         fetch('/emails/'+rowInfo.id, {
@@ -327,4 +343,9 @@ function viewMail(rowInfo) {
         });
 
     });
+}
+
+
+window.onpopstate = event => {
+    console.log(event.state.page)
 }
