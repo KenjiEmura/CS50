@@ -61,3 +61,7 @@ tbody tr:nth-child(even) {
 #reply-button {
     margin: 0 0 0 0.4em;
 }
+
+#current-user-mail {
+    margin: 1em 0;
+}

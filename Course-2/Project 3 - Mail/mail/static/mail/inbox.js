@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded',() => {
 
+    // Push initial state (home page)
+    // history.pushState({page: 'inbox'},"",`/emails/inbox`)
+
     // Use buttons to toggle between views
     document.querySelector('#inbox').addEventListener('click', () => {
         history.pushState({page: 'inbox'},"",`/emails/inbox`)
@@ -86,55 +89,62 @@ function loadInbox() {
     })
     .then(response => response.json())
     .then(result => {
-        let table_headers = [
-            "<th class='sender-col'>Sender</th>",
-            "<th class='subject-col'>Subject</th>",
-            "<th class='timestamp-col'>Date</th>"
-        ];
+        
 
-        // Show the mailbox name and create the table inside the <div id="emails-view">
-        document.querySelector('#emails-view').innerHTML = "<h3>Inbox</h3>";
-        document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table class="inbox-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
+        if (result.length === 0) {
+            document.querySelector('#emails-view').innerHTML = "<h3>Inbox</h3>";
+            document.querySelector('#emails-view').insertAdjacentHTML('beforeend', "There are no mails in the Inbox");
+        } else {
+            let table_headers = [
+                "<th class='sender-col'>Sender</th>",
+                "<th class='subject-col'>Subject</th>",
+                "<th class='timestamp-col'>Date</th>"
+            ];
 
-        // Populate the table
-        result.forEach( rowInfo => {
-            // Create a new row in the table
-            const row = document.querySelector('tbody').insertRow();
-            row.className = 'mail-row';
+            // Show the mailbox name and create the table inside the <div id="emails-view">
+            document.querySelector('#emails-view').innerHTML = "<h3>Inbox</h3>";
+            document.querySelector('#emails-view').insertAdjacentHTML('beforeend', `<table class="inbox-table"><thead>${table_headers.join('')}</thead><tbody></tbody></table>`);
 
-            // Add styles to the 'read' and 'unread' messages
-            if (rowInfo.read) {
-                row.style.cssText = 'color: #808080; font-weight: 400; background-color: #f5f5f5;';
-            } else {
-                row.style.cssText = 'color: #000000; font-weight: 700; background-color: #ffffff;';
-            }
+            // Populate the table
+            result.forEach( rowInfo => {
+                // Create a new row in the table
+                const row = document.querySelector('tbody').insertRow();
+                row.className = 'mail-row';
 
-            // Make the entire row clickable
-            row.addEventListener("click", () => {
-                document.querySelector('#view-email').innerHTML = '<h3>Inbox</h3>';
-                
-                // Push the state to update the URL
-                let page = '/emails/'+rowInfo.id
-                history.pushState({page: rowInfo},"",page)
+                // Add styles to the 'read' and 'unread' messages
+                if (rowInfo.read) {
+                    row.style.cssText = 'color: #808080; font-weight: 400; background-color: #f5f5f5;';
+                } else {
+                    row.style.cssText = 'color: #000000; font-weight: 700; background-color: #ffffff;';
+                }
 
-                viewMail(rowInfo);
+                // Make the entire row clickable
+                row.addEventListener("click", () => {
+                    document.querySelector('#view-email').innerHTML = '<h3>Inbox</h3>';
+                    
+                    // Push the state to update the URL
+                    let page = '/emails/'+rowInfo.id
+                    history.pushState({page: rowInfo},"",page)
+
+                    viewMail(rowInfo);
+                });
+
+                // Sender Column
+                let sender = row.insertCell();
+                sender.className = 'sender-col';
+                sender.innerHTML = rowInfo.sender;
+
+                // Subject Column
+                let subject = row.insertCell();
+                subject.className = 'subject-col';
+                subject.innerHTML = rowInfo.subject;
+
+                // Timestamp Column
+                let timestamp = row.insertCell();
+                timestamp.className = 'timestamp-col';
+                timestamp.innerHTML = rowInfo.timestamp;
             });
-
-            // Sender Column
-            let sender = row.insertCell();
-            sender.className = 'sender-col';
-            sender.innerHTML = rowInfo.sender;
-
-            // Subject Column
-            let subject = row.insertCell();
-            subject.className = 'subject-col';
-            subject.innerHTML = rowInfo.subject;
-
-            // Timestamp Column
-            let timestamp = row.insertCell();
-            timestamp.className = 'timestamp-col';
-            timestamp.innerHTML = rowInfo.timestamp;
-        });
+        }   
     });
 }
 
