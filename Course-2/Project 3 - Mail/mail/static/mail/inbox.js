@@ -1,11 +1,22 @@
 document.addEventListener('DOMContentLoaded',() => {
 
     // Use buttons to toggle between views
-    document.querySelector('#inbox').addEventListener('click', loadInbox );
-    document.querySelector('#sent').addEventListener('click', loadSent );
-
-    document.querySelector('#archived').addEventListener('click', loadArchived );
-    document.querySelector('#compose').addEventListener('click', compose_email);
+    document.querySelector('#inbox').addEventListener('click', () => {
+        history.pushState({page: 'inbox'},"",`/emails/inbox`)
+        loadInbox()
+    });
+    document.querySelector('#sent').addEventListener('click', () => {
+        history.pushState({page: 'sent'},"",`/emails/sent`)
+        loadSent()
+    });
+    document.querySelector('#archived').addEventListener('click', () => {
+        history.pushState({page: 'archived'},"",`/emails/archived`)
+        loadArchived()
+    });
+    document.querySelector('#compose').addEventListener('click', () => {
+        history.pushState({page: 'compose'},"",`/compose`)
+        compose_email()
+    });
 
     document.querySelector('#compose-form').onsubmit = () => {
         const form_recipients = document.querySelector('#compose-recipients').value;
@@ -41,9 +52,6 @@ function compose_email() {
     document.querySelector('#compose-recipients').value = '';
     document.querySelector('#compose-subject').value = '';
     document.querySelector('#compose-body').value = '';
-
-    // Push the state to update the URL
-    history.pushState({page: 'compose'},"",`/compose`)
 }
 
 
@@ -69,12 +77,8 @@ function load_mailbox() {
 }
 
 
-
 function loadInbox() {
     load_mailbox();
-
-    // Push the state to update the URL
-    history.pushState({page: ''},"",`/`)
 
     // Get the data from the API
     fetch('/emails/inbox', {
@@ -108,6 +112,11 @@ function loadInbox() {
             // Make the entire row clickable
             row.addEventListener("click", () => {
                 document.querySelector('#view-email').innerHTML = '<h3>Inbox</h3>';
+                
+                // Push the state to update the URL
+                let page = '/emails/'+rowInfo.id
+                history.pushState({page: rowInfo},"",page)
+
                 viewMail(rowInfo);
             });
 
@@ -130,12 +139,8 @@ function loadInbox() {
 }
 
 
-
 function loadSent() {
     load_mailbox();
-
-    // Push the state to update the URL
-    history.pushState({page: 'sent'},"",`/sent`)
 
     // Get the data from the API
     fetch('/emails/sent', {
@@ -163,6 +168,11 @@ function loadSent() {
             // Make the entire row clickable
             row.addEventListener("click", () => {
                 document.querySelector('#view-email').innerHTML = '<h3>Sent</h3>';
+
+                // Push the state to update the URL
+                let page = '/emails/'+rowInfo.id
+                history.pushState({page: rowInfo},"",page)
+
                 viewMail(rowInfo);
             });
 
@@ -187,9 +197,6 @@ function loadSent() {
 
 function loadArchived() {
     load_mailbox();
-
-    // Push the state to update the URL
-    history.pushState({page: 'archived'},"",`/archived`)
 
     // Get the data from the API
     fetch('/emails/archive', {
@@ -218,6 +225,11 @@ function loadArchived() {
             // Make the entire row clickable
             row.addEventListener("click", () => {
                 document.querySelector('#view-email').innerHTML = '<h3>Archived</h3>';
+
+                // Push the state to update the URL
+                let page = '/emails/'+rowInfo.id
+                history.pushState({page: rowInfo},"",page)
+
                 viewMail(rowInfo);
             });
 
@@ -242,10 +254,14 @@ function loadArchived() {
 
 function viewMail(rowInfo) {
 
-    // Show the 'view-email' container and hide the rest
+    // Show the 'view-email' container and hide the rest, and clear the content
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'none';
     document.querySelector('#view-email').style.display = 'block';
+
+    document.querySelector('#view-email').innerHTML = '';
+
+
 
     // Fetch the mail info
     fetch('/emails/'+rowInfo.id, {
@@ -253,10 +269,6 @@ function viewMail(rowInfo) {
     })
     .then(response => response.json())
     .then(result => {
-
-        // Push the state to update the URL
-        let page = '/emails/'+rowInfo.id
-        history.pushState({page: page},"",page)
 
         // Mark the mail as read
         fetch('/emails/'+rowInfo.id, {
@@ -316,8 +328,10 @@ function viewMail(rowInfo) {
             })
             .then( () => {
                 if (result.archived) {
+                    history.pushState({page: 'inbox'},"",`/emails/inbox`)
                     loadInbox()
                 } else {
+                    history.pushState({page: 'inbox'},"",`/emails/inbox`)
                     loadInbox()
                     // loadArchived();
                 }
@@ -347,5 +361,23 @@ function viewMail(rowInfo) {
 
 
 window.onpopstate = event => {
-    console.log(event.state.page)
+    switch (event.state.page) {
+        case 'inbox':
+            loadInbox();
+            break;
+        case 'sent':
+            loadSent();
+            break;
+        case 'archived':
+            loadArchived();
+            break;
+        case 'compose':
+            compose_email();
+            break;
+        case 'compose':
+            compose_email();
+            break;
+        default:
+            viewMail(event.state.page)
+    }    
 }
