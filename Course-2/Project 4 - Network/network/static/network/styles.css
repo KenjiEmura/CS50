@@ -1,0 +1,53 @@
+#main-content {
+  padding: 0 12vw 5vh;
+  display: grid;
+  column-gap: 4em;
+  row-gap: 4em;
+  margin-top: 3em;
+}
+
+#new-post-container {
+  border: solid 1px gainsboro;
+  padding: 2em;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 0 3em;
+  position: relative;
+  height: 36px;
+  border-radius: 20em;
+  background-color: #1c89ff;
+  border: solid 1px transparent;
+  color: white;
+  font-size: 18px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.button:hover {
+  background-color: #1460b1;
+  border-color: transparent;
+  transition: all 0.1s ease-in-out;
+}
+
+.form-field {
+  height: 80px;
+  border: 1px solid gainsboro;
+  border-radius: 5px;
+  display: block;
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 1em 1em;
+}
+.form-field:focus {
+  border: 2px solid #1c89ff;
+  border-radius: 5px;
+  outline: none;
+}
+
+label {
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=styles.css.map */

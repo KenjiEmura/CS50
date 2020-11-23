@@ -1,0 +1,56 @@
+$color-normal: #1c89ff;
+$text-color: white;
+$color-hover: #1460b1;
+$left-right-margin: 12vw;
+
+#main-content {
+    padding: 0 $left-right-margin 5vh;
+    display: grid;
+    column-gap: 4em;
+    row-gap: 4em;
+    margin-top: 3em;
+}
+
+#new-post-container  {
+    border: solid 1px gainsboro;
+    padding: 2em;
+    border-radius: 5px;
+}
+
+.button {
+    padding: 0 3em;
+    position: relative;
+    height: 36px;
+    border-radius: 20em;
+    background-color: $color-normal;
+    border: solid 1px transparent;
+    color: $text-color;
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+    &:hover {
+        background-color: $color-hover;
+        border-color: transparent;
+        transition: all .1s ease-in-out;
+    }
+}
+
+.form-field {
+    height: 80px;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 1em 1em;
+    &:focus {
+        border: 2px solid $color-normal;
+        border-radius: 5px;
+        outline: none;
+    }
+}
+
+label {
+    font-weight: 600;
+}
