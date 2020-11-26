@@ -3,12 +3,20 @@ $text-color: white;
 $color-hover: #1460b1;
 $left-right-margin: 12vw;
 
+// Messages:
+$error-background: #f8d7da;
+$error-border: #f5c6cb;
+$error-text: #721c24;
+$success-background:#d4edda;
+$success-border: #c3e6cb;
+$success-text: #155724;
+
 #main-content {
     padding: 0 $left-right-margin 5vh;
     display: grid;
     column-gap: 4em;
     row-gap: 4em;
-    margin-top: 3em;
+    margin-top: 2em;
 }
 
 #new-post-container  {
@@ -53,4 +61,24 @@ $left-right-margin: 12vw;
 
 label {
     font-weight: 600;
+}
+
+%message {
+    text-align: center;
+    padding: 0.5em;
+    margin: 2em $left-right-margin ;
+}
+
+.error {
+    @extend %message;
+    background: $error-background;
+    border-color: $error-border;
+    color: $error-text;
+}
+
+.success {
+    @extend %message;
+    background: $success-background;
+    border-color: $success-border;
+    color: $success-text;
 }

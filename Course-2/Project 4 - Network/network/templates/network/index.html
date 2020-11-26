@@ -1,6 +1,15 @@
 {% extends "network/layout.html" %}
 
+
 {% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+    {% endfor %}
+{% endif %}
+
+
     <div id='main-content'>
         <div id='new-post-container'>
             <form id="new-post-form" action="{% url 'network:new_post' %}" method="POST">

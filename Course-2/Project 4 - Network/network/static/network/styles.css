@@ -3,7 +3,7 @@
   display: grid;
   column-gap: 4em;
   row-gap: 4em;
-  margin-top: 3em;
+  margin-top: 2em;
 }
 
 #new-post-container {
@@ -48,6 +48,24 @@
 
 label {
   font-weight: 600;
+}
+
+.success, .error {
+  text-align: center;
+  padding: 0.5em;
+  margin: 2em 12vw;
+}
+
+.error {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.success {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
 }
 
 /*# sourceMappingURL=styles.css.map */

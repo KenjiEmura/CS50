@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -75,4 +76,5 @@ def new_post(request):
         new_post = form.save(commit=False)
         new_post.author = request.user
         new_post.save()
+        messages.success(request, 'Your post was sent to the world!')
         return HttpResponseRedirect(reverse('network:index'))
