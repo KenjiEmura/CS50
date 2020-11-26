@@ -2,17 +2,18 @@
   padding: 0 12vw 5vh;
   display: grid;
   column-gap: 4em;
-  row-gap: 4em;
+  row-gap: 1em;
   margin-top: 2em;
 }
 
-#new-post-container {
+#post-container {
   border: solid 1px gainsboro;
   padding: 2em;
   border-radius: 5px;
 }
 
 .button {
+  float: right;
   padding: 0 3em;
   position: relative;
   height: 36px;
@@ -46,8 +47,13 @@
   outline: none;
 }
 
-label {
+label, h3 {
   font-weight: 600;
+  font-size: 1.2rem;
+}
+
+p {
+  margin: 0;
 }
 
 .success, .error {
@@ -66,6 +72,14 @@ label {
   background: #d4edda;
   border-color: #c3e6cb;
   color: #155724;
+}
+
+.small-info {
+  font-size: 0.6rem;
+}
+
+.icon {
+  filter: invert(28%) sepia(87%) saturate(7465%) hue-rotate(358deg) brightness(99%) contrast(125%);
 }
 
 /*# sourceMappingURL=styles.css.map */
