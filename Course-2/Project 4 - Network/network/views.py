@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -65,5 +66,13 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
+@login_required(login_url='network:login')
 def new_post(request):
-    pass
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    form = NewPost(request.POST)
+    if form.is_valid():
+        new_post = form.save(commit=False)
+        new_post.author = request.user
+        new_post.save()
+        return HttpResponseRedirect(reverse('network:index'))
