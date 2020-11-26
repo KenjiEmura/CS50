@@ -5,13 +5,15 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.db.models import Count
 
 from .models import *
 from .forms import *
 
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.annotate(num_likes=Count('likes')).all().order_by('-timestamp')
+    
     return render(request, "network/index.html", {
         "newPost": NewPost(),
         "posts": posts,
