@@ -12,4 +12,7 @@ urlpatterns = [
     # POST routes
     path("new-post", views.new_post, name="new_post"),
 
+    # PUT routes
+    path("like", views.like, name="like"),
+
 ]

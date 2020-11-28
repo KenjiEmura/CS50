@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.db.models import Count
+from django.http import JsonResponse
+import json
 
 from .models import *
 from .forms import *
@@ -82,3 +84,9 @@ def new_post(request):
         new_post.save()
         messages.success(request, 'Your post was sent to the world!')
         return HttpResponseRedirect(reverse('network:index'))
+
+def like(request):
+    if request.method != "PUT":
+        return JsonResponse({"error": "PUT request required."}, status=400)
+    data = json.loads(request.body)
+    return JsonResponse({"message": data["message"]}, status=200)
