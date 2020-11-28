@@ -86,4 +86,8 @@ p {
   cursor: pointer;
 }
 
+#like-count, .like, .unlike {
+  display: inline;
+}
+
 /*# sourceMappingURL=styles.css.map */

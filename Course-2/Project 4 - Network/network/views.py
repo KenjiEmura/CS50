@@ -88,5 +88,12 @@ def new_post(request):
 def like(request):
     if request.method != "PUT":
         return JsonResponse({"error": "PUT request required."}, status=400)
-    data = json.loads(request.body)
-    return JsonResponse({"message": data["message"]}, status=200)
+    postData = json.loads(request.body)
+    post = Post.objects.get(pk=postData['id'])
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+        post.save()
+    else:
+        post.likes.add(request.user)
+        post.save()
+    return JsonResponse({"response": "Success"}, status=200)

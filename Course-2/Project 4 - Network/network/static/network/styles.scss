@@ -100,3 +100,7 @@ p {
 .like svg, .unlike svg {
     cursor: pointer;
 }
+
+#like-count, .like, .unlike {
+    display: inline;
+}
