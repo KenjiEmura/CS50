@@ -98,11 +98,14 @@ def like(request):
         post.save()
     return JsonResponse({"response": "Success"}, status=200)
 
-def profile(request, user_name):
-    user_info = User.objects.get(username=user_name)
+def profile(request, profile_name):
+    user_info = User.objects.get(username=profile_name)
     posts = Post.objects.filter(author=user_info).annotate(num_likes=Count('likes')).all().order_by('-timestamp')
+    num_posts = posts.count()
     return render(request, "network/profile.html", {
-        'message': 'Hello moto',
-        'userinfo': user_info.follow.count(),
+        'following': user_info.following.count(),
+        'followers': user_info.follower.all().count(),
         'posts': posts,
+        'num_posts': num_posts,
+        'profile_name': profile_name,
     })

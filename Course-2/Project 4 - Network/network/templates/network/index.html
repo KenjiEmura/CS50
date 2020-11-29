@@ -25,10 +25,10 @@
         {% for post in posts %}
 
         <div id='post-container'>
-            <h3>{{ post.author }}</h3>
+            <h3><a href="{% url 'network:profile' profile_name=post.author %}">{{ post.author|title }}</a></h3>
             <input type="hidden" value="{{ post.id }}">
-            <a href="#">Edit</a>
             <p>{{ post.post }}</p>
+            <a href="#">Edit</a>
             <p><span class="small-info">{{ post.timestamp }}</span></p>
 
             {% if request.user in post.likes.all %}

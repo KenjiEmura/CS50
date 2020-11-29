@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class User(AbstractUser):
-    follow = models.ManyToManyField('self', blank=True, related_name='followers')
+    following = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='follower')
 
     def __str__(self):
         return f"{self.username}"

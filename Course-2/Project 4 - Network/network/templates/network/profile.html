@@ -13,21 +13,39 @@
 
     <div id='main-content'>
         {% csrf_token %}
-        {{ message }}
-        {% if userinfo %}
 
-        {{ userinfo }}
-        
-        {% else %}
+        <div class="profile-info-container">
+            <img width="50" height="50" src="https://icon-library.com/images/icon-logo-png/icon-logo-png-0.jpg" alt="" >
+            <h1>{{ profile_name|title }}</h1>
 
-        False
-        
-        {% endif %}
+            <div class="userdata">
+                <div class="profile-info posts">
+                    <h4 class="profile-num-data">{{ num_posts }}</h4>
+                    <p>Posts</p>
+                </div>
+                <div class="profile-info following">
+                    <h4 class="profile-num-data">{{ following }}</h4>
+                    <p>Following</p>
+                </div>
+                <div class="profile-info followers">
+                    <h4 class="profile-num-data">{{ followers }}</h4>
+                    <p>Followers</p>
+                </div>
+            </div>
+
+            {% if user.username != profile_name %}
+            <div class="profile-buttons">
+                
+                <button class="btn btn-sm btn-primary" id="follow">Follow</button>
+            </div>
+            {% endif %}
+        </div>
+
 
         {% for post in posts %}
 
         <div id='post-container'>
-            <h3>{{ post.author }}</h3>
+            <h3>{{ post.author|title }}</h3>
             <input type="hidden" value="{{ post.id }}">
             <a href="#">Edit</a>
             <p>{{ post.post }}</p>
