@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded',() => {
     // Follow/Unfollow functionality
     const follow = document.querySelector('#follow').addEventListener( "click", () => {
         profile_name = document.querySelector('#profile-name').value
-        console.log(profile_name)
         fetch( '../follow', {
             method: 'PUT',
             headers: {'X-CSRFToken': csrftoken},
@@ -49,9 +48,19 @@ document.addEventListener('DOMContentLoaded',() => {
             .then(response => response.json())
             .then( result => {
 
-                console.log(result)
+                let button = document.querySelector('#follow')
+                let followers = document.querySelector('.profile-info.followers h4')
 
-
+                if ( result.following ) {
+                    button.innerHTML = 'Unfollow'
+                    button.className = 'btn btn-sm btn-outline-secondary'
+                    followers.innerHTML++
+                } else {
+                    button.innerHTML = 'Follow'
+                    button.className = 'btn btn-sm btn-primary'
+                    followers.innerHTML--
+                }
+                
             })
     })
 })

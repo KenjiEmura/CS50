@@ -36,8 +36,11 @@
 
             {% if user.username != profile_name %}
             <div class="profile-buttons">
-
-                <button class="btn btn-sm btn-primary" id="follow">Follow</button>
+                {% if followed %}
+                    <button class="btn btn-sm btn-outline-secondary" id="follow">Unfollow</button>
+                {% else %}
+                    <button class="btn btn-sm btn-primary" id="follow">Follow</button>
+                {% endif %}
             </div>
             {% endif %}
         </div>

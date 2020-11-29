@@ -99,24 +99,33 @@ def like(request):
     return JsonResponse({"response": "Success"}, status=200)
 
 def profile(request, profile_name):
-    user_info = User.objects.get(username=profile_name)
-    posts = Post.objects.filter(author=user_info).annotate(num_likes=Count('likes')).all().order_by('-timestamp')
+    profile_user = User.objects.get(username=profile_name)
+    posts = Post.objects.filter(author=profile_user).annotate(num_likes=Count('likes')).all().order_by('-timestamp')
     num_posts = posts.count()
+    cur_user = User.objects.get(pk=request.user.id)
+    if profile_user in cur_user.following.all():
+        followed = True
+    else:
+        followed = False
     return render(request, "network/profile.html", {
-        'following': user_info.following.count(),
-        'followers': user_info.follower.all().count(),
+        'following': profile_user.following.count(),
+        'followers': profile_user.follower.all().count(),
         'posts': posts,
         'num_posts': num_posts,
         'profile_name': profile_name,
+        'followed': followed,
     })
 
 def follow(request):
     if request.method != "PUT":
         return JsonResponse({"error": "PUT request required."}, status=400)
     data = json.loads(request.body)
+    profile_user = User.objects.get(username=data['profile_name'])
     cur_user = User.objects.get(pk=request.user.id)
-    if data['profile_name'] in cur_user.follower.all():
-        x = "Profile name IS in following"
+    if profile_user in cur_user.following.all():
+        follow = False
+        cur_user.following.remove(profile_user)
     else:
-        x = "Profile name IS NOT in following"
-    return JsonResponse({"response": cur_user.follower.all()}, status=200)
+        follow = True
+        cur_user.following.add(profile_user)
+    return JsonResponse({"following": follow}, status=200)
