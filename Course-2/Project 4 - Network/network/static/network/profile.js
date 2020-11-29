@@ -34,4 +34,10 @@ document.addEventListener('DOMContentLoaded',() => {
 
     });
 
+
+    // Follow/Unfollow functionality
+    const follow = document.querySelector('#follow').addEventListener( "click", () => {
+        console.log('Funciona')
+    })
+
 })
