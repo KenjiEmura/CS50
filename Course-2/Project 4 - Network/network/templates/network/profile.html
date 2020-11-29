@@ -13,6 +13,7 @@
 
     <div id='main-content'>
         {% csrf_token %}
+        <input type="hidden" value="{{ profile_name }}" id="profile-name">
 
         <div class="profile-info-container">
             <img width="50" height="50" src="https://icon-library.com/images/icon-logo-png/icon-logo-png-0.jpg" alt="" >
@@ -35,7 +36,7 @@
 
             {% if user.username != profile_name %}
             <div class="profile-buttons">
-                
+
                 <button class="btn btn-sm btn-primary" id="follow">Follow</button>
             </div>
             {% endif %}

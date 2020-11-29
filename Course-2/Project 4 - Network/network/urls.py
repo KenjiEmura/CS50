@@ -16,5 +16,6 @@ urlpatterns = [
 
     # PUT routes
     path("like", views.like, name="like"),
+    path("follow", views.follow, name="follow"),
 
 ]

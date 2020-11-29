@@ -109,3 +109,14 @@ def profile(request, profile_name):
         'num_posts': num_posts,
         'profile_name': profile_name,
     })
+
+def follow(request):
+    if request.method != "PUT":
+        return JsonResponse({"error": "PUT request required."}, status=400)
+    data = json.loads(request.body)
+    cur_user = User.objects.get(pk=request.user.id)
+    if data['profile_name'] in cur_user.follower.all():
+        x = "Profile name IS in following"
+    else:
+        x = "Profile name IS NOT in following"
+    return JsonResponse({"response": cur_user.follower.all()}, status=200)
