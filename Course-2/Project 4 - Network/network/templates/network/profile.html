@@ -14,7 +14,15 @@
     <div id='main-content'>
         {% csrf_token %}
         {{ message }}
-        {{ userinfo.followers }}
+        {% if userinfo %}
+
+        {{ userinfo }}
+        
+        {% else %}
+
+        False
+        
+        {% endif %}
 
         {% for post in posts %}
 
@@ -55,5 +63,5 @@
 
 
 {% block script %}
-    <script src="{% static 'network/likes.js' %}"></script>
+    <script src="{% static 'network/profile.js' %}"></script>
 {% endblock %}
