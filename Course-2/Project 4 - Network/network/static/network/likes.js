@@ -6,13 +6,17 @@ document.addEventListener('DOMContentLoaded',() => {
     const likes = document.querySelectorAll('.like svg, .unlike svg').forEach( like => {
         like.addEventListener("click", () => {
             let id = like.parentNode.parentNode.querySelector('input').value;
+          console.log(id)
             fetch('like', {
                 method: 'PUT',
                 headers: {'X-CSRFToken': csrftoken},
                 body: JSON.stringify({
                     id: id,
                 })
-            }).then(result => {
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
                 let likeDiv = like.parentNode.parentNode.querySelector('.like')
                 let unlikeDiv = like.parentNode.parentNode.querySelector('.unlike')
                 let likeCount = like.parentNode.parentNode.querySelector('#like-count')
