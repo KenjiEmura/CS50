@@ -12,16 +12,6 @@
 
     <div id='main-content'>
 
-        {% if user.is_authenticated %}
-        <div id='post-container'>
-            <form id="new-post-form" action="{% url 'network:new_post' %}" method="POST">
-                {% csrf_token %}
-                {{ newPost }}
-                <button type="submit" class="button" form="new-post-form">Post</button>
-            </form>
-        </div>
-        {% endif %}
-
         {% for post in posts %}
 
         <div id='post-container'>

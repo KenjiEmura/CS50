@@ -33,7 +33,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("network:index"))
         else:
             return render(request, "network/login.html", {
                 "message": "Invalid username and/or password."
@@ -44,7 +44,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("network:index"))
 
 
 def register(request):
@@ -69,11 +69,11 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("network:index"))
     else:
         return render(request, "network/register.html")
 
-@login_required(login_url='network:login')
+
 def new_post(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
@@ -84,6 +84,7 @@ def new_post(request):
         new_post.save()
         messages.success(request, 'Your post was sent to the world!')
         return HttpResponseRedirect(reverse('network:index'))
+
 
 def like(request):
     if request.method != "PUT":
@@ -97,6 +98,7 @@ def like(request):
         post.likes.add(request.user)
         post.save()
     return JsonResponse({"response": "Success"}, status=200)
+
 
 def profile(request, profile_name):
     profile_user = User.objects.get(username=profile_name)
@@ -116,6 +118,8 @@ def profile(request, profile_name):
         'followed': followed,
     })
 
+
+# Follow/Unfollow functionality
 def follow(request):
     if request.method != "PUT":
         return JsonResponse({"error": "PUT request required."}, status=400)
@@ -129,3 +133,14 @@ def follow(request):
         follow = True
         cur_user.following.add(profile_user)
     return JsonResponse({"following": follow}, status=200)
+
+
+# Render all the posts from people that user is following
+@login_required(login_url='network:login')
+def following(request):
+
+    posts = Post.objects.filter(author__in=request.user.following.all()).annotate(num_likes=Count('likes')).all().order_by('-timestamp')
+    
+    return render(request, "network/following.html", {
+        "posts": posts,
+    })
