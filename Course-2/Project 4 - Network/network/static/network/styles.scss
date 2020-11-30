@@ -19,6 +19,23 @@ $success-text: #155724;
     margin-top: 2em;
 }
 
+#single-form-page-container {
+    margin-top: 10vh;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    justify-items: center;
+}
+
+#single-form {
+    width: 100%;
+    max-width: 450px;
+    min-width: 240px;
+    grid-column: 2 / span 1;
+    border: solid 1px gainsboro;
+    padding: 2em;
+    border-radius: 5px;
+}
+
 #post-container  {
     border: solid 1px gainsboro;
     padding: 2em;
