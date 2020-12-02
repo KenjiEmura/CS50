@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse
 from django.db.models import Count
@@ -15,10 +16,12 @@ from .forms import *
 
 def index(request):
     posts = Post.objects.annotate(num_likes=Count('likes')).all().order_by('-timestamp')
+    pages = Paginator(posts, 10)
     
     return render(request, "network/index.html", {
         "newPost": NewPost(),
         "posts": posts,
+        "pages": pages,
     })
 
 
