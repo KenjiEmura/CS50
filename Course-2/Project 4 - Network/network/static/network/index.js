@@ -36,19 +36,25 @@ document.addEventListener('DOMContentLoaded',() => {
 
 
     document.querySelectorAll('.post-container .edit').forEach( edit => {
+
+        // Store the elements on variables
         let post_id = edit.parentNode.querySelector('input').value;
         let form_container = edit.parentNode.querySelector('form');
         let post_body = edit.parentNode.querySelector('p.post-body');
-        let text_area = form_container.querySelector('textarea').value = post_body.innerHTML;
+        let text_area = form_container.querySelector('textarea');
+        
+        // Show/Hide the 'Edit post' form functionality
         edit.addEventListener('click', () => {
             if ( form_container.style.display == 'none' ) {
+                text_area.value = post_body.innerHTML;
                 form_container.style.display = 'block';
                 post_body.style.display = 'none';
                 edit.innerHTML = 'Close';
             } else {
+                text_area.value = post_body.innerHTML;
                 form_container.style.display = 'none';
                 post_body.style.display = 'block';
-                edit.innerHTML = 'Edit';
+                edit.innerHTML = 'Edit post';
             }
         });
 

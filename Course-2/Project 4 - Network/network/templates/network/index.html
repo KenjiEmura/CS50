@@ -51,7 +51,7 @@
             <h3><a href="{% url 'network:profile' profile_name=post.author %}">{{ post.author|title }}</a></h3>
             <input type="hidden" value="{{ post.id }}">
             {% if user == post.author %}
-            <p class="edit">Edit</p>
+            <p class="edit">Edit post</p>
             <form action="{% url 'network:new_post' %}" method="POST" style="display:none">
                 <textarea class="form-field" name="post" id="" cols="50" rows="5"></textarea>
                 <button type="submit" class="button" form="new-post-form">Post</button>
