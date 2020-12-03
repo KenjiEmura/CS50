@@ -36,7 +36,7 @@ $success-text: #155724;
     border-radius: 5px;
 }
 
-#post-container  {
+.post-container  {
     border: solid 1px gainsboro;
     padding: 2em;
     border-radius: 5px;
@@ -171,4 +171,9 @@ p {
 .profile-buttons {
     grid-column-start: 2;
     align-self: center;
+}
+
+.pagination-container {
+    display: grid;
+    justify-items: center;
 }

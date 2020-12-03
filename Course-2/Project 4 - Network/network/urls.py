@@ -18,5 +18,6 @@ urlpatterns = [
     # PUT routes
     path("like", views.like, name="like"),
     path("follow", views.follow, name="follow"),
+    path("edit_post/<int:post_id>", views.edit_post, name="edit_post"),
 
 ]

@@ -22,13 +22,38 @@
         </div>
         {% endif %}
 
-        {% for post in posts %}
+        <div class="pagination-container">
+            <span class="current">
+                Page {{ page.number }} of {{ page.paginator.num_pages }}.
+            </span>
+            <ul class="pagination">
+                {% if page.has_previous and page.number != 1 %}
+                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                {% endif %}
+                {% if page.has_previous and page.previous_page_number != 1 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a></li>
+                {% endif %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">{{ page.number }}</a>
+                </li>
+                {% if page.has_next and page.next_page_number != page.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a></li>
+                {% endif %}
+                {% if page.has_next and page.number != page.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+            </ul>
+        </div>
 
-        <div id='post-container'>
+        {% for post in page %}
+
+        <div class='post-container'>
             <h3><a href="{% url 'network:profile' profile_name=post.author %}">{{ post.author|title }}</a></h3>
             <input type="hidden" value="{{ post.id }}">
             <p>{{ post.post }}</p>
-            <a href="#">Edit</a>
+            {% if user == post.author %}
+            <a href="">Edit</a>
+            {% endif %}
             <p><span class="small-info">{{ post.timestamp }}</span></p>
 
             {% if request.user in post.likes.all %}
@@ -55,11 +80,35 @@
         
         {% endfor %}
 
+
+        <div class="pagination-container">
+            <span class="current">
+                Page {{ page.number }} of {{ page.paginator.num_pages }}.
+            </span>
+            <ul class="pagination">
+                {% if page.has_previous and page.number != 1 %}
+                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                {% endif %}
+                {% if page.has_previous and page.previous_page_number != 1 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a></li>
+                {% endif %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">{{ page.number }}</a>
+                </li>
+                {% if page.has_next and page.next_page_number != page.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a></li>
+                {% endif %}
+                {% if page.has_next and page.number != page.paginator.num_pages %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page.paginator.num_pages }}">Last</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
     </div>
 
 {% endblock %}
 
 
 {% block script %}
-    <script src="{% static 'network/likes.js' %}"></script>
+    <script src="{% static 'network/index.js' %}"></script>
 {% endblock %}

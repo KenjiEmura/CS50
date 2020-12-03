@@ -16,12 +16,16 @@ from .forms import *
 
 def index(request):
     posts = Post.objects.annotate(num_likes=Count('likes')).all().order_by('-timestamp')
-    pages = Paginator(posts, 10)
     
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    
+    # If you want to manage the data and build a custom pagination module, send the total number of pages and the current page in a separate hidden input tag and handle that with JavaScript
+
     return render(request, "network/index.html", {
         "newPost": NewPost(),
-        "posts": posts,
-        "pages": pages,
+        "page": page,
     })
 
 
@@ -144,6 +148,14 @@ def following(request):
 
     posts = Post.objects.filter(author__in=request.user.following.all()).annotate(num_likes=Count('likes')).all().order_by('-timestamp')
     
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+
     return render(request, "network/following.html", {
-        "posts": posts,
+        "page": page,
     })
+
+
+def edit_post(request):
+    pass
