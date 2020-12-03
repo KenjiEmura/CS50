@@ -164,4 +164,16 @@ p {
   justify-items: center;
 }
 
+.edit {
+  display: inline;
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent;
+}
+.edit:hover {
+  color: #0056b3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=styles.css.map */

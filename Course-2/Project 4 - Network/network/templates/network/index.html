@@ -13,7 +13,7 @@
     <div id='main-content'>
 
         {% if user.is_authenticated %}
-        <div id='post-container'>
+        <div class='post-container'>
             <form id="new-post-form" action="{% url 'network:new_post' %}" method="POST">
                 {% csrf_token %}
                 {{ newPost }}
@@ -50,10 +50,14 @@
         <div class='post-container'>
             <h3><a href="{% url 'network:profile' profile_name=post.author %}">{{ post.author|title }}</a></h3>
             <input type="hidden" value="{{ post.id }}">
-            <p>{{ post.post }}</p>
             {% if user == post.author %}
-            <a href="">Edit</a>
+            <p class="edit">Edit</p>
+            <form action="{% url 'network:new_post' %}" method="POST" style="display:none">
+                <textarea class="form-field" name="post" id="" cols="50" rows="5"></textarea>
+                <button type="submit" class="button" form="new-post-form">Post</button>
+            </form>
             {% endif %}
+            <p class="post-body">{{ post.post }}</p>
             <p><span class="small-info">{{ post.timestamp }}</span></p>
 
             {% if request.user in post.likes.all %}
