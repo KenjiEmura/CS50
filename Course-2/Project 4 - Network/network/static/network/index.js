@@ -39,9 +39,30 @@ document.addEventListener('DOMContentLoaded',() => {
 
         // Store the elements on variables
         let post_id = edit.parentNode.querySelector('input').value;
-        let form_container = edit.parentNode.querySelector('form');
+        let form_container = edit.parentNode.querySelector('.form');
         let post_body = edit.parentNode.querySelector('p.post-body');
         let text_area = form_container.querySelector('textarea');
+        let submit_button = form_container.querySelector('button');
+
+        submit_button.addEventListener('click', () => {
+            console.log('Submit button clicked')
+            fetch('/edit_post/'+post_id, {
+                method: 'PUT',
+                headers: {'X-CSRFToken': csrftoken.value},
+                body: JSON.stringify({
+                    'post_content': text_area.value,
+                })
+            })
+            .then(response => response.json())
+            .then( result => {
+                console.log(result);
+                text_area.value = result.new_post_content
+                post_body.innerHTML = result.new_post_content
+                form_container.style.display = 'none';
+                post_body.style.display = 'block';
+                edit.innerHTML = 'Edit post';
+            })
+        })
         
         // Show/Hide the 'Edit post' form functionality
         edit.addEventListener('click', () => {

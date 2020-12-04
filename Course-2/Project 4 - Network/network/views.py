@@ -156,6 +156,15 @@ def following(request):
         "page": page,
     })
 
-
-def edit_post(request):
-    pass
+@login_required(login_url='network:login')
+def edit_post(request, post_id):
+    if request.method != "PUT":
+        return JsonResponse({"error": "PUT request required."}, status=400)
+    post = Post.objects.get(pk=post_id)
+    if ( request.user == post.author):
+        data = json.loads(request.body)
+        post.post = data['post_content']
+        post.save()
+    else:
+        return JsonResponse({"error": "The logged in user doesn't match the author of the post"}, status=403)
+    return JsonResponse({"new_post_content": post.post}, status=200)
