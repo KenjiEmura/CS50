@@ -44,26 +44,6 @@ document.addEventListener('DOMContentLoaded',() => {
         let text_area = form_container.querySelector('textarea');
         let submit_button = form_container.querySelector('button');
 
-        submit_button.addEventListener('click', () => {
-            console.log('Submit button clicked')
-            fetch('/edit_post/'+post_id, {
-                method: 'PUT',
-                headers: {'X-CSRFToken': csrftoken.value},
-                body: JSON.stringify({
-                    'post_content': text_area.value,
-                })
-            })
-            .then(response => response.json())
-            .then( result => {
-                console.log(result);
-                text_area.value = result.new_post_content
-                post_body.innerHTML = result.new_post_content
-                form_container.style.display = 'none';
-                post_body.style.display = 'block';
-                edit.innerHTML = 'Edit post';
-            })
-        })
-        
         // Show/Hide the 'Edit post' form functionality
         edit.addEventListener('click', () => {
             if ( form_container.style.display == 'none' ) {
@@ -79,24 +59,40 @@ document.addEventListener('DOMContentLoaded',() => {
             }
         });
 
+
+        text_area.addEventListener('keypress', e => {
+            if ( e.key === 'Enter') {
+                submit()
+            }
+        });
+        
+
+        submit_button.addEventListener('click', () => {
+            submit()
+        });
+        
+
+        function submit() {
+            fetch('/edit_post/'+post_id, {
+                method: 'PUT',
+                headers: {'X-CSRFToken': csrftoken.value},
+                body: JSON.stringify({
+                    'post_content': text_area.value,
+                })
+            })
+            .then(response => response.json())
+            .then( result => {
+                console.log(result);
+                text_area.value = result.new_post_content
+                post_body.innerHTML = result.new_post_content
+                form_container.style.display = 'none';
+                post_body.style.display = 'block';
+                edit.innerHTML = 'Edit post';
+            });
+        }
+
     });
     
-    
-    // onsubmit = () => {
-    //     const form_recipients = document.querySelector('#compose-recipients').value;
-    //     const form_subject = document.querySelector('#compose-subject').value;
-    //     const form_body = document.querySelector('#compose-body').value;
 
-    //     fetch('/emails', {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //             recipients: form_recipients,
-    //             subject: form_subject,
-    //             body: form_body
-    //         })
-    //     })
-    //     .then(loadSent);
-    //     return false;
-    // }
 
 })
