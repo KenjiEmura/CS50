@@ -11,7 +11,7 @@
     {% endif %}
 
     <div id='main-content'>
-
+        {% csrf_token %}
         <h1>Following!</h1>
         <h3>This is what the people that you follow have been posting!</h3>
 
@@ -37,8 +37,14 @@
         <div class='post-container'>
             <h3><a href="{% url 'network:profile' profile_name=post.author %}">{{ post.author|title }}</a></h3>
             <input type="hidden" value="{{ post.id }}">
-            <p>{{ post.post }}</p>
-            <a href="#">Edit</a>
+            {% if user == post.author %}
+            <p class="edit">Edit post</p>
+            <div class='form' style="display:none">
+                <textarea class="form-field" name="post" id="" cols="50" rows="5"></textarea>
+                <button class="button submit">Post</button>
+            </div>
+            {% endif %}
+            <p class="post-body">{{ post.post }}</p>
             <p><span class="small-info">{{ post.timestamp }}</span></p>
 
             {% if request.user in post.likes.all %}
