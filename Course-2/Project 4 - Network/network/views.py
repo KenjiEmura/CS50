@@ -86,12 +86,17 @@ def new_post(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
     form = NewPost(request.POST)
-    if form.is_valid():
+    if form.is_valid() and form.cleaned_data['post'] != '':
+        form.cleaned_data['post']
         new_post = form.save(commit=False)
         new_post.author = request.user
         new_post.save()
         messages.success(request, 'Your post was sent to the world!')
         return HttpResponseRedirect(reverse('network:index'))
+    else:
+        messages.error(request, "Your post was empty!")
+        return HttpResponseRedirect(reverse('network:index'))
+
 
 
 def like(request):

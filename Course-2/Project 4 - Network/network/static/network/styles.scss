@@ -1,6 +1,6 @@
-$color-normal: #1c89ff;
+$color-normal: #A51C30;
 $text-color: white;
-$color-hover: #1460b1;
+$color-hover:#66121f;
 $left-right-margin: 12vw;
 
 // Messages:
@@ -10,6 +10,27 @@ $error-text: #721c24;
 $success-background:#d4edda;
 $success-border: #c3e6cb;
 $success-text: #155724;
+
+h1 {
+    font-weight: 700;
+}
+
+a {
+    color: $color-normal;
+}
+
+.menu-bar {
+    background-color: $color-normal;
+}
+
+nav>a>img {
+    margin-top: 1em;
+    margin-right: 2em;
+}
+
+nav ul li a {
+    color: white !important;
+}
 
 #main-content {
     padding: 0 $left-right-margin 5vh;
@@ -37,9 +58,15 @@ $success-text: #155724;
 }
 
 .post-container  {
-    border: solid 1px gainsboro;
     padding: 2em;
     border-radius: 5px;
+    border: solid 1px gainsboro;
+}
+
+.new-post {
+    border: none;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin: 4em 0;
 }
 
 .button {
@@ -89,7 +116,7 @@ p {
 %message, .message {
     text-align: center;
     padding: 0.5em;
-    margin: 2em $left-right-margin ;
+    margin: 2em $left-right-margin -4em;
 }
 
 .error {
@@ -181,11 +208,11 @@ p {
 
 .edit {
     display: inline;
-    color: #007bff;
+    color: $color-normal;
     text-decoration: none;
     background-color: transparent;
     &:hover {
-        color: #0056b3;
+        color: $color-hover;
         text-decoration: underline;
         cursor: pointer;
     }

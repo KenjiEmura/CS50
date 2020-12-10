@@ -13,7 +13,7 @@
     <div id='main-content'>
 
         {% if user.is_authenticated %}
-        <div class='post-container'>
+        <div class='post-container new-post'>
             <form id="new-post-form" action="{% url 'network:new_post' %}" method="POST">
                 {% csrf_token %}
                 {{ newPost }}
@@ -28,12 +28,15 @@
         </div>
 
         {% if num_posts %}
-        <div class="pagination-container top">
-        </div>
+            <div class="pagination-container top">
+            </div>
+            {% if page.paginator.num_pages > 1 %}
+                <h1>Page {{ page.number }} of {{ page.paginator.num_pages }}</h1>
+            {% endif %}
         {% else %}
-        <div class="alert alert-primary message" role="alert">
-            There are no posts to show yet!
-          </div>
+            <div class="alert alert-primary message" role="alert">
+                There are no posts to show yet!
+            </div>
         {% endif %}
 
         {% for post in page %}
@@ -76,7 +79,7 @@
         {% endfor %}
 
 
-        {% if num_posts %}
+        {% if page.paginator.num_pages > 1 %}
         <div class="pagination-container bottom">
         </div>
         {% endif %}

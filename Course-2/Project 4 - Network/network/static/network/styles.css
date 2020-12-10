@@ -1,3 +1,24 @@
+h1 {
+  font-weight: 700;
+}
+
+a {
+  color: #A51C30;
+}
+
+.menu-bar {
+  background-color: #A51C30;
+}
+
+nav > a > img {
+  margin-top: 1em;
+  margin-right: 2em;
+}
+
+nav ul li a {
+  color: white !important;
+}
+
 #main-content {
   padding: 0 12vw 5vh;
   display: grid;
@@ -24,9 +45,15 @@
 }
 
 .post-container {
-  border: solid 1px gainsboro;
   padding: 2em;
   border-radius: 5px;
+  border: solid 1px gainsboro;
+}
+
+.new-post {
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 4em 0;
 }
 
 .button {
@@ -35,7 +62,7 @@
   position: relative;
   height: 36px;
   border-radius: 20em;
-  background-color: #1c89ff;
+  background-color: #A51C30;
   border: solid 1px transparent;
   color: white;
   font-size: 18px;
@@ -44,7 +71,7 @@
   transition: all 0.1s ease-in-out;
 }
 .button:hover {
-  background-color: #1460b1;
+  background-color: #66121f;
   border-color: transparent;
   transition: all 0.1s ease-in-out;
 }
@@ -59,7 +86,7 @@
   padding: 1em 1em;
 }
 .form-field:focus {
-  border: 2px solid #1c89ff;
+  border: 2px solid #A51C30;
   border-radius: 5px;
   outline: none;
 }
@@ -76,7 +103,7 @@ p {
 .success, .error, .message {
   text-align: center;
   padding: 0.5em;
-  margin: 2em 12vw;
+  margin: 2em 12vw -4em;
 }
 
 .error {
@@ -166,12 +193,12 @@ p {
 
 .edit {
   display: inline;
-  color: #007bff;
+  color: #A51C30;
   text-decoration: none;
   background-color: transparent;
 }
 .edit:hover {
-  color: #0056b3;
+  color: #66121f;
   text-decoration: underline;
   cursor: pointer;
 }

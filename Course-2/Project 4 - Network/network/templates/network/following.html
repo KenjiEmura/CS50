@@ -12,13 +12,19 @@
 
     <div id='main-content'>
 
+        <h1>Following!</h1>
+        <h3>This is what the people that you follow have been posting!</h3>
+
         {% if num_posts %}
-        <div class="pagination-container top">
-        </div>
+            <div class="pagination-container top">
+            </div>
+            {% if page.paginator.num_pages > 1 %}
+                <h5>Page {{ page.number }} of {{ page.paginator.num_pages }}</h5>
+            {% endif %}
         {% else %}
-        <div class="alert alert-primary message" role="alert">
-            There are no posts to show yet!
-          </div>
+            <div class="alert alert-primary message" role="alert">
+                There are no posts to show yet!
+            </div>
         {% endif %}
 
         <div id='pagination-info' style="height:0">
@@ -59,8 +65,11 @@
         
         {% endfor %}
 
+
+        {% if page.paginator.num_pages > 1 %}
         <div class="pagination-container bottom">
         </div>
+        {% endif %}
 
 
     </div>

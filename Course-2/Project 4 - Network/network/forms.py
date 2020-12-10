@@ -10,5 +10,5 @@ class NewPost(ModelForm):
             'post': _('New Post'),
         }
         widgets = {
-            'post': Textarea(attrs={'class':'form-field post', 'placeholder':'Shout your thoughts to the world...'})
+            'post': Textarea(attrs={'class':'form-field post', 'autofocus':True, 'placeholder':'Shout your thoughts to the world...'})
         }

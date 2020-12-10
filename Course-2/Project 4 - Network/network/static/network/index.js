@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded',() => {
 
         text_area.addEventListener('keypress', e => {
             if ( e.key === 'Enter') {
-                submit()
+                submit();
             }
         });
         
@@ -82,7 +82,6 @@ document.addEventListener('DOMContentLoaded',() => {
             })
             .then(response => response.json())
             .then( result => {
-                console.log(result);
                 text_area.value = result.new_post_content
                 post_body.innerHTML = result.new_post_content
                 form_container.style.display = 'none';
@@ -138,10 +137,25 @@ document.addEventListener('DOMContentLoaded',() => {
     let pagination_container_bottom = document.querySelector('div.pagination-container.bottom');
     
     // Check if the elements were created (This means that there is at least one post inside the page) and create the pagination if the condition is true
-    if( pagination_container_top ) {
-        create_pagination(pagination_container_top);
+    if( pagination_container_bottom ) {
+        // create_pagination(pagination_container_top);
         create_pagination(pagination_container_bottom);
     }
 
+
+    // 'Enter' key to submit new post
+    let text_area = document.querySelector('textarea[name=post]')
+    if ( text_area ) {
+        text_area.addEventListener('keypress', e => {
+            if ( e.key === 'Enter') {
+                e.preventDefault();
+                if ( text_area.value ) {
+                    document.querySelector('#new-post-form').submit();
+                } else {
+                    alert('You are trying to post nothing!')
+                }
+            }
+        });
+    }
 
 })
