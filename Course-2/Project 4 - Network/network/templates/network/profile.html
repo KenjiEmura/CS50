@@ -14,6 +14,10 @@
     <div id='main-content'>
         {% csrf_token %}
         <input type="hidden" value="{{ profile_name }}" id="profile-name">
+        <div id='pagination-info' style="height:0">
+            <input id='page' type="hidden" value="{{ page.number }}">
+            <input id='total_pages' type="hidden" value="{{ page.paginator.num_pages }}">
+        </div>
 
         <div class="profile-info-container">
             <img width="50" height="50" src="https://icon-library.com/images/icon-logo-png/icon-logo-png-0.jpg" alt="" >
@@ -45,8 +49,16 @@
             {% endif %}
         </div>
 
+        {% if num_posts %}
+        <div class="pagination-container top">
+        </div>
+        {% else %}
+        <div class="alert alert-primary message" role="alert">
+            There are no posts to show yet!
+          </div>
+        {% endif %}
 
-        {% for post in posts %}
+        {% for post in page %}
 
         <div class='post-container'>
             <h3>{{ post.author|title }}</h3>
@@ -78,6 +90,11 @@
         </div>
         
         {% endfor %}
+
+        {% if num_posts %}
+        <div class="pagination-container bottom">
+        </div>
+        {% endif %}
 
     </div>
 

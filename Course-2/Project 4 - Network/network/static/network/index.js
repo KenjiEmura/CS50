@@ -135,11 +135,13 @@ document.addEventListener('DOMContentLoaded',() => {
 
     // Select the <div> in which the pagination is going to be inserted
     let pagination_container_top = document.querySelector('div.pagination-container.top');
-    create_pagination(pagination_container_top);
-
     let pagination_container_bottom = document.querySelector('div.pagination-container.bottom');
-    create_pagination(pagination_container_bottom);
-
+    
+    // Check if the elements were created (This means that there is at least one post inside the page) and create the pagination if the condition is true
+    if( pagination_container_top ) {
+        create_pagination(pagination_container_top);
+        create_pagination(pagination_container_bottom);
+    }
 
 
 })

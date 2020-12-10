@@ -27,8 +27,14 @@
             <input id='total_pages' type="hidden" value="{{ page.paginator.num_pages }}">
         </div>
 
+        {% if num_posts %}
         <div class="pagination-container top">
         </div>
+        {% else %}
+        <div class="alert alert-primary message" role="alert">
+            There are no posts to show yet!
+          </div>
+        {% endif %}
 
         {% for post in page %}
 
@@ -70,8 +76,10 @@
         {% endfor %}
 
 
+        {% if num_posts %}
         <div class="pagination-container bottom">
         </div>
+        {% endif %}
 
     </div>
 

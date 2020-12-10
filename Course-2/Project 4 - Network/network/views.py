@@ -10,8 +10,8 @@ from django.db.models import Count
 from django.http import JsonResponse
 import json
 
-from .models import *
-from .forms import *
+from network.models import *
+from network.forms import *
 
 
 def index(request):
@@ -26,6 +26,7 @@ def index(request):
     return render(request, "network/index.html", {
         "newPost": NewPost(),
         "page": page,
+        "num_posts": paginator.count,
     })
 
 
@@ -116,10 +117,14 @@ def profile(request, profile_name):
         followed = True
     else:
         followed = False
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    
     return render(request, "network/profile.html", {
         'following': profile_user.following.count(),
         'followers': profile_user.follower.all().count(),
-        'posts': posts,
+        'page': page,
         'num_posts': num_posts,
         'profile_name': profile_name,
         'followed': followed,
@@ -154,6 +159,7 @@ def following(request):
 
     return render(request, "network/following.html", {
         "page": page,
+        "num_posts": paginator.count,
     })
 
 @login_required(login_url='network:login')

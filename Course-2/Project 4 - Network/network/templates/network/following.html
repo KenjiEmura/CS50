@@ -12,29 +12,19 @@
 
     <div id='main-content'>
 
-        <div class="pagination-container">
-            <span class="current">
-                Page {{ page.number }} of {{ page.paginator.num_pages }}.
-            </span>
-            <ul class="pagination">
-                {% if page.has_previous and page.number != 1 %}
-                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                {% endif %}
-                {% if page.has_previous and page.previous_page_number != 1 %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a></li>
-                {% endif %}
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">{{ page.number }}</a>
-                </li>
-                {% if page.has_next and page.next_page_number != page.paginator.num_pages %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a></li>
-                {% endif %}
-                {% if page.has_next and page.number != page.paginator.num_pages %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page.paginator.num_pages }}">Last</a></li>
-                {% endif %}
-            </ul>
+        {% if num_posts %}
+        <div class="pagination-container top">
         </div>
+        {% else %}
+        <div class="alert alert-primary message" role="alert">
+            There are no posts to show yet!
+          </div>
+        {% endif %}
 
+        <div id='pagination-info' style="height:0">
+            <input id='page' type="hidden" value="{{ page.number }}">
+            <input id='total_pages' type="hidden" value="{{ page.paginator.num_pages }}">
+        </div>
 
         {% for post in page %}
 
@@ -69,27 +59,7 @@
         
         {% endfor %}
 
-        <div class="pagination-container">
-            <span class="current">
-                Page {{ page.number }} of {{ page.paginator.num_pages }}.
-            </span>
-            <ul class="pagination">
-                {% if page.has_previous and page.number != 1 %}
-                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-                {% endif %}
-                {% if page.has_previous and page.previous_page_number != 1 %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a></li>
-                {% endif %}
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">{{ page.number }}</a>
-                </li>
-                {% if page.has_next and page.next_page_number != page.paginator.num_pages %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a></li>
-                {% endif %}
-                {% if page.has_next and page.number != page.paginator.num_pages %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page.paginator.num_pages }}">Last</a></li>
-                {% endif %}
-            </ul>
+        <div class="pagination-container bottom">
         </div>
 
 
@@ -99,5 +69,5 @@
 
 
 {% block script %}
-    <script src="{% static 'network/likes.js' %}"></script>
+    <script src="{% static 'network/index.js' %}"></script>
 {% endblock %}
