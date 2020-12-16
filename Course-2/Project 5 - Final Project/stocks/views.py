@@ -14,7 +14,7 @@ import json
 
 def index(request):
     return render(request, "stocks/index.html", {
-        'title': 'Este es el texto de prueba',
+        'title': 'Index',
     })
 
 
