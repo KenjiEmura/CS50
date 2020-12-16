@@ -1,0 +1,22 @@
+{% extends "stocks/layout.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+        <div  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'stocks/index.js' %}"></script>
+{% endblock %}
