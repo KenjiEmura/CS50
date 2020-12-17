@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+AUTH_USER_MODEL = "stocks.User"
+
 # Application definition
 
 INSTALLED_APPS = [
