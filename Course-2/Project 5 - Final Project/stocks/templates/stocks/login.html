@@ -8,6 +8,33 @@
 
 {% block body %}
 
+<div id='single-form-page-container'>
+
+    <div id='single-form'>
+
+        <h2>Login</h2>
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'stocks:login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
+
+        Don't have an account? <a href="{% url 'stocks:register' %}">Register here.</a>
+
+    </div>
+
+</div>
+
 {% endblock %}
 
 
