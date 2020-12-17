@@ -18,3 +18,5 @@ def index(request):
     })
 
 
+def login_view(request):
+    pass
