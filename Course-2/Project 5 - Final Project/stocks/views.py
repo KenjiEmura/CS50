@@ -10,7 +10,7 @@ from django.db.models import Count
 from django.http import JsonResponse
 import json
 
-
+from stocks.models import *
 
 def index(request):
     return render(request, "stocks/index.html", {
