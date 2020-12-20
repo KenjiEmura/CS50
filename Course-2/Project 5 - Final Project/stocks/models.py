@@ -4,13 +4,20 @@ from datetime import datetime
 
 
 class User(AbstractUser):
-    
     def __str__(self):
         return f"{self.username}"
 
 
 class Stock(models.Model):
     name = models.CharField(max_length=64)
+    symbol = models.CharField(max_length=5)
+    def __str__(self):
+        return f"{self.name}"
+
+class Acquisition(models.Model):
+    name = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    qty = models.IntegerField()
     price = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
     

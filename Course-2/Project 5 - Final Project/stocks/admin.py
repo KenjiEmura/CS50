@@ -3,3 +3,4 @@ from stocks.models import *
 
 
 admin.site.register(User)
+admin.site.register(Stock)
