@@ -70,3 +70,7 @@ def register(request):
         return HttpResponseRedirect(reverse("stocks:index"))
     else:
         return render(request, "stocks/register.html")
+
+@login_required(login_url='stocks:login')
+def users(request):
+    pass
