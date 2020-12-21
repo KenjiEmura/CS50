@@ -73,4 +73,8 @@ def register(request):
 
 @login_required(login_url='stocks:login')
 def users(request):
-    pass
+    users = User.objects.all()
+
+    return render(request, "stocks/users.html", {
+        'users': users,
+    })

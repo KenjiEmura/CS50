@@ -15,7 +15,9 @@
     {% endif %}
 
     <div class='main-content'>
-        
+        {% for user in users %}
+            {{ user }}
+        {% endfor %}
     </div>
 
     {% endblock %}
