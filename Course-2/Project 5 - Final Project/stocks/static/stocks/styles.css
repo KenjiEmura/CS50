@@ -1,6 +1,20 @@
+h1, h2, h3, h4, h5, h6, a, p {
+  color: white;
+}
+
 body {
   min-height: 100vh;
   background: linear-gradient(45deg, #4158d0, #c850c0);
+}
+
+.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  background-color: #36304a !important;
+  height: 5em;
+  color: white !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
 }
 
 #single-form-page-container {

@@ -1,14 +1,30 @@
 // Variables
 $border-radius: 20px;
+$main-background-color: #36304a;
+$text-color: white;
 
 
 // Code
+
+h1, h2, h3, h4, h5, h6, a, p {
+    color: $text-color;
+}
+
 
 body {
     min-height: 100vh;
     background: linear-gradient(45deg, #4158d0, #c850c0);
 }
 
+
+.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+    background-color: $main-background-color !important;
+    height: 5em;
+    color: $text-color !important;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: $text-color;
+}
 
 #single-form-page-container {
     margin-top: 10vh;
