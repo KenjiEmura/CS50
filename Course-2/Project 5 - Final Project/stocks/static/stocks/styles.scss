@@ -2,7 +2,6 @@
 $border-radius: 20px;
 
 
-
 // Code
 
 body {
@@ -35,15 +34,16 @@ body {
 .styled-table {
     border-collapse: collapse;
     background: white;
-    border-radius: 10px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    overflow: hidden;
+    border-radius: $border-radius;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     width: 100%;
+    margin: 3em 0;
 }
 
 .styled-table thead tr {
     height: 60px;
     background: #36304a;
-    text-align: left;
 }
 
 .styled-table th {
@@ -67,6 +67,7 @@ tbody tr:nth-child(even) {
 
 table tbody tr:last-child {
     border: 0;
+    border-radius: $border-radius;
 }
 
 tbody tr:hover {
