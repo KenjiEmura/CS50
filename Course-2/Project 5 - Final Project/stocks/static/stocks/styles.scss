@@ -1,7 +1,9 @@
 // Variables
-$border-radius: 20px;
+$border-radius: 10px;
 $main-background-color: #36304a;
 $text-color: white;
+$main-gradient: linear-gradient(45deg, #4158d0, #c850c0);
+$secondaty-gradient: linear-gradient(60deg, #ffffff 0%, #e7f2ff 20%, #ffe6fd 100%);
 
 
 // Code
@@ -13,7 +15,7 @@ h1, h2, h3, h4, h5, h6, a, p {
 
 body {
     min-height: 100vh;
-    background: linear-gradient(45deg, #4158d0, #c850c0);
+    background: $main-gradient;
 }
 
 
@@ -88,7 +90,7 @@ table tbody tr:last-child {
 
 tbody tr:hover {
     color: #555555;
-    background-color: #f5f5f5;
+    background: $secondaty-gradient;
     cursor: pointer;
 }
 
