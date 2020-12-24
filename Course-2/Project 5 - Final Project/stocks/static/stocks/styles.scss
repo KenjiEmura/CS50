@@ -55,7 +55,6 @@ body {
     border-radius: $border-radius;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     width: 100%;
-    margin: 3em 0;
 }
 
 .styled-table thead tr {
@@ -140,4 +139,11 @@ td, th {
 
 .divider-top2 .shape-fill {
     fill: #36304A;
+}
+
+.general-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3em;
+    margin: 3.5em 0;
 }
