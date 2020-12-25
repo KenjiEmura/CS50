@@ -20,7 +20,7 @@ def index(request):
 
 def login_view(request):
     if request.method == "POST":
-        
+
         # Attempt to sign user in
         username = request.POST["username"]
         password = request.POST["password"]
@@ -29,11 +29,20 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("stocks:index"))
+            if 'next' in request.POST:
+                return HttpResponseRedirect(request.POST.get('next'))
+            else:
+                return HttpResponseRedirect(reverse("stocks:index"))
         else:
-            return render(request, "stocks/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            if 'next' in request.POST:
+                return render(request, "stocks/login.html", {
+                    "message": "Invalid username and/or password.",
+                    "next": request.POST.get('next')
+                })
+            else:
+                return render(request, "stocks/login.html", {
+                    "message": "Invalid username and/or password."
+                })
     else:
         return render(request, "stocks/login.html")
 
