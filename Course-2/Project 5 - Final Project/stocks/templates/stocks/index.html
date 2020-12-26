@@ -41,34 +41,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>FB</td>
-                        <td>Facebook Inc - Class A</td>
-                        <td>25</td>
-                        <td>276.14</td>
-                        <td>6903.5</td>
+
+                {% for stock_id, stock_info in subtotals.items %}
+                    <tr class='stock-info'>
+                        <td class='symbol'>{{ stock_info.symbol }}</td>
+                        <td class='name'>{{ stock_info.name }}</td>
+                        <td class='qty'>{{ stock_info.qty }}</td>
+                        <td class='price'>10</td>
+                        <td class='total-price'></td>
                     </tr>
-                    <tr>
-                        <td>FB</td>
-                        <td>Facebook Inc - Class A</td>
-                        <td>25</td>
-                        <td>276.14</td>
-                        <td>6903.5</td>
-                    </tr>
-                    <tr>
-                        <td>FB</td>
-                        <td>Facebook Inc - Class A</td>
-                        <td>25</td>
-                        <td>276.14</td>
-                        <td>6903.5</td>
-                    </tr>
-                    <tr>
-                        <td>FB</td>
-                        <td>Facebook Inc - Class A</td>
-                        <td>25</td>
-                        <td>276.14</td>
-                        <td>6903.5</td>
-                    </tr>
+                {% endfor %}
+
                 </tbody>
               </table>
         </div>

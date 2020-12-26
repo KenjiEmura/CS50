@@ -14,21 +14,21 @@ from stocks.models import *
 
 def index(request):
     all_transactions = Acquisition.objects.filter(owner_id=1).values('name', 'qty')
-    subtotal = {}
+    raw_subtotals = {}
     for transaction in all_transactions:
-        if subtotal.get(transaction['name']):
-            subtotal[transaction['name']] += transaction['qty']
+        if raw_subtotals.get(transaction['name']):
+            raw_subtotals[transaction['name']] += transaction['qty']
         else:
-            subtotal[transaction['name']] = transaction['qty']
+            raw_subtotals[transaction['name']] = transaction['qty']
     
     subtotals = {}
-    for stock_id, stock_qty in subtotal.items():
+    for stock_id, stock_qty in raw_subtotals.items():
         stock = Stock.objects.get(pk=stock_id)
-        subtotals[stock_id] = {'stock_qty': stock_qty, 'stock_name': stock.name, 'stock_symbol': stock.symbol}
-
+        subtotals[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol}
 
     return render(request, "stocks/index.html", {
         'title': 'Index',
+        'subtotals': subtotals,
     })
 
 
