@@ -9,26 +9,55 @@ from django.urls import reverse
 from django.db.models import Count, Sum
 from django.http import JsonResponse
 import json
+import requests
+
+from stocks.keys import *
 
 from stocks.models import *
 
 def index(request):
+
+    # Get all the transactions made by the user
     all_transactions = Acquisition.objects.filter(owner_id=1).values('name', 'qty')
+
+    # Create a dict where we are going to group and sum up all the stocks owned by the user
     raw_subtotals = {}
+
+
     for transaction in all_transactions:
+        # If the stock is already in the dict
         if raw_subtotals.get(transaction['name']):
             raw_subtotals[transaction['name']] += transaction['qty']
+        # If not, then add it
         else:
             raw_subtotals[transaction['name']] = transaction['qty']
-    
-    subtotals = {}
+
+    stocks_symbols = [] # From which stocks do we need to fetch the information from the IEX API?
+    stocks_information = {} # This is the dict that will contain all the cleaned data that will be send to render
+
+    # Fill the raw_subtotals with the id of the stock and the quantity, but we need more information and also clean the data
     for stock_id, stock_qty in raw_subtotals.items():
         stock = Stock.objects.get(pk=stock_id)
-        subtotals[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol}
+        stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol}
+        stocks_symbols.append(stock.symbol)
+
+    # Prepare the string that is going to be used in the API Call, which will indicate which Stocks are we going to get information from
+    stocks_api = ",".join(stocks_symbols)
+
+    # Make the API Call, notice that the API key is held in the 'keys.py' file
+    api_call = requests.get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+stocks_api+'&types=quote&token='+IEX_API_TOKEN)
+
+    # Store the received data as a dict
+    data = api_call.json()
+
+    # Add the fetched price as a new piece of information in our stocks_information dict
+    for stock_id, stock_info in stocks_information.items():
+        stock_info['price'] = data[stock_info['symbol']]['quote']['latestPrice']
 
     return render(request, "stocks/index.html", {
         'title': 'Index',
-        'subtotals': subtotals,
+        'stocks_information': stocks_information,
+        'IEX_API_TOKEN': IEX_API_TOKEN,
     })
 
 
