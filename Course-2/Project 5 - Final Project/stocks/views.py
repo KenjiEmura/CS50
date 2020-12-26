@@ -6,13 +6,21 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.http import JsonResponse
 import json
 
 from stocks.models import *
 
 def index(request):
+    acquisitions = Acquisition.objects.filter(owner_id=1).values('name', 'qty')
+    total_transactions = {}
+    for transaction in acquisitions:
+        if total_transactions.get(transaction['name']):
+            total_transactions[transaction['name']] += transaction['qty']
+        else:
+            total_transactions[transaction['name']] = transaction['qty']
+            
     return render(request, "stocks/index.html", {
         'title': 'Index',
     })
