@@ -13,14 +13,20 @@ import json
 from stocks.models import *
 
 def index(request):
-    acquisitions = Acquisition.objects.filter(owner_id=1).values('name', 'qty')
-    total_transactions = {}
-    for transaction in acquisitions:
-        if total_transactions.get(transaction['name']):
-            total_transactions[transaction['name']] += transaction['qty']
+    all_transactions = Acquisition.objects.filter(owner_id=1).values('name', 'qty')
+    subtotal = {}
+    for transaction in all_transactions:
+        if subtotal.get(transaction['name']):
+            subtotal[transaction['name']] += transaction['qty']
         else:
-            total_transactions[transaction['name']] = transaction['qty']
-            
+            subtotal[transaction['name']] = transaction['qty']
+    
+    subtotals = {}
+    for stock_id, stock_qty in subtotal.items():
+        stock = Stock.objects.get(pk=stock_id)
+        subtotals[stock_id] = {'stock_qty': stock_qty, 'stock_name': stock.name, 'stock_symbol': stock.symbol}
+
+
     return render(request, "stocks/index.html", {
         'title': 'Index',
     })
