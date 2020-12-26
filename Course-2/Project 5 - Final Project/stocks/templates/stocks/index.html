@@ -15,16 +15,16 @@
     {% endif %}
 
     <div class='main-content'>
-        <h1>La clave API es:</h1>
+        <!-- <h1>La clave API es:</h1>
         <p>pk_e83502ec9593421abcf11af14a2af5be</p>
         <p>https://cloud-sse.iexapis.com/stable/stock/fb/quote?token=pk_e83502ec9593421abcf11af14a2af5be</p>
-        <a href="https://iexcloud.io/console">Panel de control</a>
+        <a href="https://iexcloud.io/console">Panel de control</a> -->
 
 
         <div class='general-info'>
-            <h2>Cash: <strong>$1.200</strong></h2>
-            <h2>Stocks: <strong></strong>$2.450</h2>
-            <h2>Net Worth: <strong></strong>$3.650</h2>
+            <h3>Cash: <strong id='cash'>{{ request.user.cash }}</strong></h2>
+            <h3>Stocks: <strong id='stocks'></strong></h2>
+            <h3>Net Worth: <strong id='net-worth'></strong></h2>
         </div>
 
 
@@ -46,7 +46,7 @@
                         <td class='symbol'>{{ stock_info.symbol }}</td>
                         <td class='name'>{{ stock_info.name }}</td>
                         <td class='qty'>{{ stock_info.qty }}</td>
-                        <td class='price'>${{ stock_info.price }}</td>
+                        <td class='price'>{{ stock_info.price }}</td>
                         <td class='total-price'></td>
                     </tr>
                 {% endfor %}
