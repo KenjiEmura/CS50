@@ -57,7 +57,6 @@ def index(request):
     return render(request, "stocks/index.html", {
         'title': 'Index',
         'stocks_information': stocks_information,
-        'IEX_API_TOKEN': IEX_API_TOKEN,
     })
 
 

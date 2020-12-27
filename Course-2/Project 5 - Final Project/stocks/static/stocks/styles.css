@@ -37,6 +37,10 @@ body {
   margin: 5vh 15vw;
 }
 
+.table-header-centered {
+  text-align: center;
+}
+
 .styled-table {
   border-collapse: collapse;
   background: white;
@@ -81,7 +85,7 @@ tbody tr:hover {
 }
 
 td, th {
-  padding: 1.2em;
+  padding: 0.5em 1.2em;
 }
 
 .menu-items {
@@ -134,6 +138,58 @@ td, th {
   justify-content: space-between;
   padding: 0 3em;
   margin: 3.5em 0;
+}
+
+input.set-sell-price {
+  display: inline;
+  height: 2em;
+  min-width: 50px;
+  max-width: 115px;
+  text-align: center;
+  border: 1px solid transparent;
+  outline: none;
+  border-radius: 24px;
+  transition: 0.25s;
+  padding: 0.5em 1em;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+input.set-sell-price:focus {
+  border: 1px solid #c850c0;
+}
+
+div.set-sell-price {
+  display: flex;
+  height: 2em;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200, 80, 192, 0.5);
+  margin: 0 0 0 1em;
+  width: 4em;
+  position: relative;
+  background: transparent;
+  border-radius: 32px;
+  text-align: center;
+  transition: all 0.1s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: #c850c0;
+  cursor: pointer;
+}
+div.set-sell-price:hover {
+  background-color: #c850c0;
+  color: white;
+}
+div.set-sell-price:active {
+  box-shadow: rgba(116, 0, 131, 0.3) 3px 3px 6px 0px inset, rgba(112, 0, 103, 0.3) -3px -3px 6px 1px inset;
+  color: white;
+}
+div.set-sell-price span {
+  font-weight: 600;
+}
+
+td.set-sell-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

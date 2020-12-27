@@ -2,8 +2,11 @@
 $border-radius: 10px;
 $main-background-color: #36304a;
 $text-color: white;
-$main-gradient: linear-gradient(45deg, #4158d0, #c850c0);
-$secondaty-gradient: linear-gradient(60deg, #ffffff 0%, #e7f2ff 20%, #ffe6fd 100%);
+$main-color: #4158d0;
+$secondary-color: #c850c0;
+$secondary-color-transparency: rgb(200, 80, 192, 0.5);
+$main-gradient: linear-gradient(45deg,$main-color,$secondary-color);
+$secondary-gradient: linear-gradient(60deg, #ffffff 0%, #e7f2ff 20%, #ffe6fd 100%);
 
 
 // Code
@@ -48,6 +51,12 @@ body {
     margin: 5vh 15vw;
 }
 
+
+.table-header-centered {
+    text-align: center;
+}
+
+
 .styled-table {
     border-collapse: collapse;
     background: white;
@@ -88,12 +97,12 @@ table tbody tr:last-child {
 
 tbody tr:hover {
     color: #555555;
-    background: $secondaty-gradient;
+    background: $secondary-gradient;
     // cursor: pointer;
 }
 
 td, th {
-    padding: 1.2em;
+    padding: 0.5em 1.2em;
 }
 
 .menu-items {
@@ -146,4 +155,56 @@ td, th {
     justify-content: space-between;
     padding: 0 3em;
     margin: 3.5em 0;
+}
+
+input.set-sell-price {
+    display: inline;
+    height: 2em;
+    min-width: 50px;
+    max-width: 115px;
+    text-align: center;
+    border: 1px solid transparent;
+    outline: none;
+    border-radius: 24px;
+    transition: 0.25s;
+    padding: 0.5em 1em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    &:focus {
+        border: 1px solid $secondary-color;
+    }
+}
+
+div.set-sell-price {
+    display: flex;
+    height: 2em;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $secondary-color-transparency;
+    margin: 0 0 0 1em;
+    width: 4em;
+    position: relative;
+    background: transparent;
+    border-radius: 32px;
+    text-align: center;
+    transition: all 0.1s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    color: $secondary-color;
+    cursor: pointer;
+    &:hover {
+        background-color: $secondary-color;
+        color: $text-color;
+    }
+    &:active {
+        box-shadow: rgb(116, 0, 131, 0.3) 3px 3px 6px 0px inset, rgba(112, 0, 103, 0.3) -3px -3px 6px 1px inset;
+        color: $text-color;
+    } span {
+        font-weight: 600;
+    }
+    
+}
+
+td.set-sell-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
