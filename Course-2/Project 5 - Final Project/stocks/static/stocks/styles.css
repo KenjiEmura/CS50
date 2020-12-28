@@ -37,7 +37,7 @@ body {
   margin: 5vh 15vw;
 }
 
-.table-header-centered {
+.table-header-centered, .symbol, th, td {
   text-align: center;
 }
 
@@ -179,11 +179,12 @@ div.set-sell-price:hover {
   color: white;
 }
 div.set-sell-price:active {
-  box-shadow: rgba(116, 0, 131, 0.3) 3px 3px 6px 0px inset, rgba(112, 0, 103, 0.3) -3px -3px 6px 1px inset;
+  box-shadow: rgba(116, 0, 131, 0.2) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0) -3px -3px 6px 1px inset;
   color: white;
 }
 div.set-sell-price span {
   font-weight: 600;
+  user-select: none;
 }
 
 td.set-sell-price {

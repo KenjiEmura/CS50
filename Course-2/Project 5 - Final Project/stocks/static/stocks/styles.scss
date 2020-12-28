@@ -52,7 +52,7 @@ body {
 }
 
 
-.table-header-centered {
+.table-header-centered, .symbol, th, td {
     text-align: center;
 }
 
@@ -195,10 +195,11 @@ div.set-sell-price {
         color: $text-color;
     }
     &:active {
-        box-shadow: rgb(116, 0, 131, 0.3) 3px 3px 6px 0px inset, rgba(112, 0, 103, 0.3) -3px -3px 6px 1px inset;
+        box-shadow: rgb(116, 0, 131, 0.2) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0) -3px -3px 6px 1px inset;
         color: $text-color;
     } span {
         font-weight: 600;
+        user-select: none
     }
     
 }

@@ -22,7 +22,7 @@ class Stock(models.Model):
 
 class Acquisition(models.Model):
     name = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_stocks')
     qty = models.IntegerField()
     price = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)

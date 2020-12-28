@@ -11,9 +11,12 @@ from django.http import JsonResponse
 import json
 import requests
 
-from stocks.keys import *
+from stocks.keys import * # This is the file with all the keys and secret information
 
 from stocks.models import *
+
+
+
 
 def index(request):
 
@@ -22,7 +25,6 @@ def index(request):
 
     # Create a dict where we are going to group and sum up all the stocks owned by the user
     raw_subtotals = {}
-
 
     for transaction in all_transactions:
         # If the stock is already in the dict
@@ -60,6 +62,8 @@ def index(request):
     })
 
 
+
+
 def login_view(request):
     if request.method == "POST":
 
@@ -90,9 +94,11 @@ def login_view(request):
 
 
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("stocks:index"))
+
 
 
 
@@ -121,6 +127,9 @@ def register(request):
         return HttpResponseRedirect(reverse("stocks:index"))
     else:
         return render(request, "stocks/register.html")
+
+
+
 
 @login_required(login_url='stocks:login')
 def users(request):
