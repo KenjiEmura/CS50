@@ -11,6 +11,11 @@ class User(AbstractUser):
 
 
 
+class UserStocks(models.Model):
+    pass
+
+
+
 class Stock(models.Model):
     name = models.CharField(max_length=64)
     symbol = models.CharField(max_length=5)
