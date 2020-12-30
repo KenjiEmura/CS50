@@ -1,13 +1,14 @@
 
+import requests
+
+from stocks.keys import * # This is the file with all the keys and secret information
 from stocks.models import *
 
 
 def update_user_total_stocks(user_id):
 
-
     # Get all the transactions made by the user
     all_transactions = Acquisition.objects.filter(owner=user_id).values('transacted_stock', 'qty')
-
 
     # Create a dict where we are going to group and sum up all the stocks owned by the user
     subtotals = {}
@@ -18,7 +19,6 @@ def update_user_total_stocks(user_id):
         # If not, then add it
         else:
             subtotals[transaction['transacted_stock']] = transaction['qty']
-
 
     # Check if the stock has been already registered for the user and update the values, otherwise, create the new entry
     for stock_id, stock_qty in subtotals.items():
@@ -35,3 +35,31 @@ def update_user_total_stocks(user_id):
             )
     
     return subtotals
+
+
+
+def fetch_pirces_from_API(stocks):
+
+    stocks_symbols = [] # Symbols of the stocks that we need to fetch the IEX API information from
+    stocks_information = {} # This is the dict that will contain all the cleaned data that will be send to render
+
+    # Fill the stocks with the id of the stock and the quantity, but we need more information and also clean the data
+    for stock_id, stock_qty in stocks.items():
+        stock = Stock.objects.get(pk=stock_id)
+        stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol}
+        stocks_symbols.append(stock.symbol)
+
+    # Prepare the string that is going to be used in the API Call, which will indicate which Stocks are we going to get information from
+    stocks_api = ",".join(stocks_symbols)
+
+    # Make the API Call, notice that the API key is held in the 'keys.py' file
+    api_call = requests.get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+stocks_api+'&types=quote&token='+IEX_API_TOKEN)
+
+    # Store the received data as a dict
+    data = api_call.json()
+
+    # Add the fetched price as a new piece of information in our stocks_information dict
+    for stock_id, stock_info in stocks_information.items():
+        stock_info['price'] = data[stock_info['symbol']]['quote']['latestPrice']
+
+    return stocks_information
