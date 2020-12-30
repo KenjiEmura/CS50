@@ -11,10 +11,6 @@ class User(AbstractUser):
 
 
 
-class UserStocks(models.Model):
-    pass
-
-
 
 class Stock(models.Model):
     name = models.CharField(max_length=64)
@@ -25,12 +21,25 @@ class Stock(models.Model):
 
 
 
-class Acquisition(models.Model):
-    name = models.ForeignKey(Stock, on_delete=models.CASCADE)
+
+class UserStocks(models.Model):
+    owned_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_stocks')
+    qty = models.IntegerField()
+    sell_price = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.owner}: {self.owned_stock} - {self.qty}"
+
+
+
+
+class Acquisition(models.Model):
+    transacted_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     qty = models.IntegerField()
     price = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"{self.name} - Qty: {self.qty}"
+        return f"{self.transacted_stock} - Qty: {self.qty}"

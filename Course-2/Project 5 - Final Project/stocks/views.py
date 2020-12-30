@@ -13,6 +13,8 @@ import requests
 
 from stocks.keys import * # This is the file with all the keys and secret information
 
+from stocks.helpers import * # This is the file with helper functions
+
 from stocks.models import *
 
 
@@ -21,18 +23,18 @@ from stocks.models import *
 def index(request):
 
     # Get all the transactions made by the user
-    all_transactions = Acquisition.objects.filter(owner_id=1).values('name', 'qty')
+    all_transactions = Acquisition.objects.filter(owner_id=1).values('transacted_stock', 'qty')
 
     # Create a dict where we are going to group and sum up all the stocks owned by the user
-    raw_subtotals = {}
+    raw_subtotals = update_user_total_stocks(request.user)
 
     for transaction in all_transactions:
         # If the stock is already in the dict
-        if raw_subtotals.get(transaction['name']):
-            raw_subtotals[transaction['name']] += transaction['qty']
+        if raw_subtotals.get(transaction['transacted_stock']):
+            raw_subtotals[transaction['transacted_stock']] += transaction['qty']
         # If not, then add it
         else:
-            raw_subtotals[transaction['name']] = transaction['qty']
+            raw_subtotals[transaction['transacted_stock']] = transaction['qty']
 
     stocks_symbols = [] # From which stocks do we need to fetch the information from the IEX API?
     stocks_information = {} # This is the dict that will contain all the cleaned data that will be send to render
