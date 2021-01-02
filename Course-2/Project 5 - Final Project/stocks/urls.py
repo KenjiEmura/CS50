@@ -13,5 +13,6 @@ urlpatterns = [
 
     
     # API Routes
+    path("set_stock_price", views.set_stock_price, name="set_stock_price"),
 
 ]

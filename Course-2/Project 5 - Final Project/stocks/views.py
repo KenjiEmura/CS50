@@ -31,6 +31,12 @@ def index(request):
     })
 
 
+def set_stock_price(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    pass
+
+
 
 
 def login_view(request):
