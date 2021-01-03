@@ -23,7 +23,7 @@ from stocks.models import *
 def index(request):
 
     raw_subtotals = update_user_total_stocks(request.user)
-    stocks_information = fetch_pirces_from_API(raw_subtotals)
+    stocks_information = fetch_pirces_from_API(raw_subtotals, request.user)
 
     return render(request, "stocks/index.html", {
         'title': 'Index',
@@ -31,10 +31,12 @@ def index(request):
     })
 
 
-def set_stock_price(request):
+
+
+
+def set_sell_stock_price(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
-    pass
 
 
 

@@ -38,7 +38,7 @@ def update_user_total_stocks(user_id):
 
 
 
-def fetch_pirces_from_API(stocks):
+def fetch_pirces_from_API(stocks, user_id):
 
     stocks_symbols = [] # Symbols of the stocks that we need to fetch the IEX API information from
     stocks_information = {} # This is the dict that will contain all the cleaned data that will be send to render
@@ -46,7 +46,8 @@ def fetch_pirces_from_API(stocks):
     # Fill the stocks with the id of the stock and the quantity, but we need more information and also clean the data
     for stock_id, stock_qty in stocks.items():
         stock = Stock.objects.get(pk=stock_id)
-        stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol}
+        user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
+        stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol, 'user_sell_price': user_owned_stock.sell_price}
         stocks_symbols.append(stock.symbol)
 
     # Prepare the string that is going to be used in the API Call, which will indicate which Stocks are we going to get information from
@@ -60,6 +61,10 @@ def fetch_pirces_from_API(stocks):
 
     # Add the fetched price as a new piece of information in our stocks_information dict
     for stock_id, stock_info in stocks_information.items():
-        stock_info['price'] = data[stock_info['symbol']]['quote']['latestPrice']
-
+        user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
+        if data[stock_info['symbol']]['quote']['latestPrice'] > stock_info['user_sell_price']:
+            stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+            user_owned_stock.sell_price = data[stock_info['symbol']]['quote']['latestPrice']
+            user_owned_stock.save()
+            
     return stocks_information

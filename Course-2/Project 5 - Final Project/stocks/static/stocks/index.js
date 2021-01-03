@@ -21,6 +21,17 @@ document.addEventListener('DOMContentLoaded',() => {
         let stock_qty = row.querySelector('.qty').innerHTML
         let stock_price = row.querySelector('.price')
         let stock_total_price = row.querySelector('.total-price')
+
+        row.querySelector('div.set-sell-price').addEventListener("click", () => {
+            console.log(stock_price)
+            fetch('API/set_sell_stock_price', {
+                method: 'POST',
+                body: JSON.stringify({
+                    // price: TODO
+                })
+            })
+
+        });
         
         // Calculate the total price of the stocks and print that value in the table
         let total_stock_price = stock_price.innerHTML * stock_qty
@@ -39,5 +50,27 @@ document.addEventListener('DOMContentLoaded',() => {
     stocks.innerHTML = formatter.format(total_stock_valuation)
     net_worth.innerHTML = formatter.format(total_stock_valuation + parseInt(cash.innerHTML))
     cash.innerHTML = formatter.format(parseInt(cash.innerHTML))
+
+
+    // function set_sell_stock_price(parameter) {
+    function test(parameter) {
+        console.log(parameter)
+    }
+        // fetch('/emails/'+rowInfo.id, {
+        //     method: 'PUT',
+        //     body: JSON.stringify({
+        //         archived: !result.archived
+        //     })
+        // })
+        // .then( () => {
+        //     if (result.archived) {
+        //         history.pushState({page: 'inbox'},"",`/emails/inbox`)
+        //         loadInbox()
+        //     } else {
+        //         history.pushState({page: 'inbox'},"",`/emails/inbox`)
+        //         loadInbox()
+        //         // loadArchived();
+        //     }
+        // });
 
 });
