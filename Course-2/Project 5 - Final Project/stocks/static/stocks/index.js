@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded',() => {
 
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]');
 
     let cash = document.querySelector('#cash')
     let stocks = document.querySelector('#stocks')
@@ -18,17 +19,25 @@ document.addEventListener('DOMContentLoaded',() => {
     const tablerow = document.querySelectorAll('.stock-info').forEach( row => {
 
         // Store each piece of data
+        let stock_id = row.querySelector('input.stock-id').value
         let stock_qty = row.querySelector('.qty').innerHTML
         let stock_price = row.querySelector('.price')
         let stock_total_price = row.querySelector('.total-price')
+        let sell_price = row.querySelector('input.set-sell-price')
 
         row.querySelector('div.set-sell-price').addEventListener("click", () => {
-            console.log(stock_price)
+            console.log(stock_id)
             fetch('API/set_sell_stock_price', {
                 method: 'POST',
+                headers: {'X-CSRFToken': csrftoken.value},
                 body: JSON.stringify({
-                    // price: TODO
+                    stock_id: stock_id,
+                    sell_price: sell_price.value,
                 })
+            })
+            .then(response => response.json())
+            .then( result => {
+                console.log(result)
             })
 
         });

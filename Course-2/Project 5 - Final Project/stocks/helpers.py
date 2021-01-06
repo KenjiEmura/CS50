@@ -62,9 +62,15 @@ def fetch_pirces_from_API(stocks, user_id):
     # Add the fetched price as a new piece of information in our stocks_information dict
     for stock_id, stock_info in stocks_information.items():
         user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
-        if data[stock_info['symbol']]['quote']['latestPrice'] > stock_info['user_sell_price']:
-            stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
-            user_owned_stock.sell_price = data[stock_info['symbol']]['quote']['latestPrice']
-            user_owned_stock.save()
+
+        # Uncomment this if you want to update the selling price to at least match the market price, in other words, users can not sell stocks below the market price
+        # if data[stock_info['symbol']]['quote']['latestPrice'] > stock_info['user_sell_price']:
+        #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+        #     user_owned_stock.sell_price = data[stock_info['symbol']]['quote']['latestPrice']
+        #     user_owned_stock.save()
+        # else:
+        #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+
+        stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
             
     return stocks_information

@@ -20,6 +20,7 @@
         <p>https://cloud-sse.iexapis.com/stable/stock/fb/quote?token=pk_e83502ec9593421abcf11af14a2af5be</p>
         <a href="https://iexcloud.io/console">Panel de control</a> -->
 
+        {% csrf_token %}
 
         <div class='general-info'>
             <h3>Cash: <strong id='cash'>{{ request.user.cash }}</strong></h2>
@@ -35,21 +36,22 @@
                         <th class='symbol'>Ticker</th>
                         <th>Company Name</th>
                         <th>Stocks Owned</th>
-                        <th>Unitary Stock Price</th>
+                        <th>Market Price</th>
                         <th>Total owned</th>
-                        <th class='table-header-centered'>Set Sell Price</th>
+                        <th class='table-header-centered'>User's Selling Price</th>
                     </tr>
                 </thead>
                 <tbody>
 
                 {% for stock_id, stock_info in stocks_information.items %}
                     <tr class='stock-info'>
+                        <input type="hidden" class='stock-id' value="{{ stock_id }}">
                         <td class='symbol'>{{ stock_info.symbol }}</td>
                         <td class='name'>{{ stock_info.name }}</td>
                         <td class='qty'>{{ stock_info.qty }}</td>
-                        <td class='price'>{{ stock_info.price }}</td>
+                        <td class='price'>{{ stock_info.market_price }}</td>
                         <td class='total-price'></td>
-                        <td class='set-sell-price'><input class='set-sell-price' type="number" placeholder="{{ stock_info.price }}" min={{ stock_info.price }} step="any"><div class='set-sell-price'><span>Set</span></div></td>
+                        <td class='set-sell-price'><input class='set-sell-price' type="number" value="{{ stock_info.user_sell_price }}" step="any"><div class='set-sell-price'><span>Set</span></div></td>
                     </tr>
                 {% endfor %}
 
