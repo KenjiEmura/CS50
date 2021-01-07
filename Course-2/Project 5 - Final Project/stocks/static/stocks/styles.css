@@ -191,7 +191,6 @@ button {
   cursor: pointer;
   transition: all 0.25s ease-in-out;
   font-size: 12px;
-  font-weight: bold;
 }
 button:hover {
   color: white;
