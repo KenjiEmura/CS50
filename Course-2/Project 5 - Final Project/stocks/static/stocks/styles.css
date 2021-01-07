@@ -151,7 +151,7 @@ div.set-sell-price {
 
 input.set-sell-price {
   grid-column: 1/span 1;
-  justify-self: center;
+  justify-self: right;
   display: inline;
   height: 2em;
   min-width: 50px;
@@ -176,7 +176,7 @@ td.set-sell-price {
 
 button {
   width: 60px;
-  justify-self: center;
+  justify-self: left;
   grid-column: 2/span 1;
   outline: none;
   height: 30px;
@@ -208,6 +208,7 @@ button:focus {
 }
 
 .onclic {
+  margin-left: 15px;
   width: 30px;
   border-color: #bbbbbb;
   border-width: 3px;
@@ -241,6 +242,10 @@ button:focus {
   to {
     transform: rotate(360deg);
   }
+}
+.set-sell-price-container {
+  margin-left: 0px;
+  justify-self: left;
 }
 
 /*# sourceMappingURL=styles.css.map */
