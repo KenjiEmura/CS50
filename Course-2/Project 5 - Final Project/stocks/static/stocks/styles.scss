@@ -222,10 +222,6 @@ button {
         color:white;
         background: $secondary-color;
     }
-    &:active {
-        //letter-spacing: 2px;
-        letter-spacing: 2px ;
-    }
     &:after {
         content:"SET";
     }

@@ -197,9 +197,6 @@ button:hover {
   color: white;
   background: #c850c0;
 }
-button:active {
-  letter-spacing: 2px;
-}
 button:after {
   content: "SET";
 }

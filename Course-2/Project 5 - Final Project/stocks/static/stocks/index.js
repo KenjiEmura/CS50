@@ -42,14 +42,14 @@ document.addEventListener('DOMContentLoaded',() => {
                 if ( response.ok ) {
                     setTimeout( () => {
                         validate()
-                    }, 1500)
+                    }, 1000)
                 } else {
-                    row.querySelector('div.set-sell-price').style.cssText = 'background:reda; color: white; border: 1px solid transparent;'
+                    // Put here what should happen if there is an error
                 }
                 return response.json()
             })
             .then( result => {
-                console.log(result)
+                // console.log(result)
             })
         })
             
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded',() => {
             button.classList.add('validate');
             setTimeout( () => {
                 button.classList.remove('validate')
-            }, 1500)
+            }, 1000)
         }
 
         
