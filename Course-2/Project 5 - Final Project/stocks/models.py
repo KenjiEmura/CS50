@@ -36,10 +36,11 @@ class UserStocks(models.Model):
 
 class Acquisition(models.Model):
     transacted_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='buyer_stocks')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller_stocks')
     qty = models.IntegerField()
     price = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return f"{self.transacted_stock} - Qty: {self.qty}"

@@ -8,7 +8,7 @@ from stocks.models import *
 def update_user_total_stocks(user_id):
 
     # Get all the transactions made by the user
-    all_transactions = Acquisition.objects.filter(owner=user_id).values('transacted_stock', 'qty')
+    all_transactions = Acquisition.objects.filter(buyer=user_id).values('transacted_stock', 'qty')
 
     # Create a dict where we are going to group and sum up all the stocks owned by the user
     subtotals = {}
@@ -20,19 +20,24 @@ def update_user_total_stocks(user_id):
         else:
             subtotals[transaction['transacted_stock']] = transaction['qty']
 
-    # Check if the stock has been already registered for the user and update the values, otherwise, create the new entry
+    # Check if the stock is in the user's table and update the values, otherwise, create the new entry
     for stock_id, stock_qty in subtotals.items():
-        stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id); 
+        
+        stock = UserStocks.objects.filter(owner=user_id).filter(owned_stock=stock_id).exists()
+
         if stock:
+            stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
             stock.qty = stock_qty
             stock.save()
         else:
+            assigned_stock = Stock.objects.get(pk=stock_id)
             stock = UserStocks(
-                owned_stock=stock_id,
+                owned_stock=assigned_stock,
                 owner=user_id,
                 qty=stock_qty,
                 sell_price=0,
             )
+            stock.save()
     
     return subtotals
 
