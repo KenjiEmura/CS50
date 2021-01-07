@@ -24,9 +24,12 @@ document.addEventListener('DOMContentLoaded',() => {
         let stock_price = row.querySelector('.price')
         let stock_total_price = row.querySelector('.total-price')
         let sell_price = row.querySelector('input.set-sell-price')
+        let button = row.querySelector('#button')
 
-        row.querySelector('div.set-sell-price').addEventListener("click", () => {
-            console.log(stock_id)
+        
+
+        button.addEventListener('click', () => {
+            button.classList.add('onclic')
             fetch('API/set_sell_stock_price', {
                 method: 'POST',
                 headers: {'X-CSRFToken': csrftoken.value},
@@ -35,13 +38,31 @@ document.addEventListener('DOMContentLoaded',() => {
                     sell_price: sell_price.value,
                 })
             })
-            .then( response => response.json() )
+            .then( response => {
+                if ( response.ok ) {
+                    setTimeout( () => {
+                        validate()
+                    }, 1500)
+                } else {
+                    row.querySelector('div.set-sell-price').style.cssText = 'background:reda; color: white; border: 1px solid transparent;'
+                }
+                return response.json()
+            })
             .then( result => {
                 console.log(result)
-                row.querySelector('div.set-sell-price').style.cssText = 'background:#28a745; color: white; border: 1px solid transparent;'
             })
+        })
+            
+        function validate() {
+            button.classList.remove('onclic')
+            button.classList.add('validate');
+            setTimeout( () => {
+                button.classList.remove('validate')
+            }, 1500)
+        }
 
-        });
+
+
         
         // Calculate the total price of the stocks and print that value in the table
         let total_stock_price = stock_price.innerHTML * stock_qty

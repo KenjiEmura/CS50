@@ -2,11 +2,13 @@
 $border-radius: 10px;
 $main-background-color: #36304a;
 $text-color: white;
+$gray: #bbbbbb;
 $main-color: #4158d0;
 $secondary-color: #c850c0;
 $secondary-color-transparency: rgb(200, 80, 192, 0.5);
 $main-gradient: linear-gradient(45deg,$main-color,$secondary-color);
 $secondary-gradient: linear-gradient(60deg, #ffffff 0%, #e7f2ff 20%, #ffe6fd 100%);
+$rotating-button-size: 30px;
 
 
 // Code
@@ -157,7 +159,19 @@ td, th {
     margin: 3.5em 0;
 }
 
+
+div.set-sell-price {
+    display: inline-grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 0.5em;
+    justify-content: center;
+    width: 100%;
+}
+
+
 input.set-sell-price {
+    grid-column: 1 / span 1;
+    justify-self: center;
     display: inline;
     height: 2em;
     min-width: 50px;
@@ -174,38 +188,89 @@ input.set-sell-price {
     }
 }
 
-div.set-sell-price {
-    display: flex;
-    height: 2em;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid $secondary-color-transparency;
-    margin: 0 0 0 1em;
-    width: 4em;
-    position: relative;
-    background: transparent;
-    border-radius: 32px;
-    text-align: center;
-    transition: all 0.1s ease-in-out;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    color: $secondary-color;
-    cursor: pointer;
-    &:hover {
-        background-color: $secondary-color;
-        color: $text-color;
-    }
-    &:active {
-        box-shadow: rgb(116, 0, 131, 0.2) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0) -3px -3px 6px 1px inset;
-        color: $text-color;
-    } span {
-        font-weight: 600;
-        user-select: none
-    }
-    
-}
+
 
 td.set-sell-price {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+
+button {
+    width: 60px;
+    justify-self: center;
+    grid-column: 2 / span 1;
+    outline:none;
+    height: $rotating-button-size;
+    text-align: center;
+    padding: 0 1.5em;
+    border-radius:40px;
+    background: #fff;
+    border: 1px solid $secondary-color;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    color:$secondary-color;
+    letter-spacing:1px;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    font:{
+        size:12px;
+        weight:bold;
+    }
+    &:hover {
+        color:white;
+        background: $secondary-color;
+    }
+    &:active {
+        //letter-spacing: 2px;
+        letter-spacing: 2px ;
+    }
+    &:after {
+        content:"SET";
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+
+.onclic {
+
+    width: $rotating-button-size;
+    border-color:$gray;
+    border-width:3px;
+    font-size:0;
+    border-left-color:$secondary-color;
+    animation: rotating 2s 0.25s linear infinite;
+
+    &:after {
+        content:"";
+    }
+
+    &:hover {
+        color:$secondary-color;
+        background: white;
+    }
+}
+
+
+.validate {
+    font-size:13px;
+    color: white;
+    background: $secondary-color;
+    &:after {
+        color: transparent;  
+        text-shadow: 0 0 0 white;
+        content:"✔";
+    }
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

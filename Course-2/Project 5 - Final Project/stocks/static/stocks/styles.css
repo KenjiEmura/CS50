@@ -1,3 +1,4 @@
+@charset "UTF-8";
 h1, h2, h3, h4, h5, h6, a, p {
   color: white;
 }
@@ -140,7 +141,17 @@ td, th {
   margin: 3.5em 0;
 }
 
+div.set-sell-price {
+  display: inline-grid;
+  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 0.5em;
+  justify-content: center;
+  width: 100%;
+}
+
 input.set-sell-price {
+  grid-column: 1/span 1;
+  justify-self: center;
   display: inline;
   height: 2em;
   min-width: 50px;
@@ -157,40 +168,79 @@ input.set-sell-price:focus {
   border: 1px solid #c850c0;
 }
 
-div.set-sell-price {
-  display: flex;
-  height: 2em;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(200, 80, 192, 0.5);
-  margin: 0 0 0 1em;
-  width: 4em;
-  position: relative;
-  background: transparent;
-  border-radius: 32px;
-  text-align: center;
-  transition: all 0.1s ease-in-out;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  color: #c850c0;
-  cursor: pointer;
-}
-div.set-sell-price:hover {
-  background-color: #c850c0;
-  color: white;
-}
-div.set-sell-price:active {
-  box-shadow: rgba(116, 0, 131, 0.2) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0) -3px -3px 6px 1px inset;
-  color: white;
-}
-div.set-sell-price span {
-  font-weight: 600;
-  user-select: none;
-}
-
 td.set-sell-price {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+button {
+  width: 60px;
+  justify-self: center;
+  grid-column: 2/span 1;
+  outline: none;
+  height: 30px;
+  text-align: center;
+  padding: 0 1.5em;
+  border-radius: 40px;
+  background: #fff;
+  border: 1px solid #c850c0;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: #c850c0;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  font-size: 12px;
+  font-weight: bold;
+}
+button:hover {
+  color: white;
+  background: #c850c0;
+}
+button:active {
+  letter-spacing: 2px;
+}
+button:after {
+  content: "SET";
+}
+button:focus {
+  outline: none;
+}
+
+.onclic {
+  width: 30px;
+  border-color: #bbbbbb;
+  border-width: 3px;
+  font-size: 0;
+  border-left-color: #c850c0;
+  animation: rotating 2s 0.25s linear infinite;
+}
+.onclic:after {
+  content: "";
+}
+.onclic:hover {
+  color: #c850c0;
+  background: white;
+}
+
+.validate {
+  font-size: 13px;
+  color: white;
+  background: #c850c0;
+}
+.validate:after {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+  content: "✔";
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
