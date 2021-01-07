@@ -1,5 +1,6 @@
 **/Tests
-*/Test
+**/Test
+**/migrations
 **/__pycache__
 *.sqlite3
 keys.py
