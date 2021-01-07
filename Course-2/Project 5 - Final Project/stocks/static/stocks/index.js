@@ -35,9 +35,10 @@ document.addEventListener('DOMContentLoaded',() => {
                     sell_price: sell_price.value,
                 })
             })
-            .then(response => response.json())
+            .then( response => response.json() )
             .then( result => {
                 console.log(result)
+                row.querySelector('div.set-sell-price').style.cssText = 'background:#28a745; color: white; border: 1px solid transparent;'
             })
 
         });

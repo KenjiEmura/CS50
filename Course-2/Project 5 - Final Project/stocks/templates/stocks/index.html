@@ -2,9 +2,16 @@
 {% load static %}
 {% load humanize %}
 
+
 {% block title %}
 {{ title }}
 {% endblock %}
+
+
+{% block head %}
+    <script src="{% static 'stocks/index.js' %}"></script>
+{% endblock %}
+
 
 {% block body %}
 
@@ -61,9 +68,4 @@
 
     </div>
 
-{% endblock %}
-
-
-{% block script %}
-    <script src="{% static 'stocks/index.js' %}"></script>
 {% endblock %}
