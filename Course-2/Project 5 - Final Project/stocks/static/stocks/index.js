@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded',() => {
         let sell_price = row.querySelector('input.set-sell-price')
         let button = row.querySelector('#button')
 
-        
+
 
         button.addEventListener('click', () => {
             button.classList.add('onclic')
@@ -61,8 +61,6 @@ document.addEventListener('DOMContentLoaded',() => {
             }, 1500)
         }
 
-
-
         
         // Calculate the total price of the stocks and print that value in the table
         let total_stock_price = stock_price.innerHTML * stock_qty
@@ -87,21 +85,6 @@ document.addEventListener('DOMContentLoaded',() => {
     function test(parameter) {
         console.log(parameter)
     }
-        // fetch('/emails/'+rowInfo.id, {
-        //     method: 'PUT',
-        //     body: JSON.stringify({
-        //         archived: !result.archived
-        //     })
-        // })
-        // .then( () => {
-        //     if (result.archived) {
-        //         history.pushState({page: 'inbox'},"",`/emails/inbox`)
-        //         loadInbox()
-        //     } else {
-        //         history.pushState({page: 'inbox'},"",`/emails/inbox`)
-        //         loadInbox()
-        //         // loadArchived();
-        //     }
-        // });
+
 
 });
