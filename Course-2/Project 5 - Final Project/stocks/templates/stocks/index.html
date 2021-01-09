@@ -62,7 +62,7 @@
                             {% if stock_info.for_sale %}
                                 <input type="hidden" id="for-sale" value="true">
                             {% else %}
-                                <input type="hidden" id="for-sale" value="false">
+                                <input type="hidden" id="for-sale" value="">
                             {% endif %}
                             <div class='set-sell-price'>
                                 <input class='set-sell-price' type="number" value="{{ stock_info.user_sell_price }}" step="any">

@@ -41,7 +41,11 @@ document.addEventListener('DOMContentLoaded',() => {
             .then( response => {
                 if ( response.ok ) {
                     setTimeout( () => {
-                        validate()
+                        button.classList.remove('onclic')
+                        button.classList.add('validate')
+                        setTimeout( () => {
+                            button.classList.remove('validate')
+                        }, 1000)
                     }, 1000)
                 } else {
                     // Put here what should happen if the response is not "ok"
@@ -53,34 +57,47 @@ document.addEventListener('DOMContentLoaded',() => {
             })
         })
             
-        function validate() {
-            button.classList.remove('onclic')
-            button.classList.add('validate')
-            setTimeout( () => {
-                button.classList.remove('validate')
-            }, 1000)
-        }
 
         
         // Select the "for sale" checkbox and input field which contains the information that we got from the server
         let check_box = row.querySelector('[type="checkbox"]#for-sale')
-        let for_sale = row.querySelector('[type="hidden"]#for-sale')
+        let for_sale = Boolean(row.querySelector('[type="hidden"]#for-sale').value)
 
-        console.log(button)
-
-        // Check if the stock is for sale or not for sale
-        if ( for_sale.value == 'true' ) {
+        
+        // Check if the stock is for sale or not and apply the corresponding updates to the DOM using the forSale() function
+        forSale(for_sale)
+        if ( for_sale ) {
             check_box.checked = true
-            sell_price.disabled = false
-            button.disabled = false
         } else {
             check_box.checked = false
-            sell_price.disabled = true
-            sell_price.classList.add('disabled')
-            button.disabled = true
-            button.className = 'disabled'
         }
-        
+
+
+        // Add the toggle between 'for sale' and 'not for sale' to the toggle switch
+        check_box.addEventListener('click', () => {
+            forSale(check_box.checked)
+        })
+
+
+        // Check if the stock is for sale or not for sale
+        function forSale( isForSale) {
+
+            console.log('Valor isForSale dentro de la funcion: ' + isForSale)
+            
+            if ( isForSale ) {
+                console.log('Entramos al "true" de la funcion forSale()')
+                sell_price.disabled = false
+                sell_price.classList.remove('disabled')
+                button.disabled = false
+                button.className = ''
+            } else {
+                console.log('Entramos al "false"')
+                sell_price.disabled = true
+                sell_price.classList.add('disabled')
+                button.disabled = true
+                button.className = 'disabled'
+            }
+        }
 
 
         // Calculate the total price of the stocks and print that value in the table
