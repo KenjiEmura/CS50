@@ -35,7 +35,7 @@
             <h3>Net Worth: <strong id='net-worth'></strong></h2>
         </div>
 
-
+        {% if user.is_authenticated %}
         <div class='table-container'>
             <table class="styled-table">
                 <thead class="">
@@ -82,7 +82,7 @@
                 </tbody>
               </table>
         </div>
-
+        {% endif %}
     </div>
 
 {% endblock %}

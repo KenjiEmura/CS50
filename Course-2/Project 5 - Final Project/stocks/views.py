@@ -21,14 +21,18 @@ from stocks.models import *
 
 
 def index(request):
+    if request.user.is_authenticated:
+        raw_subtotals = update_user_total_stocks(request.user)
+        stocks_information = fetch_pirces_from_API(raw_subtotals, request.user)
 
-    raw_subtotals = update_user_total_stocks(request.user)
-    stocks_information = fetch_pirces_from_API(raw_subtotals, request.user)
-
-    return render(request, "stocks/index.html", {
-        'title': 'Index',
-        'stocks_information': stocks_information,
-    })
+        return render(request, "stocks/index.html", {
+            'title': 'Index',
+            'stocks_information': stocks_information,
+        })
+    else:
+        return render(request, "stocks/index.html", {
+            'title': 'Index',
+        })
 
 
 

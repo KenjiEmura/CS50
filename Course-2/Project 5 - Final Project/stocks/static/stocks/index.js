@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded',() => {
         }
 
 
-        // Add the toggle between 'for sale' and 'not for sale' to the toggle switch
+        // Add functionality to the 'for sale' and 'not for sale' toggle switch
         check_box.addEventListener('click', () => {
             forSale(check_box.checked)
             fetch('API/update_for_sale', {

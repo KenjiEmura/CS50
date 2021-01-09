@@ -6,7 +6,7 @@ from stocks.models import *
 
 
 def update_user_total_stocks(user_id):
-
+    
     # Get all the transactions made by the user
     all_transactions = Acquisition.objects.filter(buyer=user_id).values('transacted_stock', 'qty')
 
@@ -50,10 +50,13 @@ def fetch_pirces_from_API(stocks, user_id):
 
     # Fill the stocks with the id of the stock and the quantity, but we need more information and also clean the data
     for stock_id, stock_qty in stocks.items():
-        stock = Stock.objects.get(pk=stock_id)
-        user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
-        stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol, 'user_sell_price': user_owned_stock.sell_price, 'for_sale': user_owned_stock.for_sale}
-        stocks_symbols.append(stock.symbol)
+        stock = Stock.objects.filter(pk=stock_id).exists()
+        user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(pk=stock_id).exists()
+        if stock and user_owned_stock:
+            stock = Stock.objects.get(pk=stock_id)
+            user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
+            stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol, 'user_sell_price': user_owned_stock.sell_price, 'for_sale': user_owned_stock.for_sale}
+            stocks_symbols.append(stock.symbol)
 
     # Prepare the string that is going to be used in the API Call, which will indicate which Stocks are we going to get information from
     stocks_api = ",".join(stocks_symbols)
@@ -66,7 +69,9 @@ def fetch_pirces_from_API(stocks, user_id):
 
     # Add the fetched price as a new piece of information in our stocks_information dict
     for stock_id, stock_info in stocks_information.items():
-        user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
+        user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(pk=stock_id).exists()
+        if user_owned_stock:
+            user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
 
         # Uncomment this if you want to update the selling price to at least match the market price, in other words, users can not sell stocks below the market price
         # if data[stock_info['symbol']]['quote']['latestPrice'] > stock_info['user_sell_price']:
@@ -76,6 +81,6 @@ def fetch_pirces_from_API(stocks, user_id):
         # else:
         #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
 
-        stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+            stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
             
     return stocks_information
