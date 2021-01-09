@@ -24,23 +24,11 @@ document.addEventListener('DOMContentLoaded',() => {
         let stock_price = row.querySelector('.price')
         let stock_total_price = row.querySelector('.total-price')
         let sell_price = row.querySelector('input.set-sell-price')
-        let check_box = row.querySelector('[type="checkbox"]#for-sale')
+
+        // Add the fetch functionality to the "Set" button
+        let button = row.querySelector('#button')
         
-        let for_sale = row.querySelector('[type="hidden"]#for-sale')
-
-        console.log(for_sale.value)
-
-        if ( for_sale.value == 'true' ) {
-            check_box.checked = true
-            console.log('Entramos al TRUE')
-        } else {
-            check_box.checked = false
-            console.log('Entramos al FALSE')
-        }
-
-
-
-        let button = row.querySelector('#button').addEventListener('click', () => {
+        button.addEventListener('click', () => {
             button.classList.add('onclic')
             fetch('API/set_sell_stock_price', {
                 method: 'POST',
@@ -56,7 +44,7 @@ document.addEventListener('DOMContentLoaded',() => {
                         validate()
                     }, 1000)
                 } else {
-                    // Put here what should happen if there is an error
+                    // Put here what should happen if the response is not "ok"
                 }
                 return response.json()
             })
@@ -67,13 +55,34 @@ document.addEventListener('DOMContentLoaded',() => {
             
         function validate() {
             button.classList.remove('onclic')
-            button.classList.add('validate');
+            button.classList.add('validate')
             setTimeout( () => {
                 button.classList.remove('validate')
             }, 1000)
         }
 
         
+        // Select the "for sale" checkbox and input field which contains the information that we got from the server
+        let check_box = row.querySelector('[type="checkbox"]#for-sale')
+        let for_sale = row.querySelector('[type="hidden"]#for-sale')
+
+        console.log(button)
+
+        // Check if the stock is for sale or not for sale
+        if ( for_sale.value == 'true' ) {
+            check_box.checked = true
+            sell_price.disabled = false
+            button.disabled = false
+        } else {
+            check_box.checked = false
+            sell_price.disabled = true
+            sell_price.classList.add('disabled')
+            button.disabled = true
+            button.className = 'disabled'
+        }
+        
+
+
         // Calculate the total price of the stocks and print that value in the table
         let total_stock_price = stock_price.innerHTML * stock_qty
         stock_total_price.innerHTML = formatter.format(total_stock_price)

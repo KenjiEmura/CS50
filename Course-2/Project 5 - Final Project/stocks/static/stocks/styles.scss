@@ -195,6 +195,12 @@ td.set-sell-price {
 
 
 
+.set-sell-price label {
+    grid-column: 3 / span 1;
+    align-self: center;
+}
+
+
 button {
     width: 60px;
     place-self: center stretch;
@@ -228,11 +234,6 @@ button {
 }
 
 
-.set-sell-price label {
-    grid-column: 3 / span 1;
-    align-self: center;
-}
-
 
 .onclic {
     margin-left: 15px;
@@ -265,6 +266,25 @@ button {
         content:"✔";
     }
 }
+
+
+button.disabled {
+    border: 1px solid $gray;
+    color: $gray;
+    pointer-events:none;
+    user-select: none;
+    &:hover {
+        background: #fff;
+        cursor: auto;
+    }
+}
+
+input.disabled {
+    color: $gray;
+    pointer-events:none;
+    user-select: none;
+}
+
 
 @keyframes rotating {
     from {
