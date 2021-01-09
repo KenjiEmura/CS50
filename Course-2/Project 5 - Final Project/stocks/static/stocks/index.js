@@ -24,11 +24,23 @@ document.addEventListener('DOMContentLoaded',() => {
         let stock_price = row.querySelector('.price')
         let stock_total_price = row.querySelector('.total-price')
         let sell_price = row.querySelector('input.set-sell-price')
-        let button = row.querySelector('#button')
+        let check_box = row.querySelector('[type="checkbox"]#for-sale')
+        
+        let for_sale = row.querySelector('[type="hidden"]#for-sale')
+
+        console.log(for_sale.value)
+
+        if ( for_sale.value == 'true' ) {
+            check_box.checked = true
+            console.log('Entramos al TRUE')
+        } else {
+            check_box.checked = false
+            console.log('Entramos al FALSE')
+        }
 
 
 
-        button.addEventListener('click', () => {
+        let button = row.querySelector('#button').addEventListener('click', () => {
             button.classList.add('onclic')
             fetch('API/set_sell_stock_price', {
                 method: 'POST',

@@ -66,7 +66,6 @@ body {
 .styled-table tbody tr {
   font-size: 15px;
   color: #808080;
-  line-height: 1.2;
   font-weight: unset;
   height: 50px;
 }
@@ -143,19 +142,18 @@ td, th {
 
 div.set-sell-price {
   display: inline-grid;
-  grid-template-columns: 2fr 1fr;
-  grid-column-gap: 0.5em;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-column-gap: 0;
   justify-content: center;
-  width: 100%;
 }
 
 input.set-sell-price {
   grid-column: 1/span 1;
-  justify-self: right;
+  place-self: center stretch;
+  justify-self: center;
+  max-width: 100px;
   display: inline;
   height: 2em;
-  min-width: 50px;
-  max-width: 115px;
   text-align: center;
   border: 1px solid transparent;
   outline: none;
@@ -169,14 +167,12 @@ input.set-sell-price:focus {
 }
 
 td.set-sell-price {
-  display: flex;
-  align-items: center;
   justify-content: center;
 }
 
 button {
   width: 60px;
-  justify-self: left;
+  place-self: center stretch;
   grid-column: 2/span 1;
   outline: none;
   height: 30px;
@@ -204,6 +200,11 @@ button:focus {
   outline: none;
 }
 
+.set-sell-price label {
+  grid-column: 3/span 1;
+  align-self: center;
+}
+
 .onclic {
   margin-left: 15px;
   width: 30px;
@@ -224,7 +225,8 @@ button:focus {
 .validate {
   font-size: 13px;
   color: white;
-  background: #c850c0;
+  background: #95d57d;
+  border: 1px solid #95d57d;
 }
 .validate:after {
   color: transparent;
@@ -241,8 +243,49 @@ button:focus {
   }
 }
 .set-sell-price-container {
-  margin-left: 0px;
-  justify-self: left;
+  justify-self: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  left: 0.5em;
+  border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+
+.slider:before {
+  border-radius: 50%;
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #c850c0;
+}
+
+input:checked + .slider:before {
+  transform: translateX(29px);
 }
 
 /*# sourceMappingURL=styles.css.map */

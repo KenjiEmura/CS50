@@ -52,7 +52,7 @@ def fetch_pirces_from_API(stocks, user_id):
     for stock_id, stock_qty in stocks.items():
         stock = Stock.objects.get(pk=stock_id)
         user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
-        stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol, 'user_sell_price': user_owned_stock.sell_price}
+        stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol, 'user_sell_price': user_owned_stock.sell_price, 'for_sale': user_owned_stock.for_sale}
         stocks_symbols.append(stock.symbol)
 
     # Prepare the string that is going to be used in the API Call, which will indicate which Stocks are we going to get information from

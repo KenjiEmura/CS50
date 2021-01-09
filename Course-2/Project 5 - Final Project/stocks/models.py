@@ -26,6 +26,7 @@ class UserStocks(models.Model):
     owned_stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_stocks')
     qty = models.IntegerField()
+    for_sale = models.BooleanField(default=False)
     sell_price = models.DecimalField(max_digits=15, decimal_places=1)
 
     def __str__(self):

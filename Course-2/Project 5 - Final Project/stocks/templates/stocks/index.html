@@ -45,7 +45,7 @@
                         <th>Stocks Owned</th>
                         <th>Market Price</th>
                         <th>Total owned</th>
-                        <th class='table-header-centered'>User's Selling Price</th>
+                        <th class='table-header-centered'>Sell Stock Controls</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,12 +59,22 @@
                         <td class='price'>{{ stock_info.market_price }}</td>
                         <td class='total-price'></td>
                         <td class='set-sell-price'>
+                            {% if stock_info.for_sale %}
+                                <input type="hidden" id="for-sale" value="true">
+                            {% else %}
+                                <input type="hidden" id="for-sale" value="false">
+                            {% endif %}
                             <div class='set-sell-price'>
                                 <input class='set-sell-price' type="number" value="{{ stock_info.user_sell_price }}" step="any">
                                 <div class='set-sell-price-container'>
                                     <button id="button"></button>
                                 </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="for-sale">
+                                    <span class="slider"></span>
+                                </label>
                             </div>
+
                         </td>
                     </tr>
                 {% endfor %}
