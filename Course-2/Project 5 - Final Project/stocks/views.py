@@ -46,6 +46,21 @@ def set_sell_stock_price(request):
 
     return JsonResponse({"message": f"This is the data: {data}"}, status=201)    
 
+    
+    
+    
+def update_for_sale(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+    stock = UserStocks.objects.filter(owner=request.user).get(pk=data['stock_id'])
+
+    stock.for_sale = data['for_sale']
+    stock.save()
+
+    return JsonResponse({"message": f"This is the data: {data}"}, status=201)    
+
 
 
 

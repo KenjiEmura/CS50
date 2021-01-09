@@ -75,23 +75,35 @@ document.addEventListener('DOMContentLoaded',() => {
 
         // Add the toggle between 'for sale' and 'not for sale' to the toggle switch
         check_box.addEventListener('click', () => {
+            console.log('Antes de la funcion: ' + check_box.checked)
             forSale(check_box.checked)
+            console.log('Despues de la funcion: ' + check_box.checked)
+            
+            fetch('API/update_for_sale', {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrftoken.value},
+                body: JSON.stringify({
+                    stock_id: stock_id,
+                    for_sale: check_box.checked,
+                })
+            })
+            .then( response => response.json() )
+            .then( result => {
+                console.log(result)
+            })
         })
 
 
         // Check if the stock is for sale or not for sale
         function forSale( isForSale) {
 
-            console.log('Valor isForSale dentro de la funcion: ' + isForSale)
             
             if ( isForSale ) {
-                console.log('Entramos al "true" de la funcion forSale()')
                 sell_price.disabled = false
                 sell_price.classList.remove('disabled')
                 button.disabled = false
                 button.className = ''
             } else {
-                console.log('Entramos al "false"')
                 sell_price.disabled = true
                 sell_price.classList.add('disabled')
                 button.disabled = true
@@ -117,12 +129,5 @@ document.addEventListener('DOMContentLoaded',() => {
     stocks.innerHTML = formatter.format(total_stock_valuation)
     net_worth.innerHTML = formatter.format(total_stock_valuation + parseInt(cash.innerHTML))
     cash.innerHTML = formatter.format(parseInt(cash.innerHTML))
-
-
-    // function set_sell_stock_price(parameter) {
-    function test(parameter) {
-        console.log(parameter)
-    }
-
 
 });
