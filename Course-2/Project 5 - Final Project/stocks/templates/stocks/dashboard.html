@@ -9,7 +9,7 @@
 
 
 {% block head %}
-    <script src="{% static 'stocks/index.js' %}"></script>
+    <script src="{% static 'stocks/dashboard.js' %}"></script>
 {% endblock %}
 
 
@@ -29,6 +29,15 @@
 
         {% csrf_token %}
 
+
+        <div class='search-field'>
+            <input type="text" placeholder="Search for a stock..." name="symbol-search">
+            <button type="submit">Search</button>
+        </div>
+
+        <div class='page-title'>
+            <h1>{{ user.username | title }}'s Status</h1>
+        </div>
         <div class='general-info'>
             <h3>Cash: <strong id='cash'>{{ request.user.cash }}</strong></h2>
             <h3>Stocks: <strong id='stocks'></strong></h2>

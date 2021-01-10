@@ -81,7 +81,7 @@ def login_view(request):
             if 'next' in request.POST:
                 return HttpResponseRedirect(request.POST.get('next'))
             else:
-                return HttpResponseRedirect(reverse("stocks:index"))
+                return HttpResponseRedirect(reverse("stocks:dashboard"))
         else:
             if 'next' in request.POST:
                 return render(request, "stocks/login.html", {
@@ -100,7 +100,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("stocks:index"))
+    return HttpResponseRedirect(reverse("stocks:dashboard"))
 
 
 
@@ -127,7 +127,7 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("stocks:index"))
+        return HttpResponseRedirect(reverse("stocks:dashboard"))
     else:
         return render(request, "stocks/register.html")
 

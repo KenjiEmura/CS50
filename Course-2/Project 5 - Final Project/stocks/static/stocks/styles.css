@@ -3,6 +3,11 @@ h1, h2, h3, h4, h5, h6, a, p {
   color: white;
 }
 
+.page-title {
+  text-align: center;
+  margin: 2em 0 2em;
+}
+
 body {
   min-height: 100vh;
   background: linear-gradient(45deg, #4158d0, #c850c0);
@@ -175,7 +180,7 @@ td.set-sell-price {
   align-self: center;
 }
 
-button {
+td button {
   width: 60px;
   place-self: center stretch;
   grid-column: 2/span 1;
@@ -194,14 +199,14 @@ button {
   font-weight: 700;
   font-size: 12px;
 }
-button:hover {
+td button:hover {
   color: white;
   background: #c850c0;
 }
-button:after {
+td button:after {
   content: "SET";
 }
-button:focus {
+td button:focus {
   outline: none;
 }
 
@@ -303,6 +308,53 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(29px);
+}
+
+.search-field {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+div.search-field input {
+  outline: none;
+  width: 60%;
+  border: 2px solid #f7941d;
+  border-right: none;
+  padding-left: 1.5em;
+  height: 50px;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  color: #bbbbbb;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+div.search-field input:focus {
+  color: #00B4CC;
+}
+
+div.search-field button {
+  outline: none;
+  width: 90px;
+  height: 50px;
+  border: 2px solid #f7941d;
+  background: #f7941d;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  transition: all 0.25s;
+}
+
+div.search-field button:hover {
+  background: #ffac49;
+  border: 2px solid #ffac49;
+}
+
+::placeholder {
+  opacity: 0.5;
 }
 
 /*# sourceMappingURL=styles.css.map */
