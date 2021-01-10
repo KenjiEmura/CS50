@@ -10,6 +10,7 @@
 
 {% block head %}
     <script src="{% static 'stocks/dashboard.js' %}"></script>
+    <script src="https://kit.fontawesome.com/ee07d0f153.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 
@@ -32,7 +33,7 @@
 
         <div class='search-field'>
             <input type="text" placeholder="Search for a stock..." name="symbol-search">
-            <button type="submit">Search</button>
+            <button type="submit"><i class="fas fa-search-dollar"></i></button>
         </div>
 
         <div class='page-title'>

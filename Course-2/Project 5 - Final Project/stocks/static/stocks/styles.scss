@@ -386,7 +386,7 @@ input.disabled {
   
   div.search-field button {
     outline: none;
-    width: 90px;
+    width: 100px;
     height: $input-field-size;
     border: 2px solid $main-color;
     background: $main-color;
@@ -404,7 +404,11 @@ input.disabled {
     border: 2px solid $main-color-hover;
   }
 
-
   ::placeholder {
       opacity: 0.5;
+  }
+
+  .search-field i {
+      font-size: 1.5em;
+      margin-top: 8px;
   }
