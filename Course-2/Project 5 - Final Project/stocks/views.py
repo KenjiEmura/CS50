@@ -25,14 +25,12 @@ def index(request):
         raw_subtotals = update_user_total_stocks(request.user)
         stocks_information = fetch_pirces_from_API(raw_subtotals, request.user)
 
-        return render(request, "stocks/index.html", {
+        return render(request, "stocks/dashboard.html", {
             'title': 'Index',
             'stocks_information': stocks_information,
         })
     else:
-        return render(request, "stocks/index.html", {
-            'title': 'Index',
-        })
+        return HttpResponseRedirect(reverse("stocks:login"))
 
 
 

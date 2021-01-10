@@ -1,0 +1,88 @@
+{% extends "stocks/layout.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block head %}
+    <script src="{% static 'stocks/index.js' %}"></script>
+{% endblock %}
+
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+        <div  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class='main-content'>
+        <!-- <h1>La clave API es:</h1>
+        <p>pk_e83502ec9593421abcf11af14a2af5be</p>
+        <p>https://cloud-sse.iexapis.com/stable/stock/fb/quote?token=pk_e83502ec9593421abcf11af14a2af5be</p>
+        <a href="https://iexcloud.io/console">Panel de control</a> -->
+
+        {% csrf_token %}
+
+        <div class='general-info'>
+            <h3>Cash: <strong id='cash'>{{ request.user.cash }}</strong></h2>
+            <h3>Stocks: <strong id='stocks'></strong></h2>
+            <h3>Net Worth: <strong id='net-worth'></strong></h2>
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class='table-container'>
+            <table class="styled-table">
+                <thead class="">
+                    <tr>
+                        <th class='symbol'>Ticker</th>
+                        <th>Company Name</th>
+                        <th>Stocks Owned</th>
+                        <th>Market Price</th>
+                        <th>Total owned</th>
+                        <th class='table-header-centered'>Sell Stock Controls</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for stock_id, stock_info in stocks_information.items %}
+                    <tr class='stock-info'>
+                        <input type="hidden" class='stock-id' value="{{ stock_id }}">
+                        <td class='symbol'>{{ stock_info.symbol }}</td>
+                        <td class='name'>{{ stock_info.name }}</td>
+                        <td class='qty'>{{ stock_info.qty }}</td>
+                        <td class='price'>{{ stock_info.market_price }}</td>
+                        <td class='total-price'></td>
+                        <td class='set-sell-price'>
+                            {% if stock_info.for_sale %}
+                                <input type="hidden" id="for-sale" value="true">
+                            {% else %}
+                                <input type="hidden" id="for-sale" value="">
+                            {% endif %}
+                            <div class='set-sell-price'>
+                                <input class='set-sell-price' type="number" value="{{ stock_info.user_sell_price }}" step="any">
+                                <div class='set-sell-price-container'>
+                                    <button id="button"></button>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="for-sale">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
