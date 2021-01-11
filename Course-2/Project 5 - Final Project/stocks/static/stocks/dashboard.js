@@ -15,6 +15,36 @@ document.addEventListener('DOMContentLoaded',() => {
     });
 
 
+    // Hover effect for the search bar
+    let search_field = document.querySelector('.search-field')
+    let search_input_field = search_field.querySelector('.search-field input')
+    let search_button = search_field.querySelector('.search-field button')
+    
+    let array = [search_input_field, search_button].forEach( element => {
+        element.addEventListener('mouseenter', () => {
+            search_input_field.classList.add('search-field-hovered')
+            search_button.classList.add('search-field-hovered')
+        })
+        element.addEventListener('mouseleave', () => {
+            search_input_field.classList.remove('search-field-hovered')
+            search_button.classList.remove('search-field-hovered')
+        })
+    })
+
+    // search_field.addEventListener('mouseenter', () => {
+    //     console.log('Mouse Enter')
+    //     search_input_field.classList.add('search-field-hovered')
+    //     search_button.classList.add('search-field-hovered')
+    // })
+
+    // search_field.addEventListener('mouseleave', () => {
+    //     console.log('Mouse Leave')
+    //     search_input_field.classList.remove('search-field-hovered')
+    //     search_button.classList.remove('search-field-hovered')
+    // })
+
+
+
     // Traverse every row of the stocks table
     const tablerow = document.querySelectorAll('.stock-info').forEach( row => {
 
