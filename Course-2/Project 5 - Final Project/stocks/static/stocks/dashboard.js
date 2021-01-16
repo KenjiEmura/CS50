@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded',() => {
 
     // Hover effect for the search bar
     let search_input_field = document.querySelector('.search-field input')
-    let search_button = document.querySelector('.search-field button')
-    let searchbar_hover = [search_input_field, search_button].forEach( element => {
+    let search_button = document.querySelector('.search-field button');
+    [search_input_field, search_button].forEach( element => {
         element.addEventListener('mouseenter', () => {
             search_input_field.classList.add('search-field-hovered')
             search_button.classList.add('search-field-hovered')
@@ -37,7 +37,15 @@ document.addEventListener('DOMContentLoaded',() => {
     // Adding 'submit' functionality when pressing enter on the input field to submit the data
     search_input_field.addEventListener('keypress', e => {
         if ( e.key === 'Enter') {
-            // TODO
+            console.log(search_input_field.value)
+            let price
+            fetch('https://sandbox.iexapis.com/stable/stock/' + search_input_field.value + '/quote/?token=Tpk_75116a62e1304e8fb75ddc762d1db3e3')
+            .then( response =>response.json() )
+            .then( result => {
+                console.log(result.latestPrice)
+                
+            })
+            console.log(price)
         }
     })
 

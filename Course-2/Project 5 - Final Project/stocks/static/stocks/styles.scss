@@ -420,3 +420,13 @@ div.search-field button:hover {
     transition: all 0.25s;
 
 }
+
+#buy-stock {
+    margin: 2em 5em;
+    display: flex;
+    padding: 2em 0;
+    justify-content: center;
+    border: 3px solid rgb(85 131 91 / 60%);
+    border-radius: 10px;
+    background: rgb(85 131 91 / 60%);
+}
