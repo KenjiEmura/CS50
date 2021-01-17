@@ -152,13 +152,11 @@ div.set-sell-price {
   justify-content: center;
 }
 
-input.set-sell-price {
+input {
   grid-column: 1/span 1;
   place-self: center stretch;
   justify-self: center;
-  max-width: 100px;
   display: inline;
-  height: 2em;
   text-align: center;
   border: 1px solid transparent;
   outline: none;
@@ -167,8 +165,13 @@ input.set-sell-price {
   padding: 0.5em 1em;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
-input.set-sell-price:focus {
+input:focus {
   border: 1px solid #c850c0;
+}
+
+input.set-sell-price {
+  max-width: 100px;
+  height: 2em;
 }
 
 td.set-sell-price {
@@ -180,12 +183,9 @@ td.set-sell-price {
   align-self: center;
 }
 
-td button {
-  width: 60px;
+button {
   place-self: center stretch;
-  grid-column: 2/span 1;
   outline: none;
-  height: 30px;
   text-align: center;
   padding: 0 1.5em;
   border-radius: 40px;
@@ -197,17 +197,26 @@ td button {
   cursor: pointer;
   transition: all 0.25s ease-in-out;
   font-weight: 700;
-  font-size: 12px;
 }
-td button:hover {
+button:hover {
   color: white;
   background: #c850c0;
 }
+button:focus {
+  outline: none;
+}
+button:active {
+  outline: none;
+}
+
+td button {
+  height: 30px;
+  width: 60px;
+  grid-column: 2/span 1;
+  font-size: 12px;
+}
 td button:after {
   content: "SET";
-}
-td button:focus {
-  outline: none;
 }
 
 .onclic {
@@ -369,14 +378,51 @@ div.search-field button:hover {
   transition: all 0.25s;
 }
 
-#buy-stock {
+#buy-stock-container {
   margin: 2em 5em;
-  display: flex;
+  display: block;
   padding: 2em 0;
-  justify-content: center;
   border: 3px solid rgba(85, 131, 91, 0.6);
   border-radius: 10px;
   background: rgba(85, 131, 91, 0.6);
+}
+
+#buy-stock-info, #buy-stock-totals {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#buy-stock-container, #buy-stock-totals {
+  display: none;
+}
+
+#buy-stock-info * {
+  margin: 0 0.5em;
+}
+
+#buy-stock-container button {
+  height: 40px;
+}
+
+#buy-stock-container h2 {
+  font-size: 1.5rem;
+}
+
+#buy-stock-container input {
+  width: 70px;
+  padding: 0 0.7em;
+  font-size: 1.2rem;
+  height: 40px;
+  text-align: left;
+}
+
+.purchase-total {
+  color: #f7941d;
+}
+
+span {
+  font-weight: 700;
 }
 
 /*# sourceMappingURL=styles.css.map */

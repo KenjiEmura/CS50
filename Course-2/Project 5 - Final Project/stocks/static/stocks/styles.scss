@@ -182,13 +182,11 @@ div.set-sell-price {
 }
 
 
-input.set-sell-price {
+input {
     grid-column: 1 / span 1;
     place-self: center stretch;
     justify-self: center;
-    max-width: 100px;
     display: inline;
-    height: 2em;
     text-align: center;
     border: 1px solid transparent;
     outline: none;
@@ -199,6 +197,12 @@ input.set-sell-price {
     &:focus {
         border: 1px solid $secondary-color;
     }
+}
+
+
+input.set-sell-price {
+    max-width: 100px;
+    height: 2em;
 }
 
 
@@ -214,13 +218,9 @@ td.set-sell-price {
     align-self: center;
 }
 
-
-td button {
-    width: 60px;
+button {
     place-self: center stretch;
-    grid-column: 2 / span 1;
     outline:none;
-    height: $rotating-button-size;
     text-align: center;
     padding: 0 1.5em;
     border-radius:40px;
@@ -232,18 +232,27 @@ td button {
     cursor: pointer;
     transition: all 0.25s ease-in-out;
     font-weight: 700;
-    font:{
-        size:12px;
-    }
     &:hover {
         color:white;
         background: $secondary-color;
     }
-    &:after {
-        content:"SET";
-    }
     &:focus {
         outline: none;
+    }
+    &:active {
+        outline: none;
+    }
+}
+
+td button {
+    height: $rotating-button-size;
+    width: 60px;
+    grid-column: 2 / span 1;
+    font:{
+        size:12px;
+    }
+    &:after {
+        content:"SET";
     }
 }
 
@@ -421,12 +430,50 @@ div.search-field button:hover {
 
 }
 
-#buy-stock {
+#buy-stock-container {
     margin: 2em 5em;
-    display: flex;
+    display: block;
     padding: 2em 0;
-    justify-content: center;
     border: 3px solid rgb(85 131 91 / 60%);
     border-radius: 10px;
     background: rgb(85 131 91 / 60%);
+    
+}
+
+#buy-stock-info, #buy-stock-totals {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#buy-stock-container, #buy-stock-totals {
+    display: none;
+}
+
+#buy-stock-info * {
+    margin: 0 0.5em;
+}
+
+#buy-stock-container button {
+    height: 40px;
+}
+
+#buy-stock-container h2 {
+    font-size: 1.5rem;
+}
+
+#buy-stock-container input {
+    width: 70px;
+    padding: 0 0.7em;
+    font-size: 1.2rem;
+    height: 40px;
+    text-align: left;
+}
+
+.purchase-total {
+    color: $main-color;
+}
+
+span {
+    font-weight: 700;
 }
