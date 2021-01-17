@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded',() => {
 
+
+
     // Django Authentification Token
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]');
 
@@ -11,11 +13,14 @@ document.addEventListener('DOMContentLoaded',() => {
     // Initialize the total stock valuation to 0
     let total_stock_valuation = 0
 
+
     // This is going to be used to parse and format the values to USD currency
     let formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
     });
+
+
 
 
     // Hover effect for the search bar
@@ -34,48 +39,74 @@ document.addEventListener('DOMContentLoaded',() => {
         })
     })
 
-    // Adding the 'submit' functionality when pressing enter on the input field to submit the data
+
+
+
+    // Calling the queryStock function when pressing 'enter' key on the input field or when clicking on the 'search' button
     search_input_field.addEventListener('keypress', e => {
         if ( e.key === 'Enter') {
-
-            // Select elements
-            let buyStockContainer = document.querySelector('#buy-stock-container')
-            let unitaryStockPriceResult = buyStockContainer.querySelector('div h2')
-            let buyStockQty = buyStockContainer.querySelector('div input')
-            let totalPurchaseContainer = buyStockContainer.querySelector('#buy-stock-totals')
-            let purchaseTotal = totalPurchaseContainer.querySelector('.purchase-total')
-
-            // Hide the 'Total Purchase container' by default
-            totalPurchaseContainer.style.display = 'none'
-
-            // Make the API request to the third party service
-            fetch('https://sandbox.iexapis.com/stable/stock/' + search_input_field.value + '/quote/?token=Tpk_75116a62e1304e8fb75ddc762d1db3e3')
-            .then( response => {
-                console.log(response.json)
-                return response.json()
-            })
-            .then( result => {
-                // Unhide the h2 element and print the unitary price result using the response
-                buyStockContainer.style.display = 'block';
-                unitaryStockPriceResult.innerHTML = result.companyName + "'s stock price is: <span>" + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result.latestPrice) + '</span>';
-                
-                // When the input field is changed or clicked, calculate the total value of the purchase using the unitary stock price and the total number of stocks that the user wants to buy
-                ['change', 'click'].forEach( event => {
-                    buyStockQty.addEventListener(event , () => {
-                        // If the user is not buying any stocks, hide the Total Purchase Container
-                        if (buyStockQty.value == 0) {
-                            totalPurchaseContainer.style.display = 'none'
-                        // Else, show the container and update the total purchase displayed value
-                        } else {
-                        let total = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(buyStockQty.value * result.latestPrice)
-                        purchaseTotal.innerHTML = total
-                        totalPurchaseContainer.style.display = 'flex'
-                        }
-                    })
-                })
-            })
+            queryStock()
         }
     })
+    search_button.addEventListener('click', queryStock)
+
+
+    // This function makes the API call and updates the DOM with the received information
+    function queryStock() {
+        // Select elements
+        let buyStockContainer = document.querySelector('#buy-stock-container')
+        let unitaryStockPriceResult = buyStockContainer.querySelector('div h2')
+        let buyStockQty = buyStockContainer.querySelector('div input')
+        let buyStockBtn = buyStockContainer.querySelector('div button')
+        let totalPurchaseContainer = buyStockContainer.querySelector('#buy-stock-totals')
+        let purchaseTotal = totalPurchaseContainer.querySelector('.purchase-total')
+
+        // Hide the 'Total Purchase container' by default
+        totalPurchaseContainer.style.display = 'none'
+
+        // Make the API request to the third party service
+        fetch('https://sandbox.iexapis.com/stable/stock/' + search_input_field.value + '/quote/?token=Tpk_75116a62e1304e8fb75ddc762d1db3e3')
+        .then( response => {
+            if (!response.ok) {
+                buyStockContainer.style.display = 'block';
+                [buyStockBtn, buyStockQty].forEach(element => {
+                    element.style.display = 'none'
+                })
+                unitaryStockPriceResult.innerHTML = '"' + search_input_field.value + '" is not a valid stock symbol, please try again'
+            } else {
+                [buyStockBtn, buyStockQty].forEach(element => {
+                    element.style.display = 'block'
+                })
+            }
+            return response.json()
+        })
+        .then( result => {
+            // Unhide the h2 element and print the unitary price result using the response
+            buyStockContainer.style.display = 'block'
+            unitaryStockPriceResult.innerHTML = result.companyName + "'s stock price is: <span>" + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result.latestPrice) + '</span>';
+            
+            // When the input field is changed or clicked, calculate the total value of the purchase using the unitary stock price and the total number of stocks that the user wants to buy
+            ['change', 'click'].forEach( event => {
+                buyStockQty.addEventListener(event , () => {
+                    // If the user is not buying any stocks, hide the Total Purchase Container
+                    if (buyStockQty.value == 0) {
+                        totalPurchaseContainer.style.display = 'none'
+                    // Else, show the container and update the total purchase displayed value
+                    } else {
+                    let total = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(buyStockQty.value * result.latestPrice)
+                    purchaseTotal.innerHTML = total
+                    totalPurchaseContainer.style.display = 'flex'
+                    }
+                })
+            })
+        })
+        .catch( error => {
+            console.log(error);
+        });
+    }
+
+
+
 
 
     // Add shadow when the input field of the search bar is focused
@@ -90,7 +121,9 @@ document.addEventListener('DOMContentLoaded',() => {
 
 
 
-    // Traverse every row of the stocks table
+
+
+    // Traverse every row of the stocks table to add functionality
     const tablerow = document.querySelectorAll('.stock-info').forEach( row => {
 
         // Select each piece of data from the table
@@ -137,7 +170,6 @@ document.addEventListener('DOMContentLoaded',() => {
         let check_box = row.querySelector('[type="checkbox"]#for-sale')
         let for_sale = Boolean(row.querySelector('[type="hidden"]#for-sale').value)
 
-        
         // Check if the stock is for sale or not and apply the corresponding updates to the DOM using the forSale() function
         forSale(for_sale)
         if ( for_sale ) {
@@ -145,7 +177,6 @@ document.addEventListener('DOMContentLoaded',() => {
         } else {
             check_box.checked = false
         }
-
 
         // Add functionality to the 'for sale' and 'not for sale' toggle switch
         check_box.addEventListener('click', () => {
@@ -167,8 +198,6 @@ document.addEventListener('DOMContentLoaded',() => {
 
         // Check if the stock is for sale or not for sale
         function forSale( isForSale) {
-
-            
             if ( isForSale ) {
                 sell_price.disabled = false
                 sell_price.classList.remove('disabled')
