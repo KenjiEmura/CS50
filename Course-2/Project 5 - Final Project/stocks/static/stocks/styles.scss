@@ -1,6 +1,7 @@
 // Variables
 $main-color: #f7941d;
 $main-color-hover: #ffac49;
+$highlight-text-light-background: #a6199c;
 $border-radius: 10px;
 $circle-border-radius: 20px;
 $main-background-color: #36304a;
@@ -434,9 +435,14 @@ div.search-field button:hover {
     margin: 2em 5em;
     display: block;
     padding: 2em 0;
-    border: 3px solid rgb(85 131 91 / 60%);
+    border: 2px solid transparent;
     border-radius: 10px;
-    background: rgb(85 131 91 / 60%);
+    background: linear-gradient(
+        to right top,
+        rgba(255,255,255,0.4),
+        rgba(255,255,255,0.1)
+    );
+    background-clip: padding-box;
     
 }
 
@@ -471,7 +477,8 @@ div.search-field button:hover {
 }
 
 .purchase-total {
-    color: $main-color;
+    color: $highlight-text-light-background;
+    ;
 }
 
 span {
