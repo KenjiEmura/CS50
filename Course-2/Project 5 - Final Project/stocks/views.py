@@ -141,3 +141,40 @@ def users(request):
     return render(request, "stocks/users.html", {
         'users': users,
     })
+
+
+
+def buy_stock(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+    stock = Stock.objects.filter(symbol=data['symbol'])
+    symbol = data['symbol']
+    name = data['name']
+    price = float(data['price'])
+    qty = int(data['qty'])
+
+    if request.user.cash > price * qty:
+        message = 'good to go!'
+        if not stock.exists():
+            new_stock = Stock(name=name, symbol=symbol)
+            new_stock.save()
+            stock = new_stock
+        else:
+            stock = Stock.objects.get(symbol=symbol)
+        seller = User.objects.get(pk=1)
+        new_transaction = Acquisition(
+            transacted_stock = stock,
+            buyer = request.user,
+            seller = seller, # The seller is going to be the Admin
+            qty = qty,
+            price = price
+        )
+        new_transaction.save()
+        messages.success(request, f'The transaction was successful! (Stock Name: {name}, Qty: {qty})')
+        return JsonResponse({"message": "Succesful transaction!"}, status=201)    
+    else:
+        messages.error(request, f"Error: You don't have enough cash!")
+        return JsonResponse({"error": "You don't have enough cash!"}, status=400)
+        

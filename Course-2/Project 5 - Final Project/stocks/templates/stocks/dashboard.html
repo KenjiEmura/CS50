@@ -23,13 +23,8 @@
     {% endif %}
 
     <div class='main-content'>
-        <!-- <h1>La clave API es:</h1>
-        <p>pk_e83502ec9593421abcf11af14a2af5be</p>
-        <p>https://cloud-sse.iexapis.com/stable/stock/fb/quote?token=pk_e83502ec9593421abcf11af14a2af5be</p>
-        <a href="https://iexcloud.io/console">Panel de control</a> -->
 
         {% csrf_token %}
-
 
         <div class='search-field'>
             <input type="text" placeholder="Search for a stock..." name="symbol-search">
@@ -39,8 +34,8 @@
         <div id='buy-stock-container'>
             <div id="buy-stock-info">
                 <h2></h2>
-                <input type="number" min="0" value="1">
-                <button>Buy</button>
+                <input id="buy-stock-qty" type="number" min="0" value="1">
+                <button id='buy-stock'>Buy</button>
             </div>
             <div id="buy-stock-totals">
                 <h2>Total pruchase: <span class="purchase-total"></span></h2>

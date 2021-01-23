@@ -1,4 +1,23 @@
 @charset "UTF-8";
+.success, .error {
+  text-align: center;
+  padding: 0.5em;
+  margin: 2em 8vw 0;
+  border-radius: 5px;
+}
+
+.error {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.success {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
 h1, h2, h3, h4, h5, h6, a, p {
   color: white;
 }
