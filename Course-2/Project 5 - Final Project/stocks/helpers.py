@@ -35,6 +35,7 @@ def update_user_total_stocks(user_id):
                 owned_stock=assigned_stock,
                 owner=user_id,
                 qty=stock_qty,
+                for_sale=False,
                 sell_price=0,
             )
             stock.save()
@@ -43,19 +44,26 @@ def update_user_total_stocks(user_id):
 
 
 
-def fetch_pirces_from_API(stocks, user_id):
+def fetch_pirces_from_API(raw_subtotals, user_id):
 
     stocks_symbols = [] # Symbols of the stocks that we need to fetch the IEX API information from
     stocks_information = {} # This is the dict that will contain all the cleaned data that will be send to render
 
     # Fill the stocks with the id of the stock and the quantity, but we need more information and also clean the data
-    for stock_id, stock_qty in stocks.items():
+    for stock_id, stock_qty in raw_subtotals.items():
         stock = Stock.objects.filter(pk=stock_id).exists()
         user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(pk=stock_id).exists()
-        if stock and user_owned_stock:
-            stock = Stock.objects.get(pk=stock_id)
+        if user_owned_stock:
             user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
-            stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol, 'user_sell_price': user_owned_stock.sell_price, 'for_sale': user_owned_stock.for_sale}
+            sell_price = user_owned_stock.sell_price
+            for_sale = user_owned_stock.for_sale
+        else:
+            sell_price = 0
+            for_sale = False
+        # print(f'The stock_id is: {stock_id}, the boolean "stock" variable is: {stock} and the "user_owned_stock" is: {user_owned_stock}')
+        if stock:
+            stock = Stock.objects.get(pk=stock_id)
+            stocks_information[stock_id] = {'qty': stock_qty, 'name': stock.name, 'symbol': stock.symbol, 'user_sell_price': sell_price, 'for_sale': for_sale}
             stocks_symbols.append(stock.symbol)
 
     # Prepare the string that is going to be used in the API Call, which will indicate which Stocks are we going to get information from
