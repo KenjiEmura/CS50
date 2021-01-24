@@ -129,8 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	buyStockBtn.addEventListener("click", () => {
-		console.log(searchedStockInfo);
-		console.log(buyStockQty.value);
 		fetch("API/buy-stock", {
 			method: "POST",
 			headers: { "X-CSRFToken": csrftoken.value },

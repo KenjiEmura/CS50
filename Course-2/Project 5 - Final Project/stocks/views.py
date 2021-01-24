@@ -147,8 +147,12 @@ def buy_stock(request):
         return JsonResponse({"error": "POST request required."}, status=400)
     
     data = json.loads(request.body)
+    for data_field_key, data_field_value in data.items():
+        if data_field_value == '':
+            messages.error(request, f"Error: The '{data_field_key}' field is empty!")
+            return JsonResponse({"error": f"Error: The {data_field_key} is empty!"}, status=400)
     stock = Stock.objects.filter(symbol=data['symbol'])
-    symbol = data['symbol']
+    symbol = data['symbol'].upper()
     name = data['name']
     price = float(data['price'])
     qty = int(data['qty'])
@@ -172,7 +176,11 @@ def buy_stock(request):
         new_transaction.save()
         messages.success(request, f'The transaction was successful! (Stock Name: {name}, Qty: {qty})')
         return JsonResponse({"message": "Succesful transaction!"}, status=201)    
-    else:
+    else :
         messages.error(request, f"Error: You don't have enough cash!")
         return JsonResponse({"error": "You don't have enough cash!"}, status=400)
-        
+
+
+
+def test(request):
+    return render(request, "stocks/test.html")
