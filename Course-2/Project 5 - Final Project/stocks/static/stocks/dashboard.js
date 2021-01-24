@@ -124,12 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				});
 			})
 			.catch((error) => {
-				console.log("The input symbol doesn't exist")
+				console.log("The input symbol doesn't exist");
 			});
 	}
 
 	buyStockBtn.addEventListener("click", () => {
-		fetch("API/buy-stock", {
+		fetch("API/trade-stock", {
 			method: "POST",
 			headers: { "X-CSRFToken": csrftoken.value },
 			body: JSON.stringify({
@@ -137,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				name: searchedStockInfo.name,
 				price: searchedStockInfo.price,
 				qty: buyStockQty.value,
+				transaction_type: "buy",
 			}),
 		})
 			.then((response) => response.json())
@@ -164,11 +165,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		let stock_price = row.querySelector(".price");
 		let stock_total_price = row.querySelector(".total-price");
 		let sell_price = row.querySelector("input.set-sell-price");
+		sell_price.setAttribute("max", parseFloat(stock_price.innerHTML) * 1.2);
 
-		// Add the fetch functionality to the "Set" button
-		let button = row.querySelector("#button");
-		button.addEventListener("click", () => {
-			button.classList.add("onclic");
+		// Add the fetch functionality to the "SET SELL PRICE" button
+		let set_sell_price_button = row.querySelector("#set_sell_price");
+		set_sell_price_button.addEventListener("click", () => {
+			set_sell_price_button.classList.add("onclic");
 			fetch("API/set_sell_stock_price", {
 				method: "POST",
 				headers: { "X-CSRFToken": csrftoken.value },
@@ -180,10 +182,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				.then((response) => {
 					if (response.ok) {
 						setTimeout(() => {
-							button.classList.remove("onclic");
-							button.classList.add("validate");
+							set_sell_price_button.classList.remove("onclic");
+							set_sell_price_button.classList.add("validate");
 							setTimeout(() => {
-								button.classList.remove("validate");
+								set_sell_price_button.classList.remove(
+									"validate"
+								);
 							}, 1000);
 						}, 1000);
 					} else {
@@ -193,6 +197,40 @@ document.addEventListener("DOMContentLoaded", () => {
 				})
 				.then((result) => {
 					// console.log(result)
+				});
+		});
+
+		// Add the fetch functionality to the "SELL STOCK" button
+		let sell_button = row.querySelector("#sell_button");
+		sell_button.addEventListener("click", () => {
+			sell_button.classList.add("onclic");
+			fetch("API/trade-stock", {
+				method: "POST",
+				headers: { "X-CSRFToken": csrftoken.value },
+				body: JSON.stringify({
+					stock_id: stock_id,
+					price: sell_price.value,
+					qty: stock_qty,
+					transaction_type: "sell",
+				}),
+			})
+				.then((response) => {
+					if (response.ok) {
+						setTimeout(() => {
+							sell_button.classList.remove("onclic");
+							sell_button.classList.add("validate");
+							setTimeout(() => {
+								sell_button.classList.remove("validate");
+							}, 1000);
+						}, 1000);
+					} else {
+						// Put here what should happen if the response is not "ok"
+					}
+					return response.json();
+				})
+				.then((result) => {
+					// console.log(result)
+					location.reload();
 				});
 		});
 
@@ -233,13 +271,17 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (isForSale) {
 				sell_price.disabled = false;
 				sell_price.classList.remove("disabled");
-				button.disabled = false;
-				button.className = "";
+				set_sell_price_button.disabled = false;
+				set_sell_price_button.className = "";
+				sell_button.disabled = false;
+				sell_button.className = "";
 			} else {
 				sell_price.disabled = true;
 				sell_price.classList.add("disabled");
-				button.disabled = true;
-				button.className = "disabled";
+				set_sell_price_button.disabled = true;
+				set_sell_price_button.className = "disabled";
+				sell_button.disabled = true;
+				sell_button.className = "disabled";
 			}
 		}
 

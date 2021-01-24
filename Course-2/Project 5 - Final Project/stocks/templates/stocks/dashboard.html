@@ -60,12 +60,14 @@
                         <th>Stocks Owned</th>
                         <th>Market Price</th>
                         <th>Total owned</th>
-                        <th class='table-header-centered'>Sell Stock Controls</th>
+                        <th class='table-header-centered'>Set the Stock Selling Price</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
 
                 {% for stock_id, stock_info in stocks_information.items %}
+                    {% if stock_info.qty > 0 %}
                     <tr class='stock-info'>
                         <input type="hidden" class='stock-id' value="{{ stock_id }}">
                         <td class='symbol'>{{ stock_info.symbol }}</td>
@@ -80,18 +82,23 @@
                                 <input type="hidden" id="for-sale" value="">
                             {% endif %}
                             <div class='set-sell-price'>
-                                <input class='set-sell-price' type="number" value="{{ stock_info.user_sell_price }}" step="any">
+                                <input class='set-sell-price' type="number" value="{{ stock_info.user_sell_price }}">
                                 <div class='set-sell-price-container'>
-                                    <button id="button"></button>
+                                    <button id="set_sell_price"></button>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" id="for-sale">
                                     <span class="slider"></span>
                                 </label>
                             </div>
-
+                        </td>
+                        <td>
+                            <div class='set-sell-price-container'>
+                                <button id="sell_button"></button>
+                            </div>
                         </td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
 
                 </tbody>

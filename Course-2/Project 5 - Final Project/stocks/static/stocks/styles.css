@@ -18,7 +18,14 @@
   color: #155724;
 }
 
-h1, h2, h3, h4, h5, h6, a, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p {
   color: white;
 }
 
@@ -62,7 +69,10 @@ body {
   margin: 5vh 5vw;
 }
 
-.table-header-centered, .symbol, th, td {
+.table-header-centered,
+.symbol,
+th,
+td {
   text-align: center;
 }
 
@@ -81,17 +91,17 @@ body {
 }
 
 .styled-table th {
-  font-size: 18px;
+  font-size: 1rem;
   color: #fff;
   line-height: 1.2;
   font-weight: unset;
 }
 
 .styled-table tbody tr {
-  font-size: 15px;
+  font-size: 0.8rem;
   color: #808080;
   font-weight: unset;
-  height: 50px;
+  height: 30px;
 }
 
 tbody tr:nth-child(even) {
@@ -108,7 +118,8 @@ tbody tr:hover {
   background: linear-gradient(60deg, #ffffff 0%, #e7f2ff 20%, #ffe6fd 100%);
 }
 
-td, th {
+td,
+th {
   padding: 0.5em 1.2em;
 }
 
@@ -133,7 +144,7 @@ td, th {
 }
 
 .divider-top .shape-fill {
-  fill: #36304A;
+  fill: #36304a;
 }
 
 .divider-top2 {
@@ -154,7 +165,7 @@ td, th {
 }
 
 .divider-top2 .shape-fill {
-  fill: #36304A;
+  fill: #36304a;
 }
 
 .general-info {
@@ -228,22 +239,30 @@ button:active {
   outline: none;
 }
 
-td button {
+td button#sell_button, td button#set_sell_price {
   height: 30px;
   width: 60px;
   grid-column: 2/span 1;
   font-size: 12px;
 }
-td button:after {
+
+td button#set_sell_price:after {
   content: "SET";
+}
+
+td button#sell_button:after {
+  content: "SELL";
+  position: relative;
+  top: 0;
+  left: -5px;
 }
 
 .onclic {
   margin-left: 15px;
-  width: 30px;
+  width: 30px !important;
   border-color: #bbbbbb;
   border-width: 3px;
-  font-size: 0;
+  font-size: 0 !important;
   border-left-color: #c850c0;
   animation: rotating 2s 0.25s linear infinite;
 }
@@ -264,7 +283,7 @@ td button:after {
 .validate:after {
   color: transparent;
   text-shadow: 0 0 0 white;
-  content: "✔";
+  content: "✔" !important;
 }
 
 button.disabled {
@@ -316,6 +335,7 @@ input.disabled {
   height: 30px;
   background-color: #ccc;
   transition: 0.4s;
+  top: -2px;
 }
 
 .slider:before {
@@ -407,13 +427,15 @@ div.search-field button:hover {
   background-clip: padding-box;
 }
 
-#buy-stock-info, #buy-stock-totals {
+#buy-stock-info,
+#buy-stock-totals {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#buy-stock-container, #buy-stock-totals {
+#buy-stock-container,
+#buy-stock-totals {
   display: none;
 }
 

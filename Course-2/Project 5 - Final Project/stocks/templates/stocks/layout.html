@@ -32,9 +32,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'stocks:dashboard' %}">Index</a>
                     </li>
-                    <li>
-                        <a class="nav-link" href="{% url 'stocks:users' %}">Users</a>
-                    </li>
                     {% if user.is_authenticated %}
                         <li>
                             <a class="nav-link" href="{% url 'stocks:logout' %}">Logout</a>

@@ -90,5 +90,7 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
         #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
 
             stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
-            
+            if stock_info['user_sell_price'] < data[stock_info['symbol']]['quote']['latestPrice']:
+                stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+
     return stocks_information

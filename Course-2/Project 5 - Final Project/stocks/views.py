@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.safestring import mark_safe
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse
@@ -132,15 +133,6 @@ def register(request):
 
 
 
-@login_required(login_url='stocks:login')
-def users(request):
-    users = User.objects.all()
-
-    return render(request, "stocks/users.html", {
-        'users': users,
-    })
-
-
 
 def buy_stock(request):
     if request.method != "POST":
@@ -151,34 +143,68 @@ def buy_stock(request):
         if data_field_value == '':
             messages.error(request, f"Error: The '{data_field_key}' field is empty!")
             return JsonResponse({"error": f"Error: The {data_field_key} is empty!"}, status=400)
-    stock = Stock.objects.filter(symbol=data['symbol'])
-    symbol = data['symbol'].upper()
-    name = data['name']
-    price = float(data['price'])
-    qty = int(data['qty'])
 
-    if request.user.cash > price * qty:
-        message = 'good to go!'
-        if not stock.exists():
-            new_stock = Stock(name=name, symbol=symbol)
-            new_stock.save()
-            stock = new_stock
-        else:
-            stock = Stock.objects.get(symbol=symbol)
-        seller = User.objects.get(pk=1)
+
+    if data['transaction_type'] == 'buy':
+
+        stock = Stock.objects.filter(symbol=data['symbol'])
+        symbol = data['symbol'].upper()
+        name = data['name']
+        price = float(data['price'])
+        qty = int(data['qty'])
+
+        if request.user.cash > price * qty:
+            message = 'good to go!'
+            if not stock.exists():
+                new_stock = Stock(name=name, symbol=symbol)
+                new_stock.save()
+                stock = new_stock
+            else:
+                stock = Stock.objects.get(symbol=symbol)
+            seller = User.objects.get(pk=1)
+            new_transaction = Acquisition(
+                transacted_stock = stock,
+                buyer = request.user,
+                seller = seller, # The seller is going to be the Admin
+                qty = qty,
+                price = price
+            )
+            new_transaction.save()
+            messages.success(request,mark_safe(f'The transaction was successful! (Stock Name: {name}, Qty: {qty})<br/>Total transaction cost: <strong>${qty * price}</strong>'))
+            request.user.cash -= price * qty
+            request.user.save()
+            return JsonResponse({"message": "Succesful transaction!"}, status=201)    
+        else :
+            messages.error(request, f"Error: You don't have enough cash!")
+            return JsonResponse({"error": "You don't have enough cash!"}, status=400)
+        
+
+    elif data['transaction_type'] == 'sell':
+
+        transacted_stock = Stock.objects.get(pk=data['stock_id'])
+        price = float(data['price'])
+        qty = int(data['qty'])
+
         new_transaction = Acquisition(
-            transacted_stock = stock,
-            buyer = request.user,
-            seller = seller, # The seller is going to be the Admin
-            qty = qty,
+            transacted_stock = transacted_stock,
+            buyer = User.objects.get(pk=1),
+            seller = request.user, # The seller is going to be the Admin
+            qty = -1 * qty,
             price = price
         )
         new_transaction.save()
-        messages.success(request, f'The transaction was successful! (Stock Name: {name}, Qty: {qty})')
-        return JsonResponse({"message": "Succesful transaction!"}, status=201)    
-    else :
-        messages.error(request, f"Error: You don't have enough cash!")
-        return JsonResponse({"error": "You don't have enough cash!"}, status=400)
+
+        request.user.cash += qty * price
+        request.user.save()
+
+        messages.success(request,mark_safe(f'The transaction was successful! (Stock Name: {transacted_stock.name}, Qty: {qty}, Price: {price})<br/>Total cash earned: <strong>${qty * price}</strong>'))
+
+        return JsonResponse({"message": "The 'sell' button is working"}, status=201)
+    
+
+    else:
+        return JsonResponse({"error": "Invalid transaction type"}, status=400)
+
 
 
 
