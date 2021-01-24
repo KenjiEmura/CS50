@@ -80,6 +80,17 @@ document.addEventListener("DOMContentLoaded", () => {
 				return response.json();
 			})
 			.then((result) => {
+				if (result.companyName == "") {
+					buyStockContainer.style.display = "block";
+					[buyStockBtn, buyStockQty].forEach((element) => {
+						element.style.display = "none";
+					});
+					unitaryStockPriceResult.innerHTML =
+						'"' +
+						search_input_field.value +
+						'" is not a valid stock symbol, please try again';
+					return;
+				}
 				searchedStockInfo.price = result.latestPrice;
 				searchedStockInfo.symbol = result.symbol;
 				searchedStockInfo.name = result.companyName;
@@ -113,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				});
 			})
 			.catch((error) => {
-				console.log(error);
+				console.log("The input symbol doesn't exist")
 			});
 	}
 
@@ -204,12 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Add functionality to the 'for sale' and 'not for sale' toggle switch
 		check_box.addEventListener("click", () => {
 			forSale(check_box.checked);
-			console.log("Information sent to the API:");
-			console.log("");
-			console.log("The stock_id = " + stock_id);
-			console.log("The check_box.checked = " + check_box.checked);
-			console.log("");
-			console.log("");
+
 			fetch("API/update_for_sale", {
 				method: "POST",
 				headers: { "X-CSRFToken": csrftoken.value },
