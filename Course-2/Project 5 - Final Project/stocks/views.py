@@ -12,9 +12,7 @@ import json
 import requests
 
 from stocks.keys import * # This is the file with all the keys and secret information
-
 from stocks.helpers import * # This is the file with helper functions
-
 from stocks.models import *
 
 
@@ -41,7 +39,7 @@ def set_sell_stock_price(request):
         return JsonResponse({"error": "POST request required."}, status=400)
     
     data = json.loads(request.body)
-    stock = UserStocks.objects.filter(owner=request.user).get(pk=data['stock_id'])
+    stock = UserStocks.objects.filter(owner=request.user).get(owned_stock=data['stock_id'])
 
     stock.sell_price = data['sell_price']
     stock.save()
@@ -56,7 +54,7 @@ def update_for_sale(request):
         return JsonResponse({"error": "POST request required."}, status=400)
     
     data = json.loads(request.body)
-    stock = UserStocks.objects.filter(owner=request.user).get(pk=data['stock_id'])
+    stock = UserStocks.objects.filter(owner=request.user).get(owned_stock=data['stock_id'])
 
     stock.for_sale = data['for_sale']
     stock.save()

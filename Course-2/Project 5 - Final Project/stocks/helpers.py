@@ -52,9 +52,9 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
     # Fill the stocks with the id of the stock and the quantity, but we need more information and also clean the data
     for stock_id, stock_qty in raw_subtotals.items():
         stock = Stock.objects.filter(pk=stock_id).exists()
-        user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(pk=stock_id).exists()
+        user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(owned_stock=stock_id).exists()
         if user_owned_stock:
-            user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
+            user_owned_stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
             sell_price = user_owned_stock.sell_price
             for_sale = user_owned_stock.for_sale
         else:
@@ -77,9 +77,9 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
 
     # Add the fetched price as a new piece of information in our stocks_information dict
     for stock_id, stock_info in stocks_information.items():
-        user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(pk=stock_id).exists()
+        user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(owned_stock=stock_id).exists()
         if user_owned_stock:
-            user_owned_stock = UserStocks.objects.filter(owner=user_id).get(pk=stock_id)
+            user_owned_stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
 
         # Uncomment this if you want to update the selling price to at least match the market price, in other words, users can not sell stocks below the market price
         # if data[stock_info['symbol']]['quote']['latestPrice'] > stock_info['user_sell_price']:

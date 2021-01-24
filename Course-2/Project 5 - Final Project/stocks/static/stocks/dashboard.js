@@ -204,6 +204,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Add functionality to the 'for sale' and 'not for sale' toggle switch
 		check_box.addEventListener("click", () => {
 			forSale(check_box.checked);
+			console.log("Information sent to the API:");
+			console.log("");
+			console.log("The stock_id = " + stock_id);
+			console.log("The check_box.checked = " + check_box.checked);
+			console.log("");
+			console.log("");
 			fetch("API/update_for_sale", {
 				method: "POST",
 				headers: { "X-CSRFToken": csrftoken.value },
