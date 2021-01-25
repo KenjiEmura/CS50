@@ -170,6 +170,7 @@ th {
 
 .general-info {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 3em;
   margin: 3.5em 0;
@@ -465,6 +466,17 @@ div.search-field button:hover {
 
 span {
   font-weight: 700;
+}
+
+@media (max-width: 500px) {
+  table {
+    table-layout: fixed;
+  }
+
+  th,
+td {
+    overflow: hidden;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

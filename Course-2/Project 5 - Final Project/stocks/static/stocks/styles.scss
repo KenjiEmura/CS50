@@ -30,6 +30,13 @@ $success-border: #c3e6cb;
 $success-text: #155724;
 $left-right-margin: 8vw;
 
+
+// Breakpoints for responsiveness
+$breakpoint-mobile: 500px;
+
+
+
+
 // Code
 
 %message {
@@ -155,7 +162,8 @@ tbody tr:hover {
 
 td,
 th {
-	padding: 0.5em 1.2em;
+    padding: 0.5em 1.2em;
+    
 }
 
 .menu-items {
@@ -204,7 +212,8 @@ th {
 }
 
 .general-info {
-	display: flex;
+    display: flex;
+    flex-wrap: wrap;
 	justify-content: space-between;
 	padding: 0 3em;
 	margin: 3.5em 0;
@@ -519,4 +528,18 @@ div.search-field button:hover {
 
 span {
 	font-weight: 700;
+}
+
+
+@media (max-width: $breakpoint-mobile) {
+    
+    table {
+        table-layout: fixed;
+      }
+      
+      th,
+      td {
+        overflow: hidden;
+      }
+
 }
