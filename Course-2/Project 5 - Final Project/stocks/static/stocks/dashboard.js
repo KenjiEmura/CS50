@@ -159,13 +159,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Traverse every row of the stocks table to add functionality
 	const tablerow = document.querySelectorAll(".stock-info").forEach((row) => {
-		// Select each piece of data from the table
+        // Select each piece of data from the table
+        let max_profit = 1.1;
 		let stock_id = row.querySelector("input.stock-id").value;
 		let stock_qty = row.querySelector(".qty").innerHTML;
 		let stock_price = row.querySelector(".price");
 		let stock_total_price = row.querySelector(".total-price");
 		let sell_price = row.querySelector("input.set-sell-price");
-		sell_price.setAttribute("max", parseFloat(stock_price.innerHTML) * 1.2);
+		sell_price.setAttribute("max", parseFloat(stock_price.innerHTML) * max_profit);
 
 		// Add the fetch functionality to the "SET SELL PRICE" button
 		let set_sell_price_button = row.querySelector("#set_sell_price");
@@ -287,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		// Calculate the total price of the stocks and print that value in the table
 		let total_stock_price = stock_price.innerHTML * stock_qty;
-		stock_total_price.innerHTML = formatter.format(total_stock_price);
+		// stock_total_price.innerHTML = formatter.format(total_stock_price);
 
 		// Format the unitary stock price into USD currency
 		stock_price.innerHTML = formatter.format(stock_price.innerHTML);

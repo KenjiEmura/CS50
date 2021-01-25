@@ -80,15 +80,6 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
         user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(owned_stock=stock_id).exists()
         if user_owned_stock:
             user_owned_stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
-
-        # Uncomment this if you want to update the selling price to at least match the market price, in other words, users can not sell stocks below the market price
-        # if data[stock_info['symbol']]['quote']['latestPrice'] > stock_info['user_sell_price']:
-        #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
-        #     user_owned_stock.sell_price = data[stock_info['symbol']]['quote']['latestPrice']
-        #     user_owned_stock.save()
-        # else:
-        #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
-
             stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
             if stock_info['user_sell_price'] < data[stock_info['symbol']]['quote']['latestPrice']:
                 stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']

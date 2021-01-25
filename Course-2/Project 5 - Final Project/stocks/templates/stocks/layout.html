@@ -30,7 +30,10 @@
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'stocks:dashboard' %}">Index</a>
+                        <a class="nav-link" href="{% url 'stocks:dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'stocks:user_market' %}">User's Market</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li>

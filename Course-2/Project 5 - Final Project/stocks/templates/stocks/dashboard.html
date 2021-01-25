@@ -59,7 +59,7 @@
                         <th>Company Name</th>
                         <th>Stocks Owned</th>
                         <th>Market Price</th>
-                        <th>Total owned</th>
+                        <!-- <th>Total owned</th> -->
                         <th class='table-header-centered'>Set the Stock Selling Price</th>
                         <th></th>
                     </tr>
@@ -74,7 +74,7 @@
                         <td class='name'>{{ stock_info.name }}</td>
                         <td class='qty'>{{ stock_info.qty }}</td>
                         <td class='price'>{{ stock_info.market_price }}</td>
-                        <td class='total-price'></td>
+                        <!-- <td class='total-price'></td> -->
                         <td class='set-sell-price'>
                             {% if stock_info.for_sale %}
                                 <input type="hidden" id="for-sale" value="true">

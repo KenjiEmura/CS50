@@ -210,3 +210,11 @@ def buy_stock(request):
 
 def test(request):
     return render(request, "stocks/test.html")
+
+
+
+def user_market(request):
+    return render(request, "stocks/user_market.html", {
+        # 'title': 'Index',
+        # 'stocks_information': stocks_information,
+    })

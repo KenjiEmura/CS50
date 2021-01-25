@@ -1,0 +1,31 @@
+{% extends "stocks/layout.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block head %}
+    <script src="{% static 'stocks/user_market.js' %}"></script>
+    <script src="https://kit.fontawesome.com/ee07d0f153.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+        <div  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class='main-content'>
+
+        {% csrf_token %}
+
+    </div>
+
+{% endblock %}
