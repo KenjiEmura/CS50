@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse
 from django.db.models import Count, Sum
+from django.db.models import Q
 from django.http import JsonResponse
 import json
 import requests
@@ -214,7 +215,14 @@ def test(request):
 
 
 def user_market(request):
+
+    users_raw_data = User.objects.filter(~Q(pk=1))
+    users = {}
+    for user in users_raw_data:
+        raw_subtotals = update_user_total_stocks(user)
+        stocks_information = fetch_pirces_from_API(raw_subtotals, user)
+        users[user] = stocks_information
+
     return render(request, "stocks/user_market.html", {
-        # 'title': 'Index',
-        # 'stocks_information': stocks_information,
+        'users': users,
     })

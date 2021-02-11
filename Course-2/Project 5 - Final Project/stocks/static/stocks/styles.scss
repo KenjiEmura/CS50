@@ -1,10 +1,10 @@
 // Variables
+$header-color: #36304a;
 $main-color: #f7941d;
 $main-color-hover: #ffac49;
 $highlight-text-light-background: #a6199c;
 $border-radius: 10px;
 $circle-border-radius: 20px;
-$main-background-color: #36304a;
 $text-color: white;
 $gray: #bbbbbb;
 $first-gradient-color: #4158d0;
@@ -13,10 +13,10 @@ $success: #95d57d;
 $secondary-color-transparency: rgb(200, 80, 192, 0.5);
 $main-gradient: linear-gradient(45deg, $first-gradient-color, $secondary-color);
 $secondary-gradient: linear-gradient(
-	60deg,
-	#ffffff 0%,
-	#e7f2ff 20%,
-	#ffe6fd 100%
+  60deg,
+  #ffffff 0%,
+  #e7f2ff 20%,
+  #ffe6fd 100%
 );
 $rotating-button-size: 30px;
 
@@ -30,34 +30,30 @@ $success-border: #c3e6cb;
 $success-text: #155724;
 $left-right-margin: 8vw;
 
-
 // Breakpoints for responsiveness
 $breakpoint-mobile: 500px;
-
-
-
 
 // Code
 
 %message {
-	text-align: center;
-	padding: 0.5em;
-	margin: 2em $left-right-margin 0;
-	border-radius: 5px;
+  text-align: center;
+  padding: 0.5em;
+  margin: 2em $left-right-margin 0;
+  border-radius: 5px;
 }
 
 .error {
-	@extend %message;
-	background: $error-background;
-	border-color: $error-border;
-	color: $error-text;
+  @extend %message;
+  background: $error-background;
+  border-color: $error-border;
+  color: $error-text;
 }
 
 .success {
-	@extend %message;
-	background: $success-background;
-	border-color: $success-border;
-	color: $success-text;
+  @extend %message;
+  background: $success-background;
+  border-color: $success-border;
+  color: $success-text;
 }
 
 h1,
@@ -68,478 +64,505 @@ h5,
 h6,
 a,
 p {
-	color: $text-color;
+  color: $text-color;
 }
 
 .page-title {
-	text-align: center;
-	margin: 2em 0 2em;
+  text-align: center;
+  margin: 2em 0 2em;
 }
 
 body {
-	min-height: 100vh;
-	background: $main-gradient;
+  min-height: 100vh;
+  background: $main-gradient;
 }
 
 .navbar.navbar-expand-lg.navbar-dark.bg-dark {
-	background-color: $main-background-color !important;
-	color: $text-color !important;
+  background-color: $header-color !important;
+  color: $text-color !important;
 }
 .navbar-dark .navbar-nav .nav-link {
-	color: $text-color;
+  color: $text-color;
 }
 
 #single-form-page-container {
-	margin-top: 10vh;
-	display: grid;
-	grid-template-columns: 1fr 5fr 1fr;
-	justify-items: center;
+  margin-top: 10vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  justify-items: center;
 }
 
 #single-form {
-	width: 100%;
-	max-width: 450px;
-	min-width: 240px;
-	grid-column: 2 / span 1;
-	border: solid 1px gainsboro;
-	padding: 2em;
-	border-radius: 5px;
+  width: 100%;
+  max-width: 450px;
+  min-width: 240px;
+  grid-column: 2 / span 1;
+  border: solid 1px gainsboro;
+  padding: 2em;
+  border-radius: 5px;
 }
 
 .main-content {
-	margin: 5vh 5vw;
+  margin: 5vh 5vw;
 }
 
 .table-header-centered,
 .symbol,
 th,
 td {
-	text-align: center;
+  text-align: center;
 }
 
 .styled-table {
-	border-collapse: collapse;
-	background: white;
-	overflow: hidden;
-	border-radius: $border-radius;
-	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-	width: 100%;
+  border-collapse: collapse;
+  background: white;
+  overflow: hidden;
+  border-radius: $border-radius;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 100%;
 }
 
 .styled-table thead tr {
-	height: 60px;
-	background: #36304a;
+  height: 60px;
+  background: $header-color;
 }
 
 .styled-table th {
-	font-size: 1rem;
-	color: #fff;
-	line-height: 1.2;
-	font-weight: unset;
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.2;
+  font-weight: unset;
 }
 
 .styled-table tbody tr {
-	font-size: 0.8rem;
-	color: #808080;
-	font-weight: unset;
-	height: 30px;
+  font-size: 0.8rem;
+  color: #808080;
+  font-weight: unset;
+  height: 30px;
 }
 
 tbody tr:nth-child(even) {
-	background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 table tbody tr:last-child {
-	border: 0;
-	border-radius: $border-radius;
+  border: 0;
+  border-radius: $border-radius;
 }
 
 tbody tr:hover {
-	color: #555555;
-	background: $secondary-gradient;
-	// cursor: pointer;
+  color: #555555;
+  background: $secondary-gradient;
+  // cursor: pointer;
 }
 
 td,
 th {
-    padding: 0.5em 1.2em;
-    
+  padding: 0.5em 1.2em;
 }
 
 .menu-items {
-	padding: 0.5em;
+  padding: 0.5em;
 }
 
 .divider-top {
-	position: relative;
-	top: 0;
-	left: 0;
-	width: 100%;
-	overflow: hidden;
-	line-height: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
 }
 
 .divider-top svg {
-	position: relative;
-	display: block;
-	width: calc(100% + 1.3px);
-	height: 40px;
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 40px;
 }
 
 .divider-top .shape-fill {
-	fill: #36304a;
+  fill: #36304a;
 }
 
 .divider-top2 {
-	position: relative;
-	top: 0;
-	left: 0;
-	width: 100%;
-	overflow: hidden;
-	line-height: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
 }
 
 .divider-top2 svg {
-	position: relative;
-	display: block;
-	width: calc(100% + 1.3px);
-	height: 50px;
-	transform: rotateY(180deg);
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 50px;
+  transform: rotateY(180deg);
 }
 
 .divider-top2 .shape-fill {
-	fill: #36304a;
+  fill: #36304a;
 }
 
 .general-info {
-    display: flex;
-    flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 0 3em;
-	margin: 3.5em 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 3em;
+  margin: 3.5em 0;
 }
 
 div.set-sell-price {
-	display: inline-grid;
-	grid-template-columns: 2fr 1fr 1fr;
-	grid-column-gap: 0;
-	justify-content: center;
+  display: inline-grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-column-gap: 0;
+  justify-content: center;
 }
 
 input {
-	grid-column: 1 / span 1;
-	place-self: center stretch;
-	justify-self: center;
-	display: inline;
-	text-align: center;
-	border: 1px solid transparent;
-	outline: none;
-	border-radius: 24px;
-	transition: 0.25s;
-	padding: 0.5em 1em;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-	&:focus {
-		border: 1px solid $secondary-color;
-	}
+  grid-column: 1 / span 1;
+  place-self: center stretch;
+  justify-self: center;
+  display: inline;
+  text-align: center;
+  border: 1px solid transparent;
+  outline: none;
+  border-radius: 24px;
+  transition: 0.25s;
+  padding: 0.5em 1em;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  &:focus {
+    border: 1px solid $secondary-color;
+  }
 }
 
 input.set-sell-price {
-	max-width: 100px;
-	height: 2em;
+  max-width: 100px;
+  height: 2em;
 }
 
 td.set-sell-price {
-	justify-content: center;
+  justify-content: center;
 }
 
 .set-sell-price label {
-	grid-column: 3 / span 1;
-	align-self: center;
+  grid-column: 3 / span 1;
+  align-self: center;
 }
 
 button {
-	place-self: center stretch;
-	outline: none;
-	text-align: center;
-	padding: 0 1.5em;
-	border-radius: 40px;
-	background: #fff;
-	border: 1px solid $secondary-color;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-	color: $secondary-color;
-	letter-spacing: 1px;
-	cursor: pointer;
-	transition: all 0.25s ease-in-out;
-	font-weight: 700;
-	&:hover {
-		color: white;
-		background: $secondary-color;
-	}
-	&:focus {
-		outline: none;
-	}
-	&:active {
-		outline: none;
-	}
+  place-self: center stretch;
+  outline: none;
+  text-align: center;
+  padding: 0 1.5em;
+  border-radius: 40px;
+  background: #fff;
+  border: 1px solid $secondary-color;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  color: $secondary-color;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  font-weight: 700;
+  &:hover {
+    color: white;
+    background: $secondary-color;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+  }
 }
 
 %td_button {
-	height: $rotating-button-size;
-	width: 60px;
-	grid-column: 2 / span 1;
-	font: {
-		size: 12px;
-	}
+  height: $rotating-button-size;
+  width: 60px;
+  grid-column: 2 / span 1;
+  font: {
+    size: 12px;
+  }
 }
 
 td button#set_sell_price {
-	@extend %td_button;
-	&:after {
-		content: "SET";
-	}
+  @extend %td_button;
+  &:after {
+    content: "SET";
+  }
 }
 
 td button#sell_button {
-	@extend %td_button;
-	&:after {
-		content: "SELL";
-		position: relative;
-		top: 0;
-		left: -5px;
-	}
+  @extend %td_button;
+  &:after {
+    content: "SELL";
+    position: relative;
+    top: 0;
+    left: -5px;
+  }
 }
 
 .onclic {
-	margin-left: 15px;
-	width: $rotating-button-size !important;
-	border-color: $gray;
-	border-width: 3px;
-	font-size: 0 !important;
-	border-left-color: $secondary-color;
-	animation: rotating 2s 0.25s linear infinite;
+  margin-left: 15px;
+  width: $rotating-button-size !important;
+  border-color: $gray;
+  border-width: 3px;
+  font-size: 0 !important;
+  border-left-color: $secondary-color;
+  animation: rotating 2s 0.25s linear infinite;
 
-	&:after {
-		content: "";
-	}
+  &:after {
+    content: "";
+  }
 
-	&:hover {
-		color: $secondary-color;
-		background: white;
-	}
+  &:hover {
+    color: $secondary-color;
+    background: white;
+  }
 }
 
 .validate {
-	font-size: 13px;
-	color: white;
-	background: $success;
-	border: 1px solid $success;
-	&:after {
-		color: transparent;
-		text-shadow: 0 0 0 white;
-		content: "✔" !important;
-	}
+  font-size: 13px;
+  color: white;
+  background: $success;
+  border: 1px solid $success;
+  &:after {
+    color: transparent;
+    text-shadow: 0 0 0 white;
+    content: "✔" !important;
+  }
 }
 
 button.disabled {
-	border: 1px solid $gray;
-	color: $gray;
-	pointer-events: none;
-	user-select: none;
-	&:hover {
-		background: #fff;
-		cursor: auto;
-	}
+  border: 1px solid $gray;
+  color: $gray;
+  pointer-events: none;
+  user-select: none;
+  &:hover {
+    background: #fff;
+    cursor: auto;
+  }
 }
 
 input.disabled {
-	color: $gray;
-	pointer-events: none;
-	user-select: none;
+  color: $gray;
+  pointer-events: none;
+  user-select: none;
 }
 
 @keyframes rotating {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .set-sell-price-container {
-	justify-self: center;
+  justify-self: center;
 }
 
 .switch {
-	position: relative;
-	display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .switch input {
-	opacity: 0;
-	width: 0;
-	height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
-	left: 0.5em;
-	border-radius: 34px;
-	position: absolute;
-	cursor: pointer;
-	width: 60px;
-	height: 30px;
-	background-color: #ccc;
-	transition: 0.4s;
-	top: -2px;
+  left: 0.5em;
+  border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  transition: 0.4s;
+  top: -2px;
 }
 
 .slider:before {
-	border-radius: 50%;
-	position: absolute;
-	content: "";
-	height: 24px;
-	width: 24px;
-	left: 3px;
-	bottom: 3px;
-	background-color: white;
-	transition: 0.1s;
+  border-radius: 50%;
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.1s;
 }
 
 input:checked + .slider {
-	background-color: $secondary-color;
+  background-color: $secondary-color;
 }
 
 input:checked + .slider:before {
-	transform: translateX(29px);
+  transform: translateX(29px);
 }
 
 .search-field {
-	width: 100%;
-	position: relative;
-	display: flex;
-	justify-content: center;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 div.search-field input {
-	outline: none;
-	width: 60%;
-	border: 2px solid $main-color;
-	border-right: none;
-	padding-left: 1.5em;
-	height: $input-field-size;
-	border-radius: $circle-border-radius 0 0 $circle-border-radius;
-	outline: none;
-	color: $gray;
-	transition: all 0.25s ease;
-	box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
-		rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-		rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-	&:focus {
-		color: $secondary-color;
-		font-weight: 600;
-	}
+  outline: none;
+  width: 60%;
+  border: 2px solid $main-color;
+  border-right: none;
+  padding-left: 1.5em;
+  height: $input-field-size;
+  border-radius: $circle-border-radius 0 0 $circle-border-radius;
+  outline: none;
+  color: $gray;
+  transition: all 0.25s ease;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  &:focus {
+    color: $secondary-color;
+    font-weight: 600;
+  }
 }
 
 div.search-field button {
-	outline: none;
-	width: 100px;
-	height: $input-field-size;
-	border: 2px solid $main-color;
-	background: $main-color;
-	text-align: center;
-	color: #fff;
-	border-radius: 0 $circle-border-radius $circle-border-radius 0;
-	cursor: pointer;
-	font-size: 20px;
-	box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
-		rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-		rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-	transition: all 0.25s;
+  outline: none;
+  width: 100px;
+  height: $input-field-size;
+  border: 2px solid $main-color;
+  background: $main-color;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 $circle-border-radius $circle-border-radius 0;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  transition: all 0.25s;
 }
 
 div.search-field button:hover {
-	background: $main-color-hover;
-	border: 2px solid $main-color-hover;
+  background: $main-color-hover;
+  border: 2px solid $main-color-hover;
 }
 
 ::placeholder {
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
 .search-field i {
-	font-size: 1.5em;
-	margin-top: 8px;
+  font-size: 1.5em;
+  margin-top: 8px;
 }
 
 .search-field-hovered {
-	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px !important;
-	transition: all 0.25s;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px !important;
+  transition: all 0.25s;
 }
 
 #buy-stock-container {
-	margin: 2em 5em;
-	display: block;
-	padding: 2em 0;
-	border: 2px solid transparent;
-	border-radius: 10px;
-	background: linear-gradient(
-		to right top,
-		rgba(255, 255, 255, 0.4),
-		rgba(255, 255, 255, 0.1)
-	);
-	background-clip: padding-box;
+  margin: 2em 5em;
+  display: block;
+  padding: 2em 0;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: linear-gradient(
+    to right top,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1)
+  );
+  background-clip: padding-box;
 }
 
 #buy-stock-info,
 #buy-stock-totals {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #buy-stock-container,
 #buy-stock-totals {
-	display: none;
+  display: none;
 }
 
 #buy-stock-info * {
-	margin: 0 0.5em;
+  margin: 0 0.5em;
 }
 
 #buy-stock-container button {
-	height: 40px;
+  height: 40px;
 }
 
 #buy-stock-container h2 {
-	font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 #buy-stock-container input {
-	width: 70px;
-	padding: 0 0.7em;
-	font-size: 1.2rem;
-	height: 40px;
-	text-align: left;
+  width: 70px;
+  padding: 0 0.7em;
+  font-size: 1.2rem;
+  height: 40px;
+  text-align: left;
 }
 
 .purchase-total {
-	color: $highlight-text-light-background;
+  color: $highlight-text-light-background;
 }
 
 span {
-	font-weight: 700;
+  font-weight: 700;
 }
 
-
 @media (max-width: $breakpoint-mobile) {
-    
-    table {
-        table-layout: fixed;
-      }
-      
-      th,
-      td {
-        overflow: hidden;
-      }
+  table {
+    table-layout: fixed;
+  }
 
+  th,
+  td {
+    overflow: hidden;
+  }
+}
+
+.accordion__button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: $header-color;
+  color: white;
+  text-align: left;
+  transition: background 200ms;
+  &::after {
+    content: '\25be';
+    float: right;
+    transform: scale(1.5);
+  }
+}
+
+.accordion__button--active {
+  background: $main-color;
+  &::after {
+    content: '\25b4';
+  }
+}
+
+.accordion__content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 200ms;
 }
