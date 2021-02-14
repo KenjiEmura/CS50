@@ -85,6 +85,10 @@ td {
   width: 100%;
 }
 
+.styled-table.no-border-radius {
+  border-radius: 0;
+}
+
 .styled-table thead tr {
   height: 60px;
   background: #36304a;
@@ -497,9 +501,13 @@ td {
 }
 
 .accordion__button--active {
-  background: #f7941d;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4em;
 }
 .accordion__button--active::after {
+  font-weight: 400;
+  font-size: 0.7em;
   content: "▴";
 }
 
@@ -507,6 +515,24 @@ td {
   overflow: hidden;
   max-height: 0;
   transition: max-height 200ms;
+}
+
+td.purchase input {
+  width: 60px;
+  height: 30px;
+}
+
+td.purchase button {
+  height: 30px;
+}
+
+.accordion--active {
+  box-shadow: 0px 0px 20px 0px #00ffff54;
+}
+
+.whole-accordion {
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=styles.css.map */
