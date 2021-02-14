@@ -3,6 +3,7 @@ $header-color: #36304a;
 $main-color: #f7941d;
 $main-color-hover: #ffac49;
 $highlight-text-light-background: #a6199c;
+$table-row-even: #f5f5f5;
 $border-radius: 10px;
 $circle-border-radius: 20px;
 $text-color: white;
@@ -146,7 +147,7 @@ td {
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f5f5f5;
+  background-color: $table-row-even;
 }
 
 table tbody tr:last-child {
@@ -549,7 +550,7 @@ span {
   cursor: pointer;
   background: $header-color;
   color: white;
-  text-align: left;
+  text-align: center;
   transition: background 200ms;
   &::after {
     content: '\25be';
@@ -559,7 +560,6 @@ span {
 }
 
 .accordion__button--active {
-  text-align: center;
   font-weight: 700;
   font-size: 1.4em;
   &::after {
@@ -584,11 +584,24 @@ td.purchase button{
   height: 30px;
 }
 
-.accordion--active {
-  box-shadow: 0px 0px 20px 0px #00ffff54;
-}
+// .accordion--active {
+//   box-shadow: 0px 0px 20px 0px #00ffff54;
+//   position: relative;
+// }
 
 .whole-accordion {
   border-radius: $border-radius;
   overflow: hidden;
+}
+
+.not-selling {
+  background: $table-row-even;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.not-selling * {
+  color: $header-color;
 }
