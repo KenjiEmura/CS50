@@ -8,17 +8,43 @@ from stocks.models import *
 def update_user_total_stocks(user_id):
     
     # Get all the transactions made by the user
-    all_transactions = Acquisition.objects.filter(buyer=user_id).values('transacted_stock', 'qty')
+    buy_transactions = Acquisition.objects.filter(buyer=user_id).values('transacted_stock', 'qty')
+
+    sell_transactions = Acquisition.objects.filter(seller=user_id).values('transacted_stock', 'qty')
 
     # Create a dict where we are going to group and sum up all the stocks owned by the user
+    buy_subtotals = {}
+    sell_subtotals = {}
     subtotals = {}
-    for transaction in all_transactions:
+
+    # Buy subtotals
+    for transaction in buy_transactions:
         # If the stock is already in the dict
-        if subtotals.get(transaction['transacted_stock']):
-            subtotals[transaction['transacted_stock']] += transaction['qty']
+        if buy_subtotals.get(transaction['transacted_stock']):
+            buy_subtotals[transaction['transacted_stock']] += transaction['qty']
         # If not, then add it
         else:
-            subtotals[transaction['transacted_stock']] = transaction['qty']
+            buy_subtotals[transaction['transacted_stock']] = transaction['qty']
+
+    print(subtotals)
+
+    # Sell subtotals
+    for transaction in sell_transactions:
+        # If the stock is already in the dict
+        if sell_subtotals.get(transaction['transacted_stock']):
+            sell_subtotals[transaction['transacted_stock']] += transaction['qty']
+        # If not, then add it
+        else:
+            sell_subtotals[transaction['transacted_stock']] = transaction['qty']
+
+    for stock_id, qty in buy_subtotals.items():
+      if sell_subtotals.get(stock_id):
+        subtotals[stock_id] = qty - sell_subtotals[stock_id]
+      else:
+        subtotals[stock_id] = qty
+
+
+    print(sell_subtotals)
 
     # Check if the stock is in the user's table and update the values, otherwise, create the new entry
     for stock_id, stock_qty in subtotals.items():
@@ -74,6 +100,7 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
 
     # Store the received data as a dict
     data = api_call.json()
+    # print(data)
 
     # Add the fetched price as a new piece of information in our stocks_information dict
     for stock_id, stock_info in stocks_information.items():
@@ -81,7 +108,7 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
         if user_owned_stock:
             user_owned_stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
             stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
-            if stock_info['user_sell_price'] < data[stock_info['symbol']]['quote']['latestPrice']:
-                stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+            # if stock_info['user_sell_price'] < data[stock_info['symbol']]['quote']['latestPrice']:
+            #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
 
     return stocks_information

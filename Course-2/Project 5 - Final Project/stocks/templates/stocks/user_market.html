@@ -55,7 +55,7 @@
                             <td class='symbol'>{{ stock_info.symbol }}</td>
                             <td class='name'>{{ stock_info.name }}</td>
                             <td class='qty'>{{ stock_info.qty }}</td>
-                            <td class='price'>{{ stock_info.market_price }}</td>
+                            <td class='price'>{{ stock_info.user_sell_price }}</td>
                             <td class='purchase'>
                               <input class='purchase-qty' type="number" min="0" max="{{ stock_info.qty }}">
                               <button id="purchase">Buy</button>

@@ -135,7 +135,7 @@ def register(request):
 
 
 
-def buy_stock(request):
+def trade_stock(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
     
@@ -153,6 +153,8 @@ def buy_stock(request):
         name = data['name']
         price = float(data['price'])
         qty = int(data['qty'])
+        seller_id = data['seller']
+        seller = User.objects.get(pk=seller_id)
 
         if request.user.cash > price * qty:
             message = 'good to go!'
@@ -162,7 +164,6 @@ def buy_stock(request):
                 stock = new_stock
             else:
                 stock = Stock.objects.get(symbol=symbol)
-            seller = User.objects.get(pk=1)
             new_transaction = Acquisition(
                 transacted_stock = stock,
                 buyer = request.user,
@@ -216,7 +217,7 @@ def test(request):
 
 def user_market(request):
 
-    users_raw_data = User.objects.filter(~Q(pk=1))
+    users_raw_data = User.objects.filter(~Q(pk=1)).filter(~Q(pk=request.user.id))
     users = {}
     for user in users_raw_data:
         raw_subtotals = update_user_total_stocks(user)
