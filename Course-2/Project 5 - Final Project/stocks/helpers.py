@@ -17,6 +17,7 @@ def update_user_total_stocks(user_id):
     sell_subtotals = {}
     subtotals = {}
 
+
     # Buy subtotals
     for transaction in buy_transactions:
         # If the stock is already in the dict
@@ -25,8 +26,7 @@ def update_user_total_stocks(user_id):
         # If not, then add it
         else:
             buy_subtotals[transaction['transacted_stock']] = transaction['qty']
-
-    print(subtotals)
+    # print(subtotals)
 
     # Sell subtotals
     for transaction in sell_transactions:
@@ -42,9 +42,7 @@ def update_user_total_stocks(user_id):
         subtotals[stock_id] = qty - sell_subtotals[stock_id]
       else:
         subtotals[stock_id] = qty
-
-
-    print(sell_subtotals)
+    # print(sell_subtotals)
 
     # Check if the stock is in the user's table and update the values, otherwise, create the new entry
     for stock_id, stock_qty in subtotals.items():
@@ -108,7 +106,7 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
         if user_owned_stock:
             user_owned_stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
             stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
-            # if stock_info['user_sell_price'] < data[stock_info['symbol']]['quote']['latestPrice']:
-            #     stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+            if stock_info['user_sell_price'] == 0:
+                stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
 
     return stocks_information

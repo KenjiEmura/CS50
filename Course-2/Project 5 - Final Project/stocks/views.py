@@ -159,22 +159,24 @@ def trade_stock(request):
         if request.user.cash > price * qty:
             message = 'good to go!'
             if not stock.exists():
-                new_stock = Stock(name=name, symbol=symbol)
-                new_stock.save()
-                stock = new_stock
+              new_stock = Stock(name=name, symbol=symbol)
+              new_stock.save()
+              stock = new_stock
             else:
-                stock = Stock.objects.get(symbol=symbol)
+              stock = Stock.objects.get(symbol=symbol)
             new_transaction = Acquisition(
-                transacted_stock = stock,
-                buyer = request.user,
-                seller = seller, # The seller is going to be the Admin
-                qty = qty,
-                price = price
+              transacted_stock = stock,
+              buyer = request.user,
+              seller = seller, # The seller is going to be the Admin
+              qty = qty,
+              price = price
             )
             new_transaction.save()
-            messages.success(request,mark_safe(f'The transaction was successful! (Stock Name: {name}, Qty: {qty})<br/>Total transaction cost: <strong>${qty * price}</strong>'))
+            messages.success(request,mark_safe(f'The transaction was successful! (Stock Name: {name}, Qty: {qty})<br/>Total transaction cost: <strong>${"{:.2f}".format(round(qty * price),2)}</strong>'))
             request.user.cash -= price * qty
             request.user.save()
+            seller.cash += price * qty
+            seller.save()
             return JsonResponse({"message": "Succesful transaction!"}, status=201)    
         else :
             messages.error(request, f"Error: You don't have enough cash!")
