@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Make the API request to the third party service
     fetch(
-      "https://sandbox.iexapis.com/stable/stock/" +
+      "https://cloud.iexapis.com/stable/stock/" +
         search_input_field.value +
-        "/quote/?token=Tpk_75116a62e1304e8fb75ddc762d1db3e3"
+        "/quote/?token=pk_e83502ec9593421abcf11af14a2af5be"
     )
       .then((response) => {
         if (!response.ok) {

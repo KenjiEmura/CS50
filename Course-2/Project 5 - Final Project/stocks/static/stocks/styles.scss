@@ -590,7 +590,7 @@ td.purchase button{
 // }
 
 .whole-accordion {
-  border-radius: $border-radius;
+  // border-radius: $border-radius;
   overflow: hidden;
 }
 
@@ -604,4 +604,9 @@ td.purchase button{
 
 div.not-selling * {
   color: $header-color;
+}
+
+.user-market-title {
+  text-align: center;
+  margin: 0 0 4em;
 }

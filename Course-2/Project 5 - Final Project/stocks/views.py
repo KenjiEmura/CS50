@@ -23,7 +23,12 @@ from stocks.models import *
 def index(request):
     if request.user.is_authenticated:
         raw_subtotals = update_user_total_stocks(request.user)
-        stocks_information = fetch_pirces_from_API(raw_subtotals, request.user)
+        if raw_subtotals:
+          stocks = fetch_pirces_from_API(raw_subtotals, request.user)
+          # stocks_information = stocks['stocks_information']
+        else:
+          stocks_information = {}
+        stocks_information = {}
 
         return render(request, "stocks/dashboard.html", {
             'title': 'Index',
@@ -223,8 +228,11 @@ def user_market(request):
     users = {}
     for user in users_raw_data:
         raw_subtotals = update_user_total_stocks(user)
-        stocks_information = fetch_pirces_from_API(raw_subtotals, user)
-        users[user] = stocks_information
+        if raw_subtotals:
+          stocks_information = fetch_pirces_from_API(raw_subtotals, user)
+          users[user] = stocks_information
+        else:
+          users[user] = {}
 
     return render(request, "stocks/user_market.html", {
         'users': users,

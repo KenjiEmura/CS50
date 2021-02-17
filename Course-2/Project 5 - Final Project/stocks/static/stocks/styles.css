@@ -526,7 +526,6 @@ td.purchase button {
 }
 
 .whole-accordion {
-  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -540,6 +539,11 @@ td.purchase button {
 
 div.not-selling * {
   color: #36304a;
+}
+
+.user-market-title {
+  text-align: center;
+  margin: 0 0 4em;
 }
 
 /*# sourceMappingURL=styles.css.map */
