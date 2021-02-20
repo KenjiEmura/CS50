@@ -1,4 +1,5 @@
 import requests
+from json import loads
 
 from stocks.keys import * # This is the file with all the keys and secret information
 from stocks.models import *
@@ -98,27 +99,33 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
   stocks_api = ",".join(stocks_symbols)
 
   # Make the API Call, notice that the API key is held in the 'keys.py' file
-  api_call = requests.get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+stocks_api+'&types=quote&token='+IEX_API_TOKEN)
-  print('https://cloud.iexapis.com/stable/stock/market/batch?symbols='+stocks_api+'&types=quote&token='+IEX_API_TOKEN)
-  # api_call = requests.get('https://cloud.iexapis.com/stable/stock/market/batch?symbols='+stocks_api+'&types=quote&token='+IEX_API_TOKEN)
+  # route = 'https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+stocks_api+'&types=quote&token='+IEX_API_TOKEN
+  route = "https://cloud.iexapis.com/stable/stock/market/batch?symbols="+stocks_api+"&types=quote&token="+IEX_API_TOKEN
+  print(route)
+  api_call = requests.get(route)
+
+  print(api_call)
+
+  startidx = api_call.find('(')
+  endidx = api_call.find(')')
 
   # Store the received data as a dict
-  data = api_call.json()
+  data = loads(api_call[startidx + 1:endidx])
+  print(api_call)
 
-  print(api_call.json())
 
   # Add the fetched price as a new piece of information in our stocks_information dict
-  # for stock_id, stock_info in stocks_information.items():
-  #     user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(owned_stock=stock_id).exists()
-  #     if user_owned_stock:
-  #         user_owned_stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
-  #         stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
-  #         if stock_info['user_sell_price'] == 0:
-  #             stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+  for stock_id, stock_info in stocks_information.items():
+      user_owned_stock = UserStocks.objects.filter(owner=user_id).filter(owned_stock=stock_id).exists()
+      if user_owned_stock:
+          user_owned_stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
+          stock_info['market_price'] = data[stock_info['symbol']]['quote']['latestPrice']
+          if stock_info['user_sell_price'] == 0:
+              stock_info['user_sell_price'] = data[stock_info['symbol']]['quote']['latestPrice']
 
   return_object = {}
 
-  # return_object['stocks_for_sale'] = stocks_for_sale
-  # return_object['stocks_information'] = stocks_information
+  return_object['stocks_for_sale'] = stocks_for_sale
+  return_object['stocks_information'] = stocks_information
 
   return return_object

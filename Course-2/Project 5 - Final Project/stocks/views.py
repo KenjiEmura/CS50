@@ -25,10 +25,9 @@ def index(request):
         raw_subtotals = update_user_total_stocks(request.user)
         if raw_subtotals:
           stocks = fetch_pirces_from_API(raw_subtotals, request.user)
-          # stocks_information = stocks['stocks_information']
+          stocks_information = stocks['stocks_information']
         else:
           stocks_information = {}
-        stocks_information = {}
 
         return render(request, "stocks/dashboard.html", {
             'title': 'Index',
