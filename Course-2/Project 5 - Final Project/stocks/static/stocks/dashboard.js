@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dashboard Indicators
   let cash = document.querySelector("#cash");
-  console.log(cash.innerHTML);
   let stocks = document.querySelector("#stocks");
   let net_worth = document.querySelector("#net-worth");
 
@@ -146,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           location.reload();
         });
     }
@@ -211,7 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let sell_button = row.querySelector("#sell_button");
     sell_button.addEventListener("click", () => {
       sell_button.classList.add("onclic");
-      console.log(stock_price.innerHTML.substring(1))
       fetch("API/trade-stock", {
         method: "POST",
         headers: { "X-CSRFToken": csrftoken.value },

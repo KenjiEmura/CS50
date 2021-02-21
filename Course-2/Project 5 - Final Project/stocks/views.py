@@ -158,8 +158,6 @@ def trade_stock(request):
         symbol = data['symbol'].upper()
         name = data['name']
         price = Decimal(data['price'])
-        print('<<<<<<<<<<Price>>>>>>>>>>>>')
-        print(price)
         qty = int(data['qty'])
         seller_id = data['seller']
         seller = User.objects.get(pk=seller_id)

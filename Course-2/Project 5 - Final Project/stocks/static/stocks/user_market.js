@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           location.reload();
         });
     });
