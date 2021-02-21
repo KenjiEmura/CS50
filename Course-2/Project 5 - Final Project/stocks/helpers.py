@@ -98,10 +98,17 @@ def fetch_pirces_from_API(raw_subtotals, user_id):
   # Prepare the string that is going to be used in the API Call, which will indicate which Stocks are we going to get information from
   stocks_api = ",".join(stocks_symbols)
 
-  # Make the API Call, notice that the API key is held in the 'keys.py' file
+
+  # Make the API Call, remember that the API key is held in the 'keys.py' file
+
+  # Real API route
   route = "https://cloud.iexapis.com/stable/stock/market/batch?symbols="+stocks_api+"&types=quote&token="+IEX_API_TOKEN
+
+  # Test API route
   # route = 'https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+stocks_api+'&types=quote&token='+IEX_API_TOKEN
+
   data = requests.get(route).json()
+
 
   # Add the fetched price as a new piece of information in our stocks_information dict
   for stock_id, stock_info in stocks_information.items():

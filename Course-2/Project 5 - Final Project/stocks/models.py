@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class User(AbstractUser):
-    cash = models.IntegerField(default=10000)
+    cash = models.DecimalField(max_digits=15, decimal_places=2, default=10000)
 
     def __str__(self):
         return f"{self.username}"
@@ -27,7 +27,7 @@ class UserStocks(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_stocks')
     qty = models.IntegerField()
     for_sale = models.BooleanField(default=False)
-    sell_price = models.DecimalField(max_digits=15, decimal_places=1)
+    sell_price = models.DecimalField(max_digits=15, decimal_places=2)
 
     def __str__(self):
         return f"{self.owner}: {self.owned_stock} - QTY: {self.qty} - ID: {self.id}"

@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Dashboard Indicators
   let cash = document.querySelector("#cash");
+  console.log(cash.innerHTML);
   let stocks = document.querySelector("#stocks");
   let net_worth = document.querySelector("#net-worth");
 
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let buyStockContainer = document.querySelector("#buy-stock-container");
   let unitaryStockPriceResult = buyStockContainer.querySelector("div h2");
   let buyStockQty = buyStockContainer.querySelector("#buy-stock-qty");
+  buyStockQty.value = 0;
   let buyStockBtn = buyStockContainer.querySelector("#buy-stock");
   let totalPurchaseContainer = buyStockContainer.querySelector(
     "#buy-stock-totals"
@@ -129,23 +131,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   buyStockBtn.addEventListener("click", () => {
-    fetch("API/trade-stock", {
-      method: "POST",
-      headers: { "X-CSRFToken": csrftoken.value },
-      body: JSON.stringify({
-        symbol: searchedStockInfo.symbol,
-        name: searchedStockInfo.name,
-        price: searchedStockInfo.price,
-        qty: buyStockQty.value,
-        seller: 1,
-        transaction_type: "buy",
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        location.reload();
-      });
+    if (buyStockQty.value > 0) {
+      fetch("API/trade-stock", {
+        method: "POST",
+        headers: { "X-CSRFToken": csrftoken.value },
+        body: JSON.stringify({
+          symbol: searchedStockInfo.symbol,
+          name: searchedStockInfo.name,
+          price: searchedStockInfo.price,
+          qty: buyStockQty.value,
+          seller: 1,
+          transaction_type: "buy",
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          location.reload();
+        });
+    }
   });
 
   // Add shadow when the input field of the search bar is focused
@@ -298,9 +302,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Update the totals being display to the user
-  stocks.innerHTML = formatter.format(total_stock_valuation);
   net_worth.innerHTML = formatter.format(
-    total_stock_valuation + parseInt(cash.innerHTML)
+    total_stock_valuation + parseFloat(cash.innerHTML)
   );
-  cash.innerHTML = formatter.format(parseInt(cash.innerHTML));
+  stocks.innerHTML = formatter.format(total_stock_valuation);
+  cash.innerHTML = formatter.format(parseFloat(cash.innerHTML));
 });

@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.db.models import Count, Sum
 from django.db.models import Q
 from django.http import JsonResponse
+from decimal import *
 import json
 import requests
 
@@ -152,10 +153,13 @@ def trade_stock(request):
 
     if data['transaction_type'] == 'buy':
 
+        getcontext().prec = 5
         stock = Stock.objects.filter(symbol=data['symbol'])
         symbol = data['symbol'].upper()
         name = data['name']
-        price = float(data['price'])
+        price = Decimal(data['price'])
+        print('<<<<<<<<<<Price>>>>>>>>>>>>')
+        print(price)
         qty = int(data['qty'])
         seller_id = data['seller']
         seller = User.objects.get(pk=seller_id)
@@ -177,8 +181,16 @@ def trade_stock(request):
             )
             new_transaction.save()
             messages.success(request,mark_safe(f'The transaction was successful! (Stock Name: {name}, Qty: {qty})<br/>Total transaction cost: <strong>${"{:.2f}".format(round(qty * price),2)}</strong>'))
+            print("<<<<<<<<<<User's Cash before>>>>>>>>>>>>")
+            print(request.user.cash)
+            print('<<<<<<<<<<Price * Qty>>>>>>>>>>>>')
+            print(price * qty)
             request.user.cash -= price * qty
+            print("<<<<<<<<<<User's Cash calculation>>>>>>>>>>>>")
+            print(request.user.cash)
             request.user.save()
+            print("<<<<<<<<<<User's Cash after saving>>>>>>>>>>>>")
+            print(request.user.cash)
             seller.cash += price * qty
             seller.save()
             return JsonResponse({"message": "Succesful transaction!"}, status=201)    
@@ -190,14 +202,14 @@ def trade_stock(request):
     elif data['transaction_type'] == 'sell':
 
         transacted_stock = Stock.objects.get(pk=data['stock_id'])
-        price = float(data['price'])
+        price = Decimal(data['price'])
         qty = int(data['qty'])
 
         new_transaction = Acquisition(
             transacted_stock = transacted_stock,
             buyer = User.objects.get(pk=1),
             seller = request.user, # The seller is going to be the Admin
-            qty = -1 * qty,
+            qty = qty,
             price = price
         )
         new_transaction.save()
