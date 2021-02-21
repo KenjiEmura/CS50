@@ -181,16 +181,8 @@ def trade_stock(request):
             )
             new_transaction.save()
             messages.success(request,mark_safe(f'The transaction was successful! (Stock Name: {name}, Qty: {qty})<br/>Total transaction cost: <strong>${"{:.2f}".format(round(qty * price),2)}</strong>'))
-            print("<<<<<<<<<<User's Cash before>>>>>>>>>>>>")
-            print(request.user.cash)
-            print('<<<<<<<<<<Price * Qty>>>>>>>>>>>>')
-            print(price * qty)
             request.user.cash -= price * qty
-            print("<<<<<<<<<<User's Cash calculation>>>>>>>>>>>>")
-            print(request.user.cash)
             request.user.save()
-            print("<<<<<<<<<<User's Cash after saving>>>>>>>>>>>>")
-            print(request.user.cash)
             seller.cash += price * qty
             seller.save()
             return JsonResponse({"message": "Succesful transaction!"}, status=201)    
