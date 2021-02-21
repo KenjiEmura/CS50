@@ -211,12 +211,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let sell_button = row.querySelector("#sell_button");
     sell_button.addEventListener("click", () => {
       sell_button.classList.add("onclic");
+      console.log(stock_price.innerHTML.substring(1))
       fetch("API/trade-stock", {
         method: "POST",
         headers: { "X-CSRFToken": csrftoken.value },
         body: JSON.stringify({
           stock_id: stock_id,
-          price: sell_price.value,
+          price: stock_price.innerHTML.substring(1),
           qty: stock_qty,
           transaction_type: "sell",
         }),

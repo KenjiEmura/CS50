@@ -52,7 +52,7 @@ def update_user_total_stocks(user_id):
         if stock:
             stock = UserStocks.objects.filter(owner=user_id).get(owned_stock=stock_id)
             stock.qty = stock_qty
-            if stock.for_sale < 1:
+            if stock.qty < 1:
               stock.for_sale = False
             stock.save()
         else:
